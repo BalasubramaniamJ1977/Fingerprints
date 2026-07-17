@@ -1,0 +1,148 @@
+{
+  "name": "incident-kafka",
+  "journeys": 200,
+  "events": 743,
+  "entity_key": "window_id",
+  "timestamp_field": "ts",
+  "state_fields": [
+    "component",
+    "condition"
+  ],
+  "distinct_paths": 9,
+  "top_paths": [
+    {
+      "share": 0.76,
+      "count": 152,
+      "path": [
+        "kafka|REBALANCE",
+        "consumer-lag|HIGH",
+        "payment-hub|STALLED",
+        "settlement|DELAYED"
+      ]
+    },
+    {
+      "share": 0.075,
+      "count": 15,
+      "path": [
+        "kafka|REBALANCE",
+        "consumer-lag|HIGH",
+        "settlement|DELAYED"
+      ]
+    },
+    {
+      "share": 0.055,
+      "count": 11,
+      "path": [
+        "kafka|REBALANCE",
+        "payment-hub|STALLED",
+        "settlement|DELAYED"
+      ]
+    },
+    {
+      "share": 0.04,
+      "count": 8,
+      "path": [
+        "kafka|REBALANCE",
+        "consumer-lag|HIGH",
+        "payment-hub|STALLED"
+      ]
+    },
+    {
+      "share": 0.025,
+      "count": 5,
+      "path": [
+        "consumer-lag|HIGH",
+        "payment-hub|STALLED",
+        "settlement|DELAYED"
+      ]
+    },
+    {
+      "share": 0.02,
+      "count": 4,
+      "path": [
+        "consumer-lag|HIGH",
+        "payment-hub|STALLED"
+      ]
+    }
+  ],
+  "fields": {
+    "component": {
+      "type": "categorical",
+      "distinct": 4,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": true,
+      "top_values": [
+        {
+          "value": "kafka",
+          "share": 0.2517
+        },
+        {
+          "value": "consumer-lag",
+          "share": 0.2517
+        },
+        {
+          "value": "settlement",
+          "share": 0.2517
+        },
+        {
+          "value": "payment-hub",
+          "share": 0.245
+        }
+      ]
+    },
+    "condition": {
+      "type": "categorical",
+      "distinct": 4,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": true,
+      "top_values": [
+        {
+          "value": "REBALANCE",
+          "share": 0.2517
+        },
+        {
+          "value": "HIGH",
+          "share": 0.2517
+        },
+        {
+          "value": "DELAYED",
+          "share": 0.2517
+        },
+        {
+          "value": "STALLED",
+          "share": 0.245
+        }
+      ]
+    },
+    "affected_txns": {
+      "type": "numeric",
+      "distinct": 736,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": false,
+      "stats": {
+        "min": 501.0,
+        "p50": 14614.0,
+        "p95": 28591.0,
+        "max": 29979.0,
+        "mean": 15000.02
+      }
+    },
+    "duration_s": {
+      "type": "numeric",
+      "distinct": 484,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": false,
+      "stats": {
+        "min": 30.0,
+        "p50": 465.0,
+        "p95": 858.0,
+        "max": 900.0,
+        "mean": 459.69
+      }
+    }
+  }
+}

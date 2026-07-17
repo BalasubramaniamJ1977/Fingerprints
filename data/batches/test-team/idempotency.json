@@ -1,0 +1,1 @@
+{"b-001": {"job": "batch-20260714125032-78d9c3", "status": "complete", "rows": 3, "rejected": 1, "rejects": [{"line": 4, "error": "Expecting value: line 1 column 1 (char 0)"}]}}

@@ -1,0 +1,6 @@
+{
+  "BkToCstmrDbtCdtNtfctn.Ntfctn.Acct.Id.Othr.Id": {
+    "policy": "mask",
+    "keep_last": 4
+  }
+}

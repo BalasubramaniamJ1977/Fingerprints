@@ -1,0 +1,272 @@
+{
+  "name": "payments-pg",
+  "journeys": 2000,
+  "events": 13176,
+  "entity_key": "uetr",
+  "timestamp_field": "ts",
+  "state_fields": [
+    "service",
+    "status"
+  ],
+  "distinct_paths": 3,
+  "top_paths": [
+    {
+      "share": 0.8445,
+      "count": 1689,
+      "path": [
+        "gateway|OK",
+        "auth|OK",
+        "validation|OK",
+        "aml|OK",
+        "payment-hub|OK",
+        "core-banking|OK",
+        "settlement|SETTLED"
+      ]
+    },
+    {
+      "share": 0.105,
+      "count": 210,
+      "path": [
+        "gateway|OK",
+        "auth|OK",
+        "validation|OK",
+        "aml|TIMEOUT",
+        "payment-hub|FAILED"
+      ]
+    },
+    {
+      "share": 0.0505,
+      "count": 101,
+      "path": [
+        "gateway|OK",
+        "auth|OK",
+        "validation|REJECTED"
+      ]
+    }
+  ],
+  "fields": {
+    "service": {
+      "type": "categorical",
+      "distinct": 7,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": true,
+      "top_values": [
+        {
+          "value": "gateway",
+          "share": 0.1518
+        },
+        {
+          "value": "auth",
+          "share": 0.1518
+        },
+        {
+          "value": "validation",
+          "share": 0.1518
+        },
+        {
+          "value": "aml",
+          "share": 0.1441
+        },
+        {
+          "value": "payment-hub",
+          "share": 0.1441
+        }
+      ]
+    },
+    "status": {
+      "type": "categorical",
+      "distinct": 5,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": true,
+      "top_values": [
+        {
+          "value": "OK",
+          "share": 0.8323
+        },
+        {
+          "value": "SETTLED",
+          "share": 0.1282
+        },
+        {
+          "value": "TIMEOUT",
+          "share": 0.0159
+        },
+        {
+          "value": "FAILED",
+          "share": 0.0159
+        },
+        {
+          "value": "REJECTED",
+          "share": 0.0077
+        }
+      ]
+    },
+    "msg_type": {
+      "type": "categorical",
+      "distinct": 3,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "pacs.008",
+          "share": 0.6015
+        },
+        {
+          "value": "MT103",
+          "share": 0.3015
+        },
+        {
+          "value": "0200",
+          "share": 0.097
+        }
+      ]
+    },
+    "rail": {
+      "type": "categorical",
+      "distinct": 3,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "FAST",
+          "share": 0.6015
+        },
+        {
+          "value": "SWIFT",
+          "share": 0.3015
+        },
+        {
+          "value": "CARDS",
+          "share": 0.097
+        }
+      ]
+    },
+    "amount": {
+      "type": "numeric",
+      "distinct": 1988,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "stats": {
+        "min": 11.23,
+        "p50": 633.29,
+        "p95": 4179.56,
+        "max": 32427.38,
+        "mean": 1225.99
+      }
+    },
+    "currency": {
+      "type": "categorical",
+      "distinct": 6,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "SGD",
+          "share": 0.4595
+        },
+        {
+          "value": "USD",
+          "share": 0.251
+        },
+        {
+          "value": "EUR",
+          "share": 0.1005
+        },
+        {
+          "value": "MYR",
+          "share": 0.0935
+        },
+        {
+          "value": "INR",
+          "share": 0.0545
+        }
+      ]
+    },
+    "debtor_account": {
+      "type": "identifier",
+      "distinct": 2000,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "AA99AAAA9999999999"
+    },
+    "debtor_name": {
+      "type": "categorical",
+      "distinct": 196,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "Mei Ling Wong",
+          "share": 0.0105
+        },
+        {
+          "value": "Mei Ling Goh",
+          "share": 0.0095
+        },
+        {
+          "value": "Arun Wong",
+          "share": 0.0095
+        },
+        {
+          "value": "Daniel Chua",
+          "share": 0.009
+        },
+        {
+          "value": "Arun Sharma",
+          "share": 0.009
+        }
+      ]
+    },
+    "country": {
+      "type": "categorical",
+      "distinct": 6,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "SG",
+          "share": 0.491
+        },
+        {
+          "value": "MY",
+          "share": 0.1585
+        },
+        {
+          "value": "IN",
+          "share": 0.1215
+        },
+        {
+          "value": "US",
+          "share": 0.0945
+        },
+        {
+          "value": "GB",
+          "share": 0.0755
+        }
+      ]
+    },
+    "latency_ms": {
+      "type": "numeric",
+      "distinct": 385,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": false,
+      "stats": {
+        "min": 15.0,
+        "p50": 84.0,
+        "p95": 310.0,
+        "max": 30000.0,
+        "mean": 586.46
+      }
+    }
+  }
+}

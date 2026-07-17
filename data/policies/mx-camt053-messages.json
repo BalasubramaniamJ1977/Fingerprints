@@ -1,0 +1,18 @@
+{
+  "BkToCstmrStmt.Stmt.Acct.Id.Othr.Id": {
+    "policy": "mask",
+    "keep_last": 4
+  },
+  "BkToCstmrStmt.Stmt.Ntry#1.AcctSvcrRef": {
+    "policy": "mask",
+    "keep_last": 4
+  },
+  "BkToCstmrStmt.Stmt.Ntry#2.AcctSvcrRef": {
+    "policy": "mask",
+    "keep_last": 4
+  },
+  "BkToCstmrStmt.Stmt.Ntry#3.AcctSvcrRef": {
+    "policy": "mask",
+    "keep_last": 4
+  }
+}

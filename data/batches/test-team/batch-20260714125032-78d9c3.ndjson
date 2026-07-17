@@ -1,0 +1,3 @@
+{"uetr": "aaa-1", "ts": "2026-07-01T10:00:00", "service": "gateway", "status": "OK", "amount": 100}
+{"uetr": "aaa-1", "ts": "2026-07-01T10:00:01", "service": "auth", "status": "OK", "amount": 100}
+{"uetr": "aaa-1", "ts": "2026-07-01T10:00:02", "service": "settlement", "status": "SETTLED", "amount": 100}

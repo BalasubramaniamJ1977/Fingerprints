@@ -1,0 +1,6 @@
+{
+  "25": {
+    "policy": "mask",
+    "keep_last": 4
+  }
+}

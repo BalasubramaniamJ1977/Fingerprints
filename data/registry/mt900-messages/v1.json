@@ -1,0 +1,174 @@
+{
+  "name": "mt900-messages",
+  "journeys": 800,
+  "events": 800,
+  "entity_key": "_msg_id",
+  "timestamp_field": "_ts",
+  "state_fields": [
+    "_mt_type"
+  ],
+  "distinct_paths": 1,
+  "top_paths": [
+    {
+      "share": 1.0,
+      "count": 800,
+      "path": [
+        "900"
+      ]
+    }
+  ],
+  "fields": {
+    "21": {
+      "type": "identifier",
+      "distinct": 800,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "AAA99999999"
+    },
+    "_sender_bic": {
+      "type": "categorical",
+      "distinct": 3,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "OCBCSGSG",
+          "share": 0.34
+        },
+        {
+          "value": "UOVBSGSG",
+          "share": 0.3362
+        },
+        {
+          "value": "DBSSSGSG",
+          "share": 0.3237
+        }
+      ]
+    },
+    "_receiver_bic": {
+      "type": "categorical",
+      "distinct": 3,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "CITIUS33",
+          "share": 0.345
+        },
+        {
+          "value": "MAYBMYKL",
+          "share": 0.3387
+        },
+        {
+          "value": "HSBCGB2L",
+          "share": 0.3162
+        }
+      ]
+    },
+    "25": {
+      "type": "identifier",
+      "distinct": 800,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "AA99AAAA9999999999"
+    },
+    "32A_ccy": {
+      "type": "categorical",
+      "distinct": 4,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "SGD",
+          "share": 0.475
+        },
+        {
+          "value": "USD",
+          "share": 0.3412
+        },
+        {
+          "value": "EUR",
+          "share": 0.0925
+        },
+        {
+          "value": "MYR",
+          "share": 0.0912
+        }
+      ]
+    },
+    "32A_amount": {
+      "type": "numeric",
+      "distinct": 797,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "stats": {
+        "min": 34.22,
+        "p50": 861.2,
+        "p95": 4343.53,
+        "max": 28077.97,
+        "mean": 1460.07
+      }
+    },
+    "72": {
+      "type": "categorical",
+      "distinct": 195,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "/BNF/MEI LING ABDULLAH",
+          "share": 0.0112
+        },
+        {
+          "value": "/BNF/DANIEL WONG",
+          "share": 0.0112
+        },
+        {
+          "value": "/BNF/RAJESH LEE",
+          "share": 0.01
+        },
+        {
+          "value": "/BNF/DANIEL ONG",
+          "share": 0.01
+        },
+        {
+          "value": "/BNF/PRIYA KRISHNAN",
+          "share": 0.01
+        }
+      ]
+    },
+    "_mt_type": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": true,
+      "top_values": [
+        {
+          "value": "900",
+          "share": 1.0
+        }
+      ]
+    },
+    "_format": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "mt",
+          "share": 1.0
+        }
+      ]
+    }
+  }
+}

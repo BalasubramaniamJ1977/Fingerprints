@@ -1,0 +1,127 @@
+{
+  "name": "mx-camt998-messages",
+  "journeys": 600,
+  "events": 600,
+  "entity_key": "_msg_id",
+  "timestamp_field": "_ts",
+  "state_fields": [
+    "_msg_type"
+  ],
+  "distinct_paths": 1,
+  "top_paths": [
+    {
+      "share": 1.0,
+      "count": 600,
+      "path": [
+        "camt.998.001.03"
+      ]
+    }
+  ],
+  "fields": {
+    "PrtryMsg.MsgHdr.MsgId": {
+      "type": "identifier",
+      "distinct": 600,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "AAAA99999999"
+    },
+    "PrtryMsg.MsgHdr.CreDtTm": {
+      "type": "timestamp",
+      "distinct": 600,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "2026-07-08T01:47:57",
+          "share": 0.0017
+        },
+        {
+          "value": "2026-07-02T07:09:45",
+          "share": 0.0017
+        },
+        {
+          "value": "2026-07-04T04:34:25",
+          "share": 0.0017
+        },
+        {
+          "value": "2026-07-03T09:30:09",
+          "share": 0.0017
+        },
+        {
+          "value": "2026-07-06T12:55:56",
+          "share": 0.0017
+        }
+      ]
+    },
+    "PrtryMsg.Rltd.Ref": {
+      "type": "identifier",
+      "distinct": 600,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "AAA99999999999"
+    },
+    "PrtryMsg.PrtryData.Tp": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "FREE_FORMAT",
+          "share": 1.0
+        }
+      ]
+    },
+    "PrtryMsg.PrtryData.Data.Nrrtv": {
+      "type": "identifier",
+      "distinct": 600,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "AAAAAAAAAAA AAAAAAA AAAAAAA AAA99999999"
+    },
+    "_msg_type": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": true,
+      "top_values": [
+        {
+          "value": "camt.998.001.03",
+          "share": 1.0
+        }
+      ]
+    },
+    "_ns": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "urn:iso:std:iso:20022:tech:xsd:camt.998.001.03",
+          "share": 1.0
+        }
+      ]
+    },
+    "_format": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "mx",
+          "share": 1.0
+        }
+      ]
+    }
+  }
+}

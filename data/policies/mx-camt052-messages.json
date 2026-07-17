@@ -1,0 +1,30 @@
+{
+  "BkToCstmrAcctRpt.GrpHdr.MsgId": {
+    "policy": "mask",
+    "keep_last": 4
+  },
+  "BkToCstmrAcctRpt.GrpHdr.CreDtTm": {
+    "policy": "mask",
+    "keep_last": 4
+  },
+  "BkToCstmrAcctRpt.Rpt.Id": {
+    "policy": "mask",
+    "keep_last": 4
+  },
+  "BkToCstmrAcctRpt.Rpt.Acct.Id.Othr.Id": {
+    "policy": "mask",
+    "keep_last": 4
+  },
+  "BkToCstmrAcctRpt.Rpt.Ntry#1.AcctSvcrRef": {
+    "policy": "mask",
+    "keep_last": 4
+  },
+  "BkToCstmrAcctRpt.Rpt.Ntry#2.AcctSvcrRef": {
+    "policy": "mask",
+    "keep_last": 4
+  },
+  "BkToCstmrAcctRpt.Rpt.Ntry#3.AcctSvcrRef": {
+    "policy": "mask",
+    "keep_last": 4
+  }
+}

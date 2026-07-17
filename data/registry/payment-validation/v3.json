@@ -1,0 +1,192 @@
+{
+  "name": "payment-validation",
+  "journeys": 1500,
+  "events": 5310,
+  "entity_key": "trace_id",
+  "timestamp_field": "ts",
+  "state_fields": [
+    "template_id",
+    "level"
+  ],
+  "distinct_paths": 392,
+  "top_paths": [
+    {
+      "share": 0.098,
+      "count": 147,
+      "path": [
+        "T01|INFO",
+        "T01|INFO"
+      ]
+    },
+    {
+      "share": 0.0707,
+      "count": 106,
+      "path": [
+        "T01|INFO",
+        "T01|INFO",
+        "T01|INFO"
+      ]
+    },
+    {
+      "share": 0.0347,
+      "count": 52,
+      "path": [
+        "T01|INFO",
+        "T01|INFO",
+        "T01|INFO",
+        "T01|INFO"
+      ]
+    },
+    {
+      "share": 0.034,
+      "count": 51,
+      "path": [
+        "T02|INFO",
+        "T01|INFO"
+      ]
+    },
+    {
+      "share": 0.0267,
+      "count": 40,
+      "path": [
+        "T01|INFO",
+        "T01|INFO",
+        "T01|INFO",
+        "T01|INFO",
+        "T01|INFO"
+      ]
+    },
+    {
+      "share": 0.0247,
+      "count": 37,
+      "path": [
+        "T01|INFO",
+        "T02|INFO"
+      ]
+    }
+  ],
+  "fields": {
+    "template_id": {
+      "type": "categorical",
+      "distinct": 5,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": true,
+      "top_values": [
+        {
+          "value": "T01",
+          "share": 0.6241
+        },
+        {
+          "value": "T02",
+          "share": 0.1962
+        },
+        {
+          "value": "T03",
+          "share": 0.0977
+        },
+        {
+          "value": "T04",
+          "share": 0.0488
+        },
+        {
+          "value": "T05",
+          "share": 0.0331
+        }
+      ]
+    },
+    "level": {
+      "type": "categorical",
+      "distinct": 3,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": true,
+      "top_values": [
+        {
+          "value": "INFO",
+          "share": 0.8203
+        },
+        {
+          "value": "WARN",
+          "share": 0.0977
+        },
+        {
+          "value": "ERROR",
+          "share": 0.0819
+        }
+      ]
+    },
+    "message": {
+      "type": "categorical",
+      "distinct": 5,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "payment validated",
+          "share": 0.6241
+        },
+        {
+          "value": "schema check passed",
+          "share": 0.1962
+        },
+        {
+          "value": "db slow query",
+          "share": 0.0977
+        },
+        {
+          "value": "validation timeout",
+          "share": 0.0488
+        },
+        {
+          "value": "iso parse failure",
+          "share": 0.0331
+        }
+      ]
+    },
+    "latency_ms": {
+      "type": "numeric",
+      "distinct": 731,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": false,
+      "stats": {
+        "min": 5.0,
+        "p50": 46.0,
+        "p95": 1484.0,
+        "max": 8982.0,
+        "mean": 467.47
+      }
+    },
+    "pod": {
+      "type": "categorical",
+      "distinct": 6,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "payment-validation-4",
+          "share": 0.1733
+        },
+        {
+          "value": "payment-validation-1",
+          "share": 0.171
+        },
+        {
+          "value": "payment-validation-2",
+          "share": 0.167
+        },
+        {
+          "value": "payment-validation-3",
+          "share": 0.1655
+        },
+        {
+          "value": "payment-validation-5",
+          "share": 0.1642
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "50H_acct": {
+    "policy": "mask",
+    "keep_last": 4
+  },
+  "50H_name": {
+    "policy": "synthesize"
+  },
+  "59_acct": {
+    "policy": "mask",
+    "keep_last": 4
+  },
+  "59_name": {
+    "policy": "synthesize"
+  }
+}

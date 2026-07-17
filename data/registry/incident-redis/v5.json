@@ -1,0 +1,144 @@
+{
+  "name": "incident-redis",
+  "journeys": 200,
+  "events": 743,
+  "entity_key": "window_id",
+  "timestamp_field": "ts",
+  "state_fields": [
+    "component",
+    "condition"
+  ],
+  "distinct_paths": 9,
+  "top_paths": [
+    {
+      "share": 0.76,
+      "count": 152,
+      "path": [
+        "redis|SATURATED",
+        "validation|TIMEOUT",
+        "aml|TIMEOUT",
+        "payment-hub|DEGRADED"
+      ]
+    },
+    {
+      "share": 0.075,
+      "count": 15,
+      "path": [
+        "redis|SATURATED",
+        "validation|TIMEOUT",
+        "payment-hub|DEGRADED"
+      ]
+    },
+    {
+      "share": 0.055,
+      "count": 11,
+      "path": [
+        "redis|SATURATED",
+        "aml|TIMEOUT",
+        "payment-hub|DEGRADED"
+      ]
+    },
+    {
+      "share": 0.04,
+      "count": 8,
+      "path": [
+        "redis|SATURATED",
+        "validation|TIMEOUT",
+        "aml|TIMEOUT"
+      ]
+    },
+    {
+      "share": 0.025,
+      "count": 5,
+      "path": [
+        "validation|TIMEOUT",
+        "aml|TIMEOUT",
+        "payment-hub|DEGRADED"
+      ]
+    },
+    {
+      "share": 0.02,
+      "count": 4,
+      "path": [
+        "validation|TIMEOUT",
+        "aml|TIMEOUT"
+      ]
+    }
+  ],
+  "fields": {
+    "component": {
+      "type": "categorical",
+      "distinct": 4,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": true,
+      "top_values": [
+        {
+          "value": "redis",
+          "share": 0.2517
+        },
+        {
+          "value": "validation",
+          "share": 0.2517
+        },
+        {
+          "value": "payment-hub",
+          "share": 0.2517
+        },
+        {
+          "value": "aml",
+          "share": 0.245
+        }
+      ]
+    },
+    "condition": {
+      "type": "categorical",
+      "distinct": 3,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": true,
+      "top_values": [
+        {
+          "value": "TIMEOUT",
+          "share": 0.4966
+        },
+        {
+          "value": "SATURATED",
+          "share": 0.2517
+        },
+        {
+          "value": "DEGRADED",
+          "share": 0.2517
+        }
+      ]
+    },
+    "affected_txns": {
+      "type": "numeric",
+      "distinct": 736,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": false,
+      "stats": {
+        "min": 501.0,
+        "p50": 14614.0,
+        "p95": 28591.0,
+        "max": 29979.0,
+        "mean": 15000.02
+      }
+    },
+    "duration_s": {
+      "type": "numeric",
+      "distinct": 484,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": false,
+      "stats": {
+        "min": 30.0,
+        "p50": 465.0,
+        "p95": 858.0,
+        "max": 900.0,
+        "mean": 459.69
+      }
+    }
+  }
+}

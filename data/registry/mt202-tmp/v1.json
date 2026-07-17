@@ -1,0 +1,230 @@
+{
+  "name": "mt202-tmp",
+  "journeys": 800,
+  "events": 800,
+  "entity_key": "_msg_id",
+  "timestamp_field": "_ts",
+  "state_fields": [
+    "_mt_type",
+    "32A_ccy"
+  ],
+  "distinct_paths": 4,
+  "top_paths": [
+    {
+      "share": 0.5188,
+      "count": 415,
+      "path": [
+        "202|SGD"
+      ]
+    },
+    {
+      "share": 0.2925,
+      "count": 234,
+      "path": [
+        "202|USD"
+      ]
+    },
+    {
+      "share": 0.0963,
+      "count": 77,
+      "path": [
+        "202|EUR"
+      ]
+    },
+    {
+      "share": 0.0925,
+      "count": 74,
+      "path": [
+        "202|MYR"
+      ]
+    }
+  ],
+  "fields": {
+    "21": {
+      "type": "identifier",
+      "distinct": 800,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "AAA99999999"
+    },
+    "_sender_bic": {
+      "type": "categorical",
+      "distinct": 3,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "UOVBSGSG",
+          "share": 0.3362
+        },
+        {
+          "value": "OCBCSGSG",
+          "share": 0.3325
+        },
+        {
+          "value": "DBSSSGSG",
+          "share": 0.3312
+        }
+      ]
+    },
+    "_receiver_bic": {
+      "type": "categorical",
+      "distinct": 3,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "CITIUS33",
+          "share": 0.3438
+        },
+        {
+          "value": "HSBCGB2L",
+          "share": 0.34
+        },
+        {
+          "value": "MAYBMYKL",
+          "share": 0.3162
+        }
+      ]
+    },
+    "32A_ccy": {
+      "type": "categorical",
+      "distinct": 4,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": true,
+      "top_values": [
+        {
+          "value": "SGD",
+          "share": 0.5188
+        },
+        {
+          "value": "USD",
+          "share": 0.2925
+        },
+        {
+          "value": "EUR",
+          "share": 0.0963
+        },
+        {
+          "value": "MYR",
+          "share": 0.0925
+        }
+      ]
+    },
+    "32A_amount": {
+      "type": "numeric",
+      "distinct": 799,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "stats": {
+        "min": 2439.0,
+        "p50": 92158.0,
+        "p95": 478848.0,
+        "max": 2010340.0,
+        "mean": 154479.67
+      }
+    },
+    "52A": {
+      "type": "categorical",
+      "distinct": 3,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "UOVBSGSG",
+          "share": 0.3362
+        },
+        {
+          "value": "OCBCSGSG",
+          "share": 0.3325
+        },
+        {
+          "value": "DBSSSGSG",
+          "share": 0.3312
+        }
+      ]
+    },
+    "57A": {
+      "type": "categorical",
+      "distinct": 6,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "UOVBSGSG",
+          "share": 0.195
+        },
+        {
+          "value": "CITIUS33",
+          "share": 0.1837
+        },
+        {
+          "value": "DBSSSGSG",
+          "share": 0.165
+        },
+        {
+          "value": "MAYBMYKL",
+          "share": 0.1638
+        },
+        {
+          "value": "OCBCSGSG",
+          "share": 0.1562
+        }
+      ]
+    },
+    "58A": {
+      "type": "categorical",
+      "distinct": 3,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "CITIUS33",
+          "share": 0.3438
+        },
+        {
+          "value": "HSBCGB2L",
+          "share": 0.34
+        },
+        {
+          "value": "MAYBMYKL",
+          "share": 0.3162
+        }
+      ]
+    },
+    "_mt_type": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": true,
+      "top_values": [
+        {
+          "value": "202",
+          "share": 1.0
+        }
+      ]
+    },
+    "_format": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "mt",
+          "share": 1.0
+        }
+      ]
+    }
+  }
+}

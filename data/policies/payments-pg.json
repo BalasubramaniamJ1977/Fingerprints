@@ -1,0 +1,12 @@
+{
+  "uetr": {
+    "policy": "synthesize"
+  },
+  "debtor_account": {
+    "policy": "mask",
+    "keep_last": 4
+  },
+  "debtor_name": {
+    "policy": "drop"
+  }
+}

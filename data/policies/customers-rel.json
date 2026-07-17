@@ -1,0 +1,12 @@
+{
+  "full_name": {
+    "policy": "drop"
+  },
+  "account_id": {
+    "policy": "synthesize"
+  },
+  "iban": {
+    "policy": "mask",
+    "keep_last": 4
+  }
+}

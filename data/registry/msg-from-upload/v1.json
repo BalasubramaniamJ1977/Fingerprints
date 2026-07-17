@@ -1,0 +1,247 @@
+{
+  "name": "msg-from-upload",
+  "journeys": 300,
+  "events": 300,
+  "entity_key": "_msg_id",
+  "timestamp_field": "_ts",
+  "state_fields": [
+    "23B",
+    "71A"
+  ],
+  "distinct_paths": 3,
+  "top_paths": [
+    {
+      "share": 0.59,
+      "count": 177,
+      "path": [
+        "CRED|OUR"
+      ]
+    },
+    {
+      "share": 0.29,
+      "count": 87,
+      "path": [
+        "CRED|SHA"
+      ]
+    },
+    {
+      "share": 0.12,
+      "count": 36,
+      "path": [
+        "CRED|BEN"
+      ]
+    }
+  ],
+  "fields": {
+    "_format": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "mt103",
+          "share": 1.0
+        }
+      ]
+    },
+    "_sender_bic": {
+      "type": "categorical",
+      "distinct": 3,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "UOVBSGSG",
+          "share": 0.3533
+        },
+        {
+          "value": "DBSSSGSG",
+          "share": 0.33
+        },
+        {
+          "value": "OCBCSGSG",
+          "share": 0.3167
+        }
+      ]
+    },
+    "_receiver_bic": {
+      "type": "categorical",
+      "distinct": 3,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "MAYBMYKL",
+          "share": 0.35
+        },
+        {
+          "value": "HSBCGB2L",
+          "share": 0.3333
+        },
+        {
+          "value": "CITIUS33",
+          "share": 0.3167
+        }
+      ]
+    },
+    "32A_ccy": {
+      "type": "categorical",
+      "distinct": 4,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "SGD",
+          "share": 0.52
+        },
+        {
+          "value": "USD",
+          "share": 0.3267
+        },
+        {
+          "value": "MYR",
+          "share": 0.0867
+        },
+        {
+          "value": "EUR",
+          "share": 0.0667
+        }
+      ]
+    },
+    "32A_amount": {
+      "type": "numeric",
+      "distinct": 300,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "stats": {
+        "min": 83.54,
+        "p50": 1126.62,
+        "p95": 5473.75,
+        "max": 12526.09,
+        "mean": 1634.07
+      }
+    },
+    "50K_acct": {
+      "type": "identifier",
+      "distinct": 294,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "**************9999"
+    },
+    "50K_name": {
+      "type": "categorical",
+      "distinct": 146,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "CAJRTL TVU",
+          "share": 0.0233
+        },
+        {
+          "value": "AUHWUQ SRZ",
+          "share": 0.02
+        },
+        {
+          "value": "IJVZUC CXT",
+          "share": 0.02
+        },
+        {
+          "value": "SGJBLR EPY",
+          "share": 0.0167
+        },
+        {
+          "value": "GVMIRU JNK",
+          "share": 0.0167
+        }
+      ]
+    },
+    "59_acct": {
+      "type": "identifier",
+      "distinct": 297,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "**************9999"
+    },
+    "59_name": {
+      "type": "categorical",
+      "distinct": 139,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "GKQKKOI CYQ",
+          "share": 0.02
+        },
+        {
+          "value": "HSRLURG NOA",
+          "share": 0.02
+        },
+        {
+          "value": "ZYAZQFE EMN",
+          "share": 0.02
+        },
+        {
+          "value": "YLPKSOP BZP",
+          "share": 0.0167
+        },
+        {
+          "value": "ZFSIEXK ZZO",
+          "share": 0.0167
+        }
+      ]
+    },
+    "23B": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": true,
+      "top_values": [
+        {
+          "value": "CRED",
+          "share": 1.0
+        }
+      ]
+    },
+    "70": {
+      "type": "identifier",
+      "distinct": 300,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "AAAAAAA 99999"
+    },
+    "71A": {
+      "type": "categorical",
+      "distinct": 3,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": true,
+      "top_values": [
+        {
+          "value": "OUR",
+          "share": 0.59
+        },
+        {
+          "value": "SHA",
+          "share": 0.29
+        },
+        {
+          "value": "BEN",
+          "share": 0.12
+        }
+      ]
+    }
+  }
+}

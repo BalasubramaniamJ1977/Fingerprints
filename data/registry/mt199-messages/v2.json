@@ -1,0 +1,106 @@
+{
+  "name": "mt199-messages",
+  "journeys": 600,
+  "events": 600,
+  "entity_key": "_msg_id",
+  "timestamp_field": "_ts",
+  "state_fields": [
+    "_mt_type"
+  ],
+  "distinct_paths": 1,
+  "top_paths": [
+    {
+      "share": 1.0,
+      "count": 600,
+      "path": [
+        "199"
+      ]
+    }
+  ],
+  "fields": {
+    "21": {
+      "type": "identifier",
+      "distinct": 600,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "AAA99999999"
+    },
+    "79": {
+      "type": "identifier",
+      "distinct": 600,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "/AAAA/ AAAAAAA AAAAAAAAAAAA AA AAA99999999"
+    },
+    "_sender_bic": {
+      "type": "categorical",
+      "distinct": 3,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "DBSSSGSG",
+          "share": 0.3567
+        },
+        {
+          "value": "UOVBSGSG",
+          "share": 0.3433
+        },
+        {
+          "value": "OCBCSGSG",
+          "share": 0.3
+        }
+      ]
+    },
+    "_receiver_bic": {
+      "type": "categorical",
+      "distinct": 3,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "MAYBMYKL",
+          "share": 0.3517
+        },
+        {
+          "value": "CITIUS33",
+          "share": 0.3433
+        },
+        {
+          "value": "HSBCGB2L",
+          "share": 0.305
+        }
+      ]
+    },
+    "_mt_type": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": true,
+      "top_values": [
+        {
+          "value": "199",
+          "share": 1.0
+        }
+      ]
+    },
+    "_format": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "mt",
+          "share": 1.0
+        }
+      ]
+    }
+  }
+}

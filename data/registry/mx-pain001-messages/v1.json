@@ -1,0 +1,363 @@
+{
+  "name": "mx-pain001-messages",
+  "journeys": 800,
+  "events": 800,
+  "entity_key": "_msg_id",
+  "timestamp_field": "_ts",
+  "state_fields": [
+    "_msg_type",
+    "CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Amt.InstdAmt@Ccy"
+  ],
+  "distinct_paths": 4,
+  "top_paths": [
+    {
+      "share": 0.5025,
+      "count": 402,
+      "path": [
+        "pain.001.001.09|SGD"
+      ]
+    },
+    {
+      "share": 0.2988,
+      "count": 239,
+      "path": [
+        "pain.001.001.09|USD"
+      ]
+    },
+    {
+      "share": 0.11,
+      "count": 88,
+      "path": [
+        "pain.001.001.09|EUR"
+      ]
+    },
+    {
+      "share": 0.0887,
+      "count": 71,
+      "path": [
+        "pain.001.001.09|MYR"
+      ]
+    }
+  ],
+  "fields": {
+    "CstmrCdtTrfInitn.GrpHdr.MsgId": {
+      "type": "identifier",
+      "distinct": 800,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "AAAA99999999999"
+    },
+    "CstmrCdtTrfInitn.GrpHdr.CreDtTm": {
+      "type": "timestamp",
+      "distinct": 799,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "2026-07-02T02:08:37",
+          "share": 0.0025
+        },
+        {
+          "value": "2026-07-08T01:47:57",
+          "share": 0.0013
+        },
+        {
+          "value": "2026-07-02T07:09:45",
+          "share": 0.0013
+        },
+        {
+          "value": "2026-07-04T04:34:25",
+          "share": 0.0013
+        },
+        {
+          "value": "2026-07-03T09:30:09",
+          "share": 0.0013
+        }
+      ]
+    },
+    "CstmrCdtTrfInitn.GrpHdr.NbOfTxs": {
+      "type": "numeric",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "stats": {
+        "min": 1.0,
+        "p50": 1.0,
+        "p95": 1.0,
+        "max": 1.0,
+        "mean": 1.0
+      }
+    },
+    "CstmrCdtTrfInitn.GrpHdr.InitgPty.Nm": {
+      "type": "categorical",
+      "distinct": 191,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "ARUN LEE",
+          "share": 0.0138
+        },
+        {
+          "value": "RAJESH ABDULLAH",
+          "share": 0.0125
+        },
+        {
+          "value": "WEI HASSAN",
+          "share": 0.0125
+        },
+        {
+          "value": "AISHA TAN",
+          "share": 0.0112
+        },
+        {
+          "value": "ARUN HASSAN",
+          "share": 0.01
+        }
+      ]
+    },
+    "CstmrCdtTrfInitn.PmtInf.PmtInfId": {
+      "type": "identifier",
+      "distinct": 799,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "AAAAA999999"
+    },
+    "CstmrCdtTrfInitn.PmtInf.PmtMtd": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "TRF",
+          "share": 1.0
+        }
+      ]
+    },
+    "CstmrCdtTrfInitn.PmtInf.ReqdExctnDt.Dt": {
+      "type": "timestamp",
+      "distinct": 14,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "2026-07-04",
+          "share": 0.0862
+        },
+        {
+          "value": "2026-07-14",
+          "share": 0.0862
+        },
+        {
+          "value": "2026-07-13",
+          "share": 0.0762
+        },
+        {
+          "value": "2026-07-11",
+          "share": 0.0762
+        },
+        {
+          "value": "2026-07-05",
+          "share": 0.0737
+        }
+      ]
+    },
+    "CstmrCdtTrfInitn.PmtInf.Dbtr.Nm": {
+      "type": "categorical",
+      "distinct": 191,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "ARUN LEE",
+          "share": 0.0138
+        },
+        {
+          "value": "RAJESH ABDULLAH",
+          "share": 0.0125
+        },
+        {
+          "value": "WEI HASSAN",
+          "share": 0.0125
+        },
+        {
+          "value": "AISHA TAN",
+          "share": 0.0112
+        },
+        {
+          "value": "ARUN HASSAN",
+          "share": 0.01
+        }
+      ]
+    },
+    "CstmrCdtTrfInitn.PmtInf.DbtrAcct.Id.IBAN": {
+      "type": "identifier",
+      "distinct": 800,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "AA99AAAA9999999999"
+    },
+    "CstmrCdtTrfInitn.PmtInf.DbtrAgt.FinInstnId.BICFI": {
+      "type": "categorical",
+      "distinct": 3,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "OCBCSGSG",
+          "share": 0.3513
+        },
+        {
+          "value": "UOVBSGSG",
+          "share": 0.3425
+        },
+        {
+          "value": "DBSSSGSG",
+          "share": 0.3063
+        }
+      ]
+    },
+    "CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.PmtId.EndToEndId": {
+      "type": "identifier",
+      "distinct": 800,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "AAA99999999999"
+    },
+    "CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Amt.InstdAmt": {
+      "type": "numeric",
+      "distinct": 799,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "stats": {
+        "min": 24.39,
+        "p50": 943.95,
+        "p95": 4539.94,
+        "max": 20103.4,
+        "mean": 1524.13
+      }
+    },
+    "CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Amt.InstdAmt@Ccy": {
+      "type": "categorical",
+      "distinct": 4,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": true,
+      "top_values": [
+        {
+          "value": "SGD",
+          "share": 0.5025
+        },
+        {
+          "value": "USD",
+          "share": 0.2988
+        },
+        {
+          "value": "EUR",
+          "share": 0.11
+        },
+        {
+          "value": "MYR",
+          "share": 0.0887
+        }
+      ]
+    },
+    "CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Cdtr.Nm": {
+      "type": "categorical",
+      "distinct": 194,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "SITI LIM",
+          "share": 0.0125
+        },
+        {
+          "value": "AISHA ONG",
+          "share": 0.0112
+        },
+        {
+          "value": "ELAINE KRISHNAN",
+          "share": 0.0112
+        },
+        {
+          "value": "PRIYA PILLAI",
+          "share": 0.0112
+        },
+        {
+          "value": "WEI PILLAI",
+          "share": 0.0112
+        }
+      ]
+    },
+    "CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.CdtrAcct.Id.IBAN": {
+      "type": "identifier",
+      "distinct": 800,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "AA99AAAA9999999999"
+    },
+    "CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.RmtInf.Ustrd": {
+      "type": "identifier",
+      "distinct": 795,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "AAAAAAA 99999"
+    },
+    "_msg_type": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": true,
+      "top_values": [
+        {
+          "value": "pain.001.001.09",
+          "share": 1.0
+        }
+      ]
+    },
+    "_ns": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "urn:iso:std:iso:20022:tech:xsd:pain.001.001.09",
+          "share": 1.0
+        }
+      ]
+    },
+    "_format": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "mx",
+          "share": 1.0
+        }
+      ]
+    }
+  }
+}

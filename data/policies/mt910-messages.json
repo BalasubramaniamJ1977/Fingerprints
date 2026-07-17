@@ -1,0 +1,13 @@
+{
+  "25": {
+    "policy": "mask",
+    "keep_last": 4
+  },
+  "50K_acct": {
+    "policy": "mask",
+    "keep_last": 4
+  },
+  "50K_name": {
+    "policy": "synthesize"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "fingerprint": "payments",
+  "source": {
+    "type": "simulator",
+    "name": "payments"
+  },
+  "dataset": {
+    "entity_key": "uetr",
+    "timestamp_field": "ts",
+    "state_fields": [
+      "service",
+      "status"
+    ]
+  },
+  "policies": {
+    "uetr": {
+      "policy": "synthesize"
+    },
+    "debtor_name": {
+      "policy": "drop"
+    },
+    "debtor_account": {
+      "policy": "mask",
+      "keep_last": 4
+    },
+    "amount": {
+      "policy": "generalize",
+      "bucket": 500
+    }
+  },
+  "generate": {
+    "mode": "synthesize",
+    "volume": {
+      "journeys": 300
+    },
+    "seed": 11
+  }
+}

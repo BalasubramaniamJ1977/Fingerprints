@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fingerprint Studio</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="brand">
+    <span class="logo">FP</span>
+    <div>
+      <h1>Fingerprint Studio</h1>
+      <p>learn any dataset &middot; reproduce synthetic data &middot; anonymize with control</p>
+    </div>
+  </div>
+  <div class="fp-picker">
+    <label for="fpSelect">Fingerprint</label>
+    <select id="fpSelect"></select>
+  </div>
+</header>
+
+<nav id="tabs">
+  <button data-tab="connect" class="active">1 &middot; Connect</button>
+  <button data-tab="inspect">2 &middot; Inspect</button>
+  <button data-tab="policies">3 &middot; Mark PII / Policies</button>
+  <button data-tab="generate">4 &middot; Generate</button>
+  <button data-tab="registry">5 &middot; Registry &amp; Recipes</button>
+  <button data-tab="messages">6 &middot; MT/MX Messages</button>
+</nav>
+
+<main>
+
+<!-- ============================== CONNECT ============================== -->
+<section id="tab-connect" class="tab active">
+  <div class="cols">
+    <div class="card">
+      <h2>Source</h2>
+      <div class="srcpick">
+        <label><input type="radio" name="stype" value="simulator" checked> Simulator (demo)</label>
+        <label><input type="radio" name="stype" value="file"> File upload</label>
+        <label><input type="radio" name="stype" value="postgres"> PostgreSQL table</label>
+        <label><input type="radio" name="stype" value="batches"> Bulk API batches</label>
+      </div>
+
+      <div id="src-simulator" class="srcform">
+        <label>Simulator dataset</label>
+        <select id="simName"></select>
+      </div>
+
+      <div id="src-file" class="srcform hidden">
+        <label>Upload CSV / NDJSON / MX (.xml) / MT (.mt .fin .txt)</label>
+        <input type="file" id="fileInput" accept=".csv,.ndjson,.json,.xml,.mt,.fin,.txt">
+        <div class="hint">MX = ISO 20022 pacs.008 XML; MT = SWIFT MT103 tag blocks. Messages are parsed field-by-field, and synthetic output renders back to the same wire format.</div>
+        <div id="fileStatus" class="hint"></div>
+        <label>Or pick an existing upload</label>
+        <select id="uploadSelect"></select>
+      </div>
+
+      <div id="src-postgres" class="srcform hidden">
+        <label>Connection (read-only DSN)</label>
+        <input type="text" id="pgDsn" placeholder="postgresql://user:pass@host:5432/db">
+        <button id="btnListTables" class="btn">List tables</button>
+        <label>Table</label>
+        <select id="pgTable" class="hidden"></select>
+        <input type="text" id="pgTableText" placeholder="payment_events (or click List tables)">
+        <div id="tableInfo" class="hint"></div>
+        <label id="childOptWrap" class="hidden" style="text-transform:none; letter-spacing:0; font-weight:500">
+          <input type="checkbox" id="includeChildren"> learn parent + child tables (FK-consistent synthesis)
+        </label>
+      </div>
+
+      <div id="src-batches" class="srcform hidden">
+        <label>Batch source</label>
+        <select id="batchSelect"></select>
+        <div class="hint">Push data from any pipeline:</div>
+        <pre id="curlExample">curl -X POST http://127.0.0.1:8600/api/v1/sources/my-source/batches \
+  -H "Idempotency-Key: batch-001" \
+  --data-binary @events.ndjson</pre>
+      </div>
+
+      <button id="btnResolve" class="btn">Load &amp; suggest binding</button>
+    </div>
+
+    <div class="card">
+      <h2>Dataset binding</h2>
+      <div id="bindingArea" class="hint">Load a source first — the Studio will suggest entity key, timestamp, and state fields for you to confirm.</div>
+      <div id="bindingForm" class="hidden">
+        <label>Entity key (groups events into a journey)</label>
+        <select id="bindEntity"></select>
+        <label>Timestamp field</label>
+        <select id="bindTs"></select>
+        <label>State fields (behavioral state = their combination)</label>
+        <div id="bindStates" class="checkgrid"></div>
+        <label>Fingerprint name</label>
+        <input type="text" id="fpName" placeholder="payments">
+        <button id="btnLearn" class="btn primary">Learn fingerprint</button>
+      </div>
+    </div>
+  </div>
+  <div class="card" id="sampleCard" style="display:none">
+    <h2>Source sample</h2>
+    <div class="scroll" id="sampleTable"></div>
+  </div>
+</section>
+
+<!-- ============================== INSPECT ============================== -->
+<section id="tab-inspect" class="tab">
+  <div id="inspectEmpty" class="hint big">No fingerprint loaded — learn one on the Connect tab or pick one from the header.</div>
+  <div id="inspectBody" class="hidden">
+    <div class="statrow" id="statRow"></div>
+    <div class="card">
+      <h2>Execution-path fingerprints</h2>
+      <div id="pathList"></div>
+    </div>
+    <div class="card">
+      <h2>What it learned per field</h2>
+      <div class="scroll" id="fieldTable"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== POLICIES ============================= -->
+<section id="tab-policies" class="tab">
+  <div id="polEmpty" class="hint big">No fingerprint loaded.</div>
+  <div id="polBody" class="hidden">
+    <div class="cols">
+      <div class="card grow">
+        <h2>Per-field anonymization policies</h2>
+        <p class="hint">PII scan suggestions are pre-applied — adjust any field. Policies are irreversible by design (Phase 1).</p>
+        <div class="scroll" id="policyTable"></div>
+        <button id="btnSavePolicies" class="btn primary">Save policies</button>
+        <button id="btnPreviewPolicies" class="btn">Preview before &rarr; after</button>
+        <span id="polStatus" class="hint"></span>
+      </div>
+      <div class="card" style="max-width:420px">
+        <h2>Live preview</h2>
+        <div id="policyPreview" class="hint">Click "Preview" to see real sampled values transformed by the current policies.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== GENERATE ============================= -->
+<section id="tab-generate" class="tab">
+  <div id="genEmpty" class="hint big">No fingerprint loaded.</div>
+  <div id="genBody" class="hidden">
+    <div class="cols">
+      <div class="card" style="max-width:360px">
+        <h2>Generation</h2>
+        <label>Mode</label>
+        <select id="genMode">
+          <option value="synthesize">Synthesize — entirely new journeys</option>
+          <option value="anonymize">Anonymize — real rows through policies</option>
+        </select>
+        <label>Volume — journeys</label>
+        <input type="number" id="genJourneys" value="1000" min="1">
+        <label>&hellip;or scale vs source (overrides journeys)</label>
+        <input type="text" id="genScale" placeholder="e.g. 0.1, 1, 10">
+        <label>Seed</label>
+        <input type="number" id="genSeed" value="42">
+        <label>Correlation backend</label>
+        <select id="genBackend">
+          <option value="correlated">Correlated &mdash; preserves cross-field dependencies</option>
+          <option value="independent">Independent &mdash; per-field marginals only</option>
+          <option value="sdv">SDV GaussianCopula &mdash; requires sdv package</option>
+        </select>
+        <div class="btnrow">
+          <button id="btnPreviewGen" class="btn">Preview sample</button>
+          <button id="btnGenerate" class="btn primary">Generate full set</button>
+        </div>
+        <div id="genStatus" class="hint"></div>
+        <hr>
+        <label>Save as recipe (repeatable run)</label>
+        <input type="text" id="recipeName" placeholder="payments-synth-10x">
+        <button id="btnSaveRecipe" class="btn">Save recipe</button>
+        <span id="recipeStatus" class="hint"></span>
+      </div>
+      <div class="card grow">
+        <h2>Outcome</h2>
+        <div id="genMetrics" class="statrow"></div>
+        <div id="genDownload"></div>
+        <div class="scroll" id="genPreview"><div class="hint">Preview or generate to see sample outcomes here.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== REGISTRY ============================= -->
+<section id="tab-registry" class="tab">
+  <div class="cols">
+    <div class="card grow">
+      <h2>Fingerprint registry</h2>
+      <div class="scroll" id="registryTable"></div>
+      <h2 style="margin-top:18px">Version diff (deployment fingerprint)</h2>
+      <div class="btnrow">
+        <select id="diffName"></select>
+        <select id="diffA"></select>
+        <span class="hint">vs</span>
+        <select id="diffB"></select>
+        <button id="btnDiff" class="btn">Diff</button>
+      </div>
+      <pre id="diffOut" class="hidden"></pre>
+    </div>
+    <div class="card grow">
+      <h2>Recipes</h2>
+      <div id="recipeList" class="hint">No recipes saved yet.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== MESSAGES ============================= -->
+<section id="tab-messages" class="tab">
+  <div class="cols">
+    <div class="card" style="max-width:400px">
+      <h2>MT / MX message generator</h2>
+      <label>Standard</label>
+      <select id="msgFormat">
+        <optgroup label="Customer credit transfer &mdash; MT103 &harr; pacs.008">
+          <option value="mt103-messages">MT103</option>
+          <option value="mx-pacs008-messages">pacs.008</option>
+        </optgroup>
+        <optgroup label="FI transfer &mdash; MT202 &harr; pacs.009">
+          <option value="mt202-messages">MT202</option>
+          <option value="mx-pacs009-messages">pacs.009</option>
+        </optgroup>
+        <optgroup label="Cover payment &mdash; MT202 COV &harr; pacs.009 COV">
+          <option value="mt202cov-messages">MT202 COV</option>
+          <option value="mx-pacs009cov-messages">pacs.009 COV (underlying customer data)</option>
+        </optgroup>
+        <optgroup label="Statement &mdash; MT940 &harr; camt.053">
+          <option value="mt940-messages">MT940</option>
+          <option value="mx-camt053-messages">camt.053</option>
+        </optgroup>
+        <optgroup label="Interim report &mdash; MT942 &harr; camt.052">
+          <option value="mt942-messages">MT942</option>
+          <option value="mx-camt052-messages">camt.052</option>
+        </optgroup>
+        <optgroup label="Debit/credit confirmation &mdash; MT900/910 &harr; camt.054">
+          <option value="mt900-messages">MT900 (debit)</option>
+          <option value="mt910-messages">MT910 (credit)</option>
+          <option value="mx-camt054-messages">camt.054</option>
+        </optgroup>
+        <optgroup label="Payment initiation &mdash; MT101 &harr; pain.001">
+          <option value="mt101-messages">MT101</option>
+          <option value="mx-pain001-messages">pain.001</option>
+        </optgroup>
+        <optgroup label="Free format &mdash; MT199 &harr; camt.998">
+          <option value="mt199-messages">MT199</option>
+          <option value="mx-camt998-messages">camt.998</option>
+        </optgroup>
+      </select>
+      <div class="hint">Every standard MT&harr;MX equivalence pair is built in. Any other type (camt.056, pacs.004, MT192, &hellip;): upload a sample file below &mdash; the adapters are format-generic and learn from the messages themselves.</div>
+      <label>Learn from</label>
+      <select id="msgSource">
+        <option value="standard">Built-in standard template (no upload needed)</option>
+        <option value="upload">My uploaded message file</option>
+      </select>
+      <div id="msgUploadWrap" class="hidden">
+        <label>Message file (.xml / .mt / .fin / .txt)</label>
+        <input type="file" id="msgFile" accept=".xml,.mt,.fin,.txt">
+        <div id="msgFileStatus" class="hint"></div>
+      </div>
+      <label>Volume &mdash; number of messages</label>
+      <input type="number" id="msgCount" value="500" min="1">
+      <label>Seed</label>
+      <input type="number" id="msgSeed" value="42">
+      <div class="btnrow">
+        <button id="btnMsgLearn" class="btn">Learn</button>
+        <button id="btnMsgPreview" class="btn">Preview</button>
+        <button id="btnMsgGenerate" class="btn primary">Generate file</button>
+      </div>
+      <div id="msgStatus" class="hint"></div>
+      <div id="msgDownloads"></div>
+      <p class="hint">PII policies from the scan apply automatically (accounts masked or pseudonymized, names replaced). Fine-tune them on tab 3 &mdash; the learned message fingerprint appears there like any other.</p>
+    </div>
+    <div class="card grow">
+      <h2>Message preview &mdash; wire format</h2>
+      <pre id="msgPreview" style="min-height:340px">Learn a message fingerprint, then Preview: synthetic messages render here exactly as they would go on the wire.</pre>
+    </div>
+  </div>
+</section>
+
+</main>
+<script src="app.js"></script>
+</body>
+</html>

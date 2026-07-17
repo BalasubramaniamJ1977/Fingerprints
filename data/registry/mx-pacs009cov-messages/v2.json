@@ -1,0 +1,326 @@
+{
+  "name": "mx-pacs009cov-messages",
+  "journeys": 800,
+  "events": 800,
+  "entity_key": "_msg_id",
+  "timestamp_field": "_ts",
+  "state_fields": [
+    "_msg_type",
+    "FICdtTrf.CdtTrfTxInf.IntrBkSttlmAmt@Ccy"
+  ],
+  "distinct_paths": 4,
+  "top_paths": [
+    {
+      "share": 0.5325,
+      "count": 426,
+      "path": [
+        "pacs.009.001.08|SGD"
+      ]
+    },
+    {
+      "share": 0.2787,
+      "count": 223,
+      "path": [
+        "pacs.009.001.08|USD"
+      ]
+    },
+    {
+      "share": 0.0975,
+      "count": 78,
+      "path": [
+        "pacs.009.001.08|EUR"
+      ]
+    },
+    {
+      "share": 0.0912,
+      "count": 73,
+      "path": [
+        "pacs.009.001.08|MYR"
+      ]
+    }
+  ],
+  "fields": {
+    "FICdtTrf.GrpHdr.MsgId": {
+      "type": "identifier",
+      "distinct": 800,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "AAA99999999999"
+    },
+    "FICdtTrf.GrpHdr.CreDtTm": {
+      "type": "timestamp",
+      "distinct": 799,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "2026-07-08T02:27:28",
+          "share": 0.0025
+        },
+        {
+          "value": "2026-07-08T01:47:57",
+          "share": 0.0013
+        },
+        {
+          "value": "2026-07-06T07:39:20",
+          "share": 0.0013
+        },
+        {
+          "value": "2026-07-12T23:23:12",
+          "share": 0.0013
+        },
+        {
+          "value": "2026-07-14T20:28:47",
+          "share": 0.0013
+        }
+      ]
+    },
+    "FICdtTrf.GrpHdr.NbOfTxs": {
+      "type": "numeric",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "stats": {
+        "min": 1.0,
+        "p50": 1.0,
+        "p95": 1.0,
+        "max": 1.0,
+        "mean": 1.0
+      }
+    },
+    "FICdtTrf.GrpHdr.SttlmInf.SttlmMtd": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "INDA",
+          "share": 1.0
+        }
+      ]
+    },
+    "FICdtTrf.CdtTrfTxInf.PmtId.EndToEndId": {
+      "type": "identifier",
+      "distinct": 800,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "AAA99999999999"
+    },
+    "FICdtTrf.CdtTrfTxInf.PmtId.UETR": {
+      "type": "identifier",
+      "distinct": 800,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "a99aa999-a99a-9aa9-99a9-99999aaaa9a9"
+    },
+    "FICdtTrf.CdtTrfTxInf.IntrBkSttlmAmt": {
+      "type": "numeric",
+      "distinct": 799,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "stats": {
+        "min": 2595.0,
+        "p50": 83184.0,
+        "p95": 437810.0,
+        "max": 4990219.0,
+        "mean": 148964.98
+      }
+    },
+    "FICdtTrf.CdtTrfTxInf.IntrBkSttlmAmt@Ccy": {
+      "type": "categorical",
+      "distinct": 4,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": true,
+      "top_values": [
+        {
+          "value": "SGD",
+          "share": 0.5325
+        },
+        {
+          "value": "USD",
+          "share": 0.2787
+        },
+        {
+          "value": "EUR",
+          "share": 0.0975
+        },
+        {
+          "value": "MYR",
+          "share": 0.0912
+        }
+      ]
+    },
+    "FICdtTrf.CdtTrfTxInf.Dbtr.FinInstnId.BICFI": {
+      "type": "categorical",
+      "distinct": 3,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "UOVBSGSG",
+          "share": 0.34
+        },
+        {
+          "value": "DBSSSGSG",
+          "share": 0.3375
+        },
+        {
+          "value": "OCBCSGSG",
+          "share": 0.3225
+        }
+      ]
+    },
+    "FICdtTrf.CdtTrfTxInf.Cdtr.FinInstnId.BICFI": {
+      "type": "categorical",
+      "distinct": 3,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "CITIUS33",
+          "share": 0.3425
+        },
+        {
+          "value": "MAYBMYKL",
+          "share": 0.3337
+        },
+        {
+          "value": "HSBCGB2L",
+          "share": 0.3237
+        }
+      ]
+    },
+    "_msg_type": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": true,
+      "top_values": [
+        {
+          "value": "pacs.009.001.08",
+          "share": 1.0
+        }
+      ]
+    },
+    "_ns": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "urn:iso:std:iso:20022:tech:xsd:pacs.009.001.08",
+          "share": 1.0
+        }
+      ]
+    },
+    "_format": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "mx",
+          "share": 1.0
+        }
+      ]
+    },
+    "FICdtTrf.CdtTrfTxInf.UndrlygCstmrCdtTrf.Dbtr.Nm": {
+      "type": "categorical",
+      "distinct": 191,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "ELAINE GOH",
+          "share": 0.0125
+        },
+        {
+          "value": "MEI LING GOH",
+          "share": 0.0125
+        },
+        {
+          "value": "PRIYA CHUA",
+          "share": 0.0112
+        },
+        {
+          "value": "MARCUS ONG",
+          "share": 0.0112
+        },
+        {
+          "value": "SITI NG",
+          "share": 0.0112
+        }
+      ]
+    },
+    "FICdtTrf.CdtTrfTxInf.UndrlygCstmrCdtTrf.DbtrAcct.Id.Othr.Id": {
+      "type": "identifier",
+      "distinct": 800,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "AA99AAAA9999999999"
+    },
+    "FICdtTrf.CdtTrfTxInf.UndrlygCstmrCdtTrf.Cdtr.Nm": {
+      "type": "categorical",
+      "distinct": 195,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "SITI GOH",
+          "share": 0.0125
+        },
+        {
+          "value": "AISHA LIM",
+          "share": 0.0125
+        },
+        {
+          "value": "KUMAR HASSAN",
+          "share": 0.0125
+        },
+        {
+          "value": "RAJESH LEE",
+          "share": 0.0125
+        },
+        {
+          "value": "RAJESH WONG",
+          "share": 0.0112
+        }
+      ]
+    },
+    "FICdtTrf.CdtTrfTxInf.UndrlygCstmrCdtTrf.CdtrAcct.Id.Othr.Id": {
+      "type": "identifier",
+      "distinct": 800,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "AA99AAAA9999999999"
+    },
+    "FICdtTrf.CdtTrfTxInf.UndrlygCstmrCdtTrf.RmtInf.Ustrd": {
+      "type": "identifier",
+      "distinct": 797,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "AAAAAAA 99999"
+    }
+  }
+}

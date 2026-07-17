@@ -1,0 +1,233 @@
+{
+  "name": "customers-rel",
+  "relational": true,
+  "parent_table": "customers",
+  "children": {
+    "accounts": {
+      "fk": "customer_id",
+      "rows": 1329,
+      "avg_per_parent": 1.66
+    }
+  },
+  "journeys": 800,
+  "events": 2129,
+  "entity_key": "customer_id",
+  "timestamp_field": "joined",
+  "state_fields": [
+    "segment",
+    "country"
+  ],
+  "distinct_paths": 12,
+  "top_paths": [
+    {
+      "share": 0.4088,
+      "count": 327,
+      "path": [
+        "RETAIL|SG"
+      ]
+    },
+    {
+      "share": 0.1412,
+      "count": 113,
+      "path": [
+        "PRIORITY|SG"
+      ]
+    },
+    {
+      "share": 0.1412,
+      "count": 113,
+      "path": [
+        "RETAIL|MY"
+      ]
+    },
+    {
+      "share": 0.0712,
+      "count": 57,
+      "path": [
+        "RETAIL|IN"
+      ]
+    },
+    {
+      "share": 0.0663,
+      "count": 53,
+      "path": [
+        "RETAIL|HK"
+      ]
+    },
+    {
+      "share": 0.0612,
+      "count": 49,
+      "path": [
+        "CORPORATE|SG"
+      ]
+    },
+    {
+      "share": 0.185,
+      "count": 148,
+      "path": [
+        "SAVINGS|SGD"
+      ]
+    },
+    {
+      "share": 0.1562,
+      "count": 125,
+      "path": [
+        "CURRENT|SGD"
+      ]
+    }
+  ],
+  "fields": {
+    "full_name": {
+      "type": "categorical",
+      "distinct": 191,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "Hakim Wong",
+          "share": 0.0138
+        },
+        {
+          "value": "Daniel Sharma",
+          "share": 0.0125
+        },
+        {
+          "value": "Hakim Lim",
+          "share": 0.0125
+        },
+        {
+          "value": "Wei Hassan",
+          "share": 0.0112
+        },
+        {
+          "value": "Rajesh Goh",
+          "share": 0.01
+        }
+      ]
+    },
+    "segment": {
+      "type": "categorical",
+      "distinct": 3,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": true,
+      "top_values": [
+        {
+          "value": "RETAIL",
+          "share": 0.6875
+        },
+        {
+          "value": "PRIORITY",
+          "share": 0.215
+        },
+        {
+          "value": "CORPORATE",
+          "share": 0.0975
+        }
+      ]
+    },
+    "country": {
+      "type": "categorical",
+      "distinct": 4,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": true,
+      "top_values": [
+        {
+          "value": "SG",
+          "share": 0.6112
+        },
+        {
+          "value": "MY",
+          "share": 0.1938
+        },
+        {
+          "value": "IN",
+          "share": 0.0975
+        },
+        {
+          "value": "HK",
+          "share": 0.0975
+        }
+      ]
+    },
+    "account_id": {
+      "type": "identifier",
+      "distinct": 1329,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": false,
+      "format_pattern": "AAAA9999999",
+      "from_table": "accounts"
+    },
+    "iban": {
+      "type": "identifier",
+      "distinct": 1329,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": false,
+      "format_pattern": "AA99AAAA9999999999",
+      "from_table": "accounts"
+    },
+    "acct_type": {
+      "type": "categorical",
+      "distinct": 3,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": true,
+      "top_values": [
+        {
+          "value": "SAVINGS",
+          "share": 0.4868
+        },
+        {
+          "value": "CURRENT",
+          "share": 0.4041
+        },
+        {
+          "value": "FIXED",
+          "share": 0.1091
+        }
+      ],
+      "from_table": "accounts"
+    },
+    "currency": {
+      "type": "categorical",
+      "distinct": 3,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": true,
+      "top_values": [
+        {
+          "value": "SGD",
+          "share": 0.7216
+        },
+        {
+          "value": "USD",
+          "share": 0.1843
+        },
+        {
+          "value": "MYR",
+          "share": 0.0941
+        }
+      ],
+      "from_table": "accounts"
+    },
+    "balance": {
+      "type": "numeric",
+      "distinct": 1328,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": false,
+      "stats": {
+        "min": 62.23,
+        "p50": 4745.94,
+        "p95": 48897.4,
+        "max": 730079.87,
+        "mean": 12283.9
+      },
+      "from_table": "accounts"
+    }
+  }
+}

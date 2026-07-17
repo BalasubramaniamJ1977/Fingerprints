@@ -1,0 +1,2551 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000036494</MsgId>
+      <CreDtTm>2026-07-05T22:34:46</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>YODACZ SBV</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="SGD">400.69</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000504925</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>AZALUT PTOE</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************6610</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 85069</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH678698</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-07</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>WCDY LHA</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************2510</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>OCBCSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000319413</MsgId>
+      <CreDtTm>2026-07-04T14:09:54</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>CFWDAQ PHC</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="USD">2001.47</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000539743</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>QSBIRC UJPL</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************4696</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 53318</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH128430</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-07</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>VROC TVC</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************4352</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>OCBCSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000081916</MsgId>
+      <CreDtTm>2026-07-04T08:19:29</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>IHUGOQ VAQ</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="SGD">764.49</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000609605</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>MFBCSP FCRG</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************5841</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 23796</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH941098</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-01</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>CAKE WPV</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************4543</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>OCBCSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000405795</MsgId>
+      <CreDtTm>2026-07-05T21:48:22</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>EALYDQ EVJ</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="EUR">612.01</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000679379</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>FIEJEY OBSM</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************2290</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 85574</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH976285</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-07</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>OBNI VZB</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************4340</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>UOVBSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000470930</MsgId>
+      <CreDtTm>2026-07-02T01:12:49</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>YLPKSO PBZ</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="SGD">668.06</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000781571</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>OJIDYF NNYD</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************8829</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 59381</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH383087</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-14</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>PTFO XYQ</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************6514</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>OCBCSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000519044</MsgId>
+      <CreDtTm>2026-07-08T09:30:42</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>QDPMVI UGL</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="EUR">556.73</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000527832</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>EXKZZO XCCM</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************0360</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 70385</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH555106</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-14</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>DWWZ FSI</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************7270</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>DBSSSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000341176</MsgId>
+      <CreDtTm>2026-07-04T08:21:38</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>GBJZBH QCZ</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="SGD">197.36</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000775501</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>CWNGDM GWOQ</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************3388</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 71856</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH149763</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-04</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>WKJO CSI</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************8967</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>OCBCSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000375580</MsgId>
+      <CreDtTm>2026-07-01T20:02:18</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>HZLGQW NFS</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="USD">1293.22</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000573421</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>YRPKEE BTFE</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************0755</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 26858</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH744376</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-01</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>GJBL REP</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************0248</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>DBSSSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000744880</MsgId>
+      <CreDtTm>2026-07-01T20:39:28</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>RCWKFA VVB</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="SGD">1818.69</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000508773</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>NMXKGV MIRU</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************4617</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 61662</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH602602</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-12</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>UCYZ EGB</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************9405</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>OCBCSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000346472</MsgId>
+      <CreDtTm>2026-07-14T08:35:46</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>JNKVSE RCY</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="SGD">719.72</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000069219</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>DWMIGJ WSMB</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************5595</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 16685</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH689403</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-04</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>IINM SIQ</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************7639</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>DBSSSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000339459</MsgId>
+      <CreDtTm>2026-07-07T21:07:32</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>LOHYPF MJA</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="USD">1562.55</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000426386</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>FMUPFJ SLUT</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************5361</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 57360</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH643732</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-13</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>CPMJ NVP</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************8312</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>OCBCSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000439615</MsgId>
+      <CreDtTm>2026-07-09T09:54:59</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>LGFQSO ZVP</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="SGD">1826.29</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000216529</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>ZDALZP CESK</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************9485</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 88564</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH689510</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-10</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>VAZZ XOV</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************8770</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>DBSSSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000420146</MsgId>
+      <CreDtTm>2026-07-02T04:34:23</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>LYYJJV VSK</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="USD">1247.54</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000200260</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>CRWTGK QKKO</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************1859</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 66165</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH608753</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-01</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>SJSG QXI</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************2074</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>OCBCSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000165866</MsgId>
+      <CreDtTm>2026-07-13T05:08:15</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>ICYQSS RDH</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="USD">1337.49</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000007900</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>BGVEKQ LNQC</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************3126</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 96362</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH743514</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-11</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>ILEA MBV</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************8235</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>DBSSSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000432491</MsgId>
+      <CreDtTm>2026-07-12T23:56:35</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>YJIWPS HLQ</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="EUR">398.13</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000482662</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>SHFPPV VERT</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************1363</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 11665</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH817640</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-11</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>CUZA VSK</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************7608</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>DBSSSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000701835</MsgId>
+      <CreDtTm>2026-07-12T14:02:50</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>TCERHW FQY</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="SGD">832.03</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000423812</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>RSRTTO BLCL</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************6811</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 85763</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH396257</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-05</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>QWYM KEW</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************3767</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>UOVBSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000083529</MsgId>
+      <CreDtTm>2026-07-01T04:45:13</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>YVNBTT CKH</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="SGD">499.91</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000453810</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>MSPBAO ZCJN</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************5815</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 16066</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH607609</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-12</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>TZGL QWY</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************7762</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>OCBCSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000329713</MsgId>
+      <CreDtTm>2026-07-13T11:06:21</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>KEPVYU HWZ</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="MYR">296.88</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000258145</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>CUAGYG TTRX</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************9609</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 48139</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH965645</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-07</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>AXLS LNF</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************4696</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>OCBCSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000138621</MsgId>
+      <CreDtTm>2026-07-02T16:16:54</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>EQEVIU XBT</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="USD">2092.7</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000039451</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>NYLHJA KSID</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************8731</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 10497</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH741159</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-13</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>OLTX LJM</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************2721</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>OCBCSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000696602</MsgId>
+      <CreDtTm>2026-07-06T02:04:01</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>RTBGRS SLR</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="USD">2144.76</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000468641</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>UFOFAR WNHG</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************6737</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 36040</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH251955</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-13</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>FKJL IWW</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************7422</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>UOVBSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000755845</MsgId>
+      <CreDtTm>2026-07-06T01:14:18</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>OIXFLX SNQ</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="USD">4983.14</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000253127</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>OXXZXL TDWV</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************2355</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 50940</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH397435</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-13</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>PYTS PPQ</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************6252</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>UOVBSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000504687</MsgId>
+      <CreDtTm>2026-07-11T11:58:42</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>QMSEDZ PPD</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="SGD">432.67</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000068844</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>FMUPFJ SLUT</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************8485</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 23738</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH747718</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-08</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>RREZ YIH</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************1829</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>OCBCSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000010457</MsgId>
+      <CreDtTm>2026-07-05T17:07:18</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>WCKMJW QLM</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="SGD">393.05</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000743859</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>RGTPVV OKOQ</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************1106</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 21474</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH974963</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-01</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>RREZ YIH</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************9461</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>DBSSSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000616633</MsgId>
+      <CreDtTm>2026-07-04T01:31:11</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>DRZOCC GFT</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="USD">2032.34</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000045556</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>AFVKTD BBZV</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************3820</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 26486</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH551387</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-08</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>KFMI WGI</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************9543</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>DBSSSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000566067</MsgId>
+      <CreDtTm>2026-07-08T02:27:43</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>INKKJS NWS</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="SGD">57.43</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000043909</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>FMUPFJ SLUT</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************8611</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 83680</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH214273</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-09</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>VFMM AJT</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************5324</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>DBSSSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000378309</MsgId>
+      <CreDtTm>2026-07-06T22:08:27</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>TJWKTH EGT</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="SGD">1136.88</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000122225</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>IZNMIV SPKH</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************4772</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 25041</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH043485</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-07</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>OTON QKQ</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************3959</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>UOVBSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000183951</MsgId>
+      <CreDtTm>2026-07-08T13:21:42</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>JFFNFB HSR</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="EUR">919.66</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000432424</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>RMYCWW CCHU</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************8974</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 42503</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH781784</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-11</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>LURG NOA</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************5520</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>OCBCSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000741592</MsgId>
+      <CreDtTm>2026-07-10T06:26:22</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>MWPMYZ HWJ</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="USD">830.77</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000460090</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>VCJZYA ZQFE</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************8024</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 34920</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH760013</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-09</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>QKQQ OZV</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************8301</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>DBSSSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000465173</MsgId>
+      <CreDtTm>2026-07-02T07:05:49</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>EMNFQE JDP</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="USD">937.9</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000265216</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>NXPIKF CZOH</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************6258</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 50422</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH360574</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-01</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>RZKT EIY</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************1818</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>DBSSSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000278750</MsgId>
+      <CreDtTm>2026-07-08T14:19:02</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>OHYCIE URI</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="SGD">840.93</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000705882</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>FMUPFJ SLUT</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************3694</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 63290</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH099438</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-02</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>EMGG RQE</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************8867</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>OCBCSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000026198</MsgId>
+      <CreDtTm>2026-07-10T05:32:50</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>JNKVSE RCY</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="USD">264.1</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000344365</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>AQLGUH RAAL</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************1922</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 78580</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH310020</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-12</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>GKXV TNV</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************6705</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>OCBCSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000146581</MsgId>
+      <CreDtTm>2026-07-14T01:27:08</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>OHVYAN NPN</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="SGD">410.66</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000566681</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>YSYXSP JPSA</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************4963</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 89582</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH458548</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-06</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>KUSQ HYS</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************2160</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>UOVBSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000200455</MsgId>
+      <CreDtTm>2026-07-02T21:09:36</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>AJWSDO SYH</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="USD">1243.47</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000209441</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>NFFTCZ XLZF</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************7932</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 98363</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH421508</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-05</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>MNGB NMD</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************7690</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>UOVBSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000752139</MsgId>
+      <CreDtTm>2026-07-12T18:56:31</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>XYHZCQ MBE</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="SGD">2787.95</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000380638</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>ZIXQAB NPAW</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************4333</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 69277</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH149756</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-13</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>IVQA LQB</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************6577</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>DBSSSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000254349</MsgId>
+      <CreDtTm>2026-07-03T06:36:02</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>YJFHTP SBJ</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="USD">740.95</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000177257</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>AQLGUH RAAL</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************2097</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 05252</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH060103</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-04</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>HOOF IFN</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************3619</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>OCBCSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000063372</MsgId>
+      <CreDtTm>2026-07-02T21:31:11</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>UXJQAJ UKU</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="SGD">3594.12</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000221435</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>DWMIGJ WSMB</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************8084</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 66444</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH265604</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-04</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>TGFW BUJ</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************8997</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>UOVBSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000421954</MsgId>
+      <CreDtTm>2026-07-10T09:04:42</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>UXTPAN FNU</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="MYR">810.15</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000592620</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>NSKQWT BVZN</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************5591</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 81088</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH689502</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-01</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>KTJD CSX</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************8734</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>OCBCSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000037946</MsgId>
+      <CreDtTm>2026-07-03T00:25:52</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>OQFMDR QKU</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="SGD">1254.4</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000328687</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>MCKWQE UCUU</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************3259</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 78584</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH171315</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-12</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>SQRG UQD</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************5701</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>UOVBSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000438628</MsgId>
+      <CreDtTm>2026-07-14T19:26:15</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>KXTPIY CCT</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="USD">695.5</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000553931</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>TGDZVO WRFS</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************3515</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 05141</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH740461</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-01</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>OYTA LBS</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************3649</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>UOVBSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000445459</MsgId>
+      <CreDtTm>2026-07-12T09:20:01</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>BIQVYS MJS</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="SGD">1079.97</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000258628</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>YSYXSP JPSA</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************2690</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 55752</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH780167</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-14</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>TBVS UKR</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************6281</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>OCBCSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000365754</MsgId>
+      <CreDtTm>2026-07-10T00:54:23</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>CFWDAQ PHC</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="SGD">263.45</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000665274</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>KXGCQY HDYJ</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************0384</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 50289</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH228954</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-01</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>WCDY LHA</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************4044</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>DBSSSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000753045</MsgId>
+      <CreDtTm>2026-07-01T20:14:14</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>YJIWPS HLQ</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="MYR">600.2</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000751194</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>LTVUNT YAMO</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************3943</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 82015</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH786219</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-11</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>ACCA JRT</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************2407</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>UOVBSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000629857</MsgId>
+      <CreDtTm>2026-07-10T05:33:57</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>CGCLUK LML</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="SGD">962.3</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000149218</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>WXEDBI SFBT</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************6945</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 45435</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH280287</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-01</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>WDAE EOL</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************5080</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>DBSSSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000437082</MsgId>
+      <CreDtTm>2026-07-03T07:21:41</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>KRTPTC QZY</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="SGD">1980.94</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000670340</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>NVLANK GRFT</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************2883</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 83190</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH826443</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-04</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>RREZ YIH</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************8895</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>DBSSSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000624703</MsgId>
+      <CreDtTm>2026-07-04T02:16:13</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>SHWNFU NWP</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="SGD">435.39</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000035300</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>UFOFAR WNHG</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************5271</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 19203</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH251088</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-09</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>UEMQ VPW</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************8754</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>OCBCSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000208496</MsgId>
+      <CreDtTm>2026-07-06T01:33:04</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>CFWDAQ PHC</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="USD">38.6</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000768639</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>LEWVZI TJHJ</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************4127</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 70604</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH133174</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-01</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>SMJS IIE</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************2645</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>OCBCSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000186188</MsgId>
+      <CreDtTm>2026-07-07T18:15:47</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>KEPVYU HWZ</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="MYR">295.37</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000468760</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>BINLBL UZYW</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************2285</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 01039</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH837474</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-12</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>FETU SXO</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************7240</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>OCBCSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000474476</MsgId>
+      <CreDtTm>2026-07-01T03:33:15</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>ZAQBGT JGP</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="USD">178.31</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000005085</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>NYLHJA KSID</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************0541</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 30531</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH984918</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-03</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>VMUV VZJ</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************8137</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>OCBCSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000278889</MsgId>
+      <CreDtTm>2026-07-14T01:27:57</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>KRMNIO UQB</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="MYR">535.6</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000038230</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>TUTKIG ZKDM</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************7398</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 04408</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH692524</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-05</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>VROC TVC</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************1917</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>UOVBSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>PAIN00000752562</MsgId>
+      <CreDtTm>2026-07-14T05:45:37</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>EALYDQ EVJ</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <CdtTrfTxInf>
+        <Amt>
+          <InstdAmt Ccy="USD">568.29</InstdAmt>
+        </Amt>
+        <PmtId>
+          <EndToEndId>REF00000208800</EndToEndId>
+        </PmtId>
+        <Cdtr>
+          <Nm>VJIWTF OSLG</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>**************3148</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>INVOICE 59952</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+      <PmtInfId>BATCH840906</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>
+        <Dt>2026-07-06</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>TLLN JMN</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>**************6693</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>OCBCSGSG</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>

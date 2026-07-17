@@ -1,0 +1,851 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000204</MsgId>
+      <CreDtTm>2026-07-12T02:59:17</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000310990</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>PAYCELL TIOTUSEQUEST REF39441177</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000386</MsgId>
+      <CreDtTm>2026-07-13T18:28:01</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000092483</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>PANMENTASTONUR QUESY REF54749952</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000219</MsgId>
+      <CreDtTm>2026-07-03T07:23:09</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000415248</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>PAYMENT TIANUS QUEST REF00836900</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000017</MsgId>
+      <CreDtTm>2026-07-07T08:26:12</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000320558</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>PAYCENTATTATUR QUERT REF96057566</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000549</MsgId>
+      <CreDtTm>2026-07-03T11:47:03</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000584699</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>CANCELL SIOTUSEQUEST REF26221778</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000113</MsgId>
+      <CreDtTm>2026-07-11T13:45:28</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000085574</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>CAYCENLASIANUS QUERT REF71397628</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000111</MsgId>
+      <CreDtTm>2026-07-08T13:35:15</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000207665</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>PAYMELL TTATUSEQUERT REF23966299</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000090</MsgId>
+      <CreDtTm>2026-07-07T09:31:06</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000545578</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>CAYMELL STAN S QUERY REF77186374</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000067</MsgId>
+      <CreDtTm>2026-07-06T11:25:15</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000038537</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>CAYCELLATIAT S QUESY REF55510619</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000177</MsgId>
+      <CreDtTm>2026-07-12T07:22:41</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000437291</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>PANCELT STAN SEQUERT REF17133022</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000341</MsgId>
+      <CreDtTm>2026-07-14T10:08:10</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000276057</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>PANCENLASTONUREQUESY REF67904021</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000243</MsgId>
+      <CreDtTm>2026-07-10T09:19:18</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000007077</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>CANCELTATION REQUERY REF64500602</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000494</MsgId>
+      <CreDtTm>2026-07-02T05:34:29</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000277448</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>PANMENLATIOT SEQUERT REF02646173</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000320</MsgId>
+      <CreDtTm>2026-07-05T05:44:51</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000116958</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>PANCELT STONUS QUESY REF39424254</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000264</MsgId>
+      <CreDtTm>2026-07-11T11:01:21</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000264300</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>PANMENL TTANUR QUESY REF67519725</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000174</MsgId>
+      <CreDtTm>2026-07-07T18:45:39</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000485598</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>PAYCELTASIOTUREQUERY REF91237864</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000124</MsgId>
+      <CreDtTm>2026-07-05T06:51:16</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000229515</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>CANMELL TIAT REQUESY REF09248673</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000239</MsgId>
+      <CreDtTm>2026-07-03T07:19:29</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000255112</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>PAYMENT STAN R QUESY REF34131756</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000160</MsgId>
+      <CreDtTm>2026-07-10T22:34:06</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000455103</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>PANMELL STOT REQUERT REF86789742</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000453</MsgId>
+      <CreDtTm>2026-07-08T05:56:26</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000242491</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>PAYMELT TIONUR QUERY REF00079008</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000247</MsgId>
+      <CreDtTm>2026-07-05T17:29:08</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000376888</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>PAYMENLASIAT S QUESY REF60565648</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000578</MsgId>
+      <CreDtTm>2026-07-11T22:49:04</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000294837</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>PANCELL TIAT REQUEST REF91453425</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000440</MsgId>
+      <CreDtTm>2026-07-09T20:07:42</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000087570</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>PANCENTASTOTUS QUEST REF38122451</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000180</MsgId>
+      <CreDtTm>2026-07-02T16:19:12</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000534117</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>PAYCENL STOT SEQUESY REF97686315</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000179</MsgId>
+      <CreDtTm>2026-07-01T12:33:24</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000345102</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>CANCELT SIONUR QUERT REF83559627</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000150</MsgId>
+      <CreDtTm>2026-07-04T07:48:36</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000489449</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>PANMENT STANUSEQUERY REF33633835</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000596</MsgId>
+      <CreDtTm>2026-07-12T04:12:07</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000051782</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>PAYCENT TTAN R QUEST REF01536631</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000187</MsgId>
+      <CreDtTm>2026-07-08T07:46:07</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000597066</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>CAYCENT TIAT R QUERY REF11599005</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000496</MsgId>
+      <CreDtTm>2026-07-03T07:23:09</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000029300</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>CANCENTATTOTUS QUESY REF37997219</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000203</MsgId>
+      <CreDtTm>2026-07-04T11:06:39</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000155851</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>CANMELTASTATUREQUERT REF35578063</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000198</MsgId>
+      <CreDtTm>2026-07-10T15:45:21</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000145429</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>PANCELLATIOTUSEQUEST REF43517187</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000310</MsgId>
+      <CreDtTm>2026-07-09T03:17:40</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000577525</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>CANMENLASIOTUS QUERT REF07687315</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000552</MsgId>
+      <CreDtTm>2026-07-04T19:01:40</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000129938</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>CAYMENTATTAT R QUERT REF53080971</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000377</MsgId>
+      <CreDtTm>2026-07-14T20:26:22</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000567430</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>PANMELL STOTUS QUESY REF53733832</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000458</MsgId>
+      <CreDtTm>2026-07-01T12:33:24</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000196166</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>CAYCENTATTATUS QUEST REF43820188</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000286</MsgId>
+      <CreDtTm>2026-07-01T13:23:35</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000539095</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>CANMENT STOTUR QUESY REF32408611</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000125</MsgId>
+      <CreDtTm>2026-07-01T14:10:28</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000257835</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>PAYMENT TIAT R QUERY REF80947836</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000289</MsgId>
+      <CreDtTm>2026-07-14T20:59:50</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000137830</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>PAYMELL STON REQUERY REF34772582</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000047</MsgId>
+      <CreDtTm>2026-07-13T05:34:48</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000197801</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>CANCENT STANUSEQUEST REF75956765</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000562</MsgId>
+      <CreDtTm>2026-07-14T13:08:29</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000061733</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>PANCENLATTAN SEQUERT REF94442503</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000323</MsgId>
+      <CreDtTm>2026-07-01T02:01:49</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000059263</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>PANCELLASTANUS QUERY REF44347595</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000420</MsgId>
+      <CreDtTm>2026-07-02T04:28:35</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000026026</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>CANCELTASIAT SEQUESY REF02127318</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000357</MsgId>
+      <CreDtTm>2026-07-06T02:09:47</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000508159</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>PAYMENLASIOT S QUERY REF48408152</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000028</MsgId>
+      <CreDtTm>2026-07-13T10:21:38</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000468920</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>PANMELLASTAT R QUESY REF62289403</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000563</MsgId>
+      <CreDtTm>2026-07-11T02:01:31</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000215234</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>CANMELL STAN REQUEST REF17824167</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000376</MsgId>
+      <CreDtTm>2026-07-05T01:43:21</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000262259</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>CAYMELT SIOTUS QUERT REF91486977</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000302</MsgId>
+      <CreDtTm>2026-07-11T11:01:21</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000567814</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>PANMENTASIANUS QUERT REF30249635</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000126</MsgId>
+      <CreDtTm>2026-07-03T03:21:16</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000444135</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>PAYMENTATTON S QUERT REF69084837</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000504</MsgId>
+      <CreDtTm>2026-07-08T14:19:02</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000359853</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>PAYCELTATTON S QUERY REF63963839</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.998.001.03">
+  <PrtryMsg>
+    <MsgHdr>
+      <MsgId>FREE00000153</MsgId>
+      <CreDtTm>2026-07-11T01:36:56</CreDtTm>
+    </MsgHdr>
+    <Rltd>
+      <Ref>REF00000095230</Ref>
+    </Rltd>
+    <PrtryData>
+      <Tp>FREE_FORMAT</Tp>
+      <Data>
+        <Nrrtv>CAYCENL STONUS QUERT REF31270627</Nrrtv>
+      </Data>
+    </PrtryData>
+  </PrtryMsg>
+</Document>

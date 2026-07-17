@@ -1,0 +1,19 @@
+{
+  "CstmrCdtTrfInitn.GrpHdr.InitgPty.Nm": {
+    "policy": "synthesize"
+  },
+  "CstmrCdtTrfInitn.PmtInf.Dbtr.Nm": {
+    "policy": "synthesize"
+  },
+  "CstmrCdtTrfInitn.PmtInf.DbtrAcct.Id.IBAN": {
+    "policy": "mask",
+    "keep_last": 4
+  },
+  "CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Cdtr.Nm": {
+    "policy": "synthesize"
+  },
+  "CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.CdtrAcct.Id.IBAN": {
+    "policy": "mask",
+    "keep_last": 4
+  }
+}

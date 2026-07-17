@@ -1,0 +1,784 @@
+{
+  "name": "mx-camt052-messages",
+  "journeys": 400,
+  "events": 400,
+  "entity_key": "_msg_id",
+  "timestamp_field": "_ts",
+  "state_fields": [
+    "_msg_type"
+  ],
+  "distinct_paths": 1,
+  "top_paths": [
+    {
+      "share": 1.0,
+      "count": 400,
+      "path": [
+        "camt.052.001.08"
+      ]
+    }
+  ],
+  "fields": {
+    "BkToCstmrAcctRpt.GrpHdr.MsgId": {
+      "type": "identifier",
+      "distinct": 400,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "AAAA99999999"
+    },
+    "BkToCstmrAcctRpt.GrpHdr.CreDtTm": {
+      "type": "timestamp",
+      "distinct": 400,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "2026-07-08T01:47:57",
+          "share": 0.0025
+        },
+        {
+          "value": "2026-07-12T23:23:12",
+          "share": 0.0025
+        },
+        {
+          "value": "2026-07-04T16:16:52",
+          "share": 0.0025
+        },
+        {
+          "value": "2026-07-03T05:08:27",
+          "share": 0.0025
+        },
+        {
+          "value": "2026-07-06T22:10:27",
+          "share": 0.0025
+        }
+      ]
+    },
+    "BkToCstmrAcctRpt.Rpt.Id": {
+      "type": "identifier",
+      "distinct": 400,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "AAA99999999"
+    },
+    "BkToCstmrAcctRpt.Rpt.Acct.Id.Othr.Id": {
+      "type": "identifier",
+      "distinct": 400,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "AA99AAAA9999999999"
+    },
+    "BkToCstmrAcctRpt.Rpt.Bal#1.Tp.CdOrPrtry.Cd": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "ITBD",
+          "share": 1.0
+        }
+      ]
+    },
+    "BkToCstmrAcctRpt.Rpt.Bal#1.Amt": {
+      "type": "numeric",
+      "distinct": 400,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "stats": {
+        "min": 1470.33,
+        "p50": 21468.13,
+        "p95": 113164.73,
+        "max": 313545.94,
+        "mean": 35538.97
+      }
+    },
+    "BkToCstmrAcctRpt.Rpt.Bal#1.Amt@Ccy": {
+      "type": "categorical",
+      "distinct": 4,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "SGD",
+          "share": 0.495
+        },
+        {
+          "value": "USD",
+          "share": 0.31
+        },
+        {
+          "value": "MYR",
+          "share": 0.1025
+        },
+        {
+          "value": "EUR",
+          "share": 0.0925
+        }
+      ]
+    },
+    "BkToCstmrAcctRpt.Rpt.Bal#1.CdtDbtInd": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "CRDT",
+          "share": 1.0
+        }
+      ]
+    },
+    "BkToCstmrAcctRpt.Rpt.Bal#2.Tp.CdOrPrtry.Cd": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "ITBD",
+          "share": 1.0
+        }
+      ]
+    },
+    "BkToCstmrAcctRpt.Rpt.Bal#2.Amt": {
+      "type": "numeric",
+      "distinct": 400,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "stats": {
+        "min": 1277.5,
+        "p50": 20953.36,
+        "p95": 124677.24,
+        "max": 269845.25,
+        "mean": 35517.5
+      }
+    },
+    "BkToCstmrAcctRpt.Rpt.Bal#2.Amt@Ccy": {
+      "type": "categorical",
+      "distinct": 4,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "SGD",
+          "share": 0.495
+        },
+        {
+          "value": "USD",
+          "share": 0.31
+        },
+        {
+          "value": "MYR",
+          "share": 0.1025
+        },
+        {
+          "value": "EUR",
+          "share": 0.0925
+        }
+      ]
+    },
+    "BkToCstmrAcctRpt.Rpt.Bal#2.CdtDbtInd": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "CRDT",
+          "share": 1.0
+        }
+      ]
+    },
+    "_msg_type": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": true,
+      "top_values": [
+        {
+          "value": "camt.052.001.08",
+          "share": 1.0
+        }
+      ]
+    },
+    "_ns": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "urn:iso:std:iso:20022:tech:xsd:camt.052.001.08",
+          "share": 1.0
+        }
+      ]
+    },
+    "_format": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "mx",
+          "share": 1.0
+        }
+      ]
+    },
+    "BkToCstmrAcctRpt.Rpt.Ntry#1.Amt": {
+      "type": "numeric",
+      "distinct": 400,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "stats": {
+        "min": 14.74,
+        "p50": 391.61,
+        "p95": 2416.14,
+        "max": 14954.71,
+        "mean": 786.29
+      }
+    },
+    "BkToCstmrAcctRpt.Rpt.Ntry#1.Amt@Ccy": {
+      "type": "categorical",
+      "distinct": 4,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "SGD",
+          "share": 0.495
+        },
+        {
+          "value": "USD",
+          "share": 0.31
+        },
+        {
+          "value": "MYR",
+          "share": 0.1025
+        },
+        {
+          "value": "EUR",
+          "share": 0.0925
+        }
+      ]
+    },
+    "BkToCstmrAcctRpt.Rpt.Ntry#1.CdtDbtInd": {
+      "type": "categorical",
+      "distinct": 2,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "DBIT",
+          "share": 0.5325
+        },
+        {
+          "value": "CRDT",
+          "share": 0.4675
+        }
+      ]
+    },
+    "BkToCstmrAcctRpt.Rpt.Ntry#1.Sts.Cd": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "BOOK",
+          "share": 1.0
+        }
+      ]
+    },
+    "BkToCstmrAcctRpt.Rpt.Ntry#1.BookgDt.Dt": {
+      "type": "timestamp",
+      "distinct": 14,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "2026-07-10",
+          "share": 0.0875
+        },
+        {
+          "value": "2026-07-03",
+          "share": 0.0825
+        },
+        {
+          "value": "2026-07-06",
+          "share": 0.0825
+        },
+        {
+          "value": "2026-07-07",
+          "share": 0.08
+        },
+        {
+          "value": "2026-07-02",
+          "share": 0.08
+        }
+      ]
+    },
+    "BkToCstmrAcctRpt.Rpt.Ntry#1.AcctSvcrRef": {
+      "type": "identifier",
+      "distinct": 400,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "AAA999999999"
+    },
+    "BkToCstmrAcctRpt.Rpt.Ntry#1.AddtlNtryInf": {
+      "type": "categorical",
+      "distinct": 5,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "SUPPLIER",
+          "share": 0.2325
+        },
+        {
+          "value": "RENT",
+          "share": 0.2075
+        },
+        {
+          "value": "FEES",
+          "share": 0.2025
+        },
+        {
+          "value": "INVOICE",
+          "share": 0.19
+        },
+        {
+          "value": "SALARY",
+          "share": 0.1675
+        }
+      ]
+    },
+    "BkToCstmrAcctRpt.Rpt.Ntry#2.Amt": {
+      "type": "numeric",
+      "distinct": 400,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "stats": {
+        "min": 2.41,
+        "p50": 382.54,
+        "p95": 2838.51,
+        "max": 10534.83,
+        "mean": 778.08
+      }
+    },
+    "BkToCstmrAcctRpt.Rpt.Ntry#2.Amt@Ccy": {
+      "type": "categorical",
+      "distinct": 4,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "SGD",
+          "share": 0.495
+        },
+        {
+          "value": "USD",
+          "share": 0.31
+        },
+        {
+          "value": "MYR",
+          "share": 0.1025
+        },
+        {
+          "value": "EUR",
+          "share": 0.0925
+        }
+      ]
+    },
+    "BkToCstmrAcctRpt.Rpt.Ntry#2.CdtDbtInd": {
+      "type": "categorical",
+      "distinct": 2,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "DBIT",
+          "share": 0.5525
+        },
+        {
+          "value": "CRDT",
+          "share": 0.4475
+        }
+      ]
+    },
+    "BkToCstmrAcctRpt.Rpt.Ntry#2.Sts.Cd": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "BOOK",
+          "share": 1.0
+        }
+      ]
+    },
+    "BkToCstmrAcctRpt.Rpt.Ntry#2.BookgDt.Dt": {
+      "type": "timestamp",
+      "distinct": 14,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "2026-07-10",
+          "share": 0.0875
+        },
+        {
+          "value": "2026-07-03",
+          "share": 0.0825
+        },
+        {
+          "value": "2026-07-06",
+          "share": 0.0825
+        },
+        {
+          "value": "2026-07-07",
+          "share": 0.08
+        },
+        {
+          "value": "2026-07-02",
+          "share": 0.08
+        }
+      ]
+    },
+    "BkToCstmrAcctRpt.Rpt.Ntry#2.AcctSvcrRef": {
+      "type": "identifier",
+      "distinct": 400,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "AAA999999999"
+    },
+    "BkToCstmrAcctRpt.Rpt.Ntry#2.AddtlNtryInf": {
+      "type": "categorical",
+      "distinct": 5,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "SUPPLIER",
+          "share": 0.2225
+        },
+        {
+          "value": "INVOICE",
+          "share": 0.21
+        },
+        {
+          "value": "FEES",
+          "share": 0.1975
+        },
+        {
+          "value": "RENT",
+          "share": 0.1875
+        },
+        {
+          "value": "SALARY",
+          "share": 0.1825
+        }
+      ]
+    },
+    "BkToCstmrAcctRpt.Rpt.Ntry#3.Amt": {
+      "type": "numeric",
+      "distinct": 279,
+      "null_pct": 0.3025,
+      "journey_constant": true,
+      "is_state_field": false,
+      "stats": {
+        "min": 7.77,
+        "p50": 405.67,
+        "p95": 2512.39,
+        "max": 17690.33,
+        "mean": 789.17
+      }
+    },
+    "BkToCstmrAcctRpt.Rpt.Ntry#3.Amt@Ccy": {
+      "type": "categorical",
+      "distinct": 4,
+      "null_pct": 0.3025,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "SGD",
+          "share": 0.4982
+        },
+        {
+          "value": "USD",
+          "share": 0.2975
+        },
+        {
+          "value": "MYR",
+          "share": 0.1183
+        },
+        {
+          "value": "EUR",
+          "share": 0.086
+        }
+      ]
+    },
+    "BkToCstmrAcctRpt.Rpt.Ntry#3.CdtDbtInd": {
+      "type": "categorical",
+      "distinct": 2,
+      "null_pct": 0.3025,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "DBIT",
+          "share": 0.6308
+        },
+        {
+          "value": "CRDT",
+          "share": 0.3692
+        }
+      ]
+    },
+    "BkToCstmrAcctRpt.Rpt.Ntry#3.Sts.Cd": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.3025,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "BOOK",
+          "share": 1.0
+        }
+      ]
+    },
+    "BkToCstmrAcctRpt.Rpt.Ntry#3.BookgDt.Dt": {
+      "type": "timestamp",
+      "distinct": 14,
+      "null_pct": 0.3025,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "2026-07-07",
+          "share": 0.0968
+        },
+        {
+          "value": "2026-07-01",
+          "share": 0.0932
+        },
+        {
+          "value": "2026-07-10",
+          "share": 0.086
+        },
+        {
+          "value": "2026-07-02",
+          "share": 0.0824
+        },
+        {
+          "value": "2026-07-06",
+          "share": 0.0753
+        }
+      ]
+    },
+    "BkToCstmrAcctRpt.Rpt.Ntry#3.AcctSvcrRef": {
+      "type": "identifier",
+      "distinct": 279,
+      "null_pct": 0.3025,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "AAA999999999"
+    },
+    "BkToCstmrAcctRpt.Rpt.Ntry#3.AddtlNtryInf": {
+      "type": "categorical",
+      "distinct": 5,
+      "null_pct": 0.3025,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "INVOICE",
+          "share": 0.233
+        },
+        {
+          "value": "FEES",
+          "share": 0.1971
+        },
+        {
+          "value": "RENT",
+          "share": 0.1971
+        },
+        {
+          "value": "SUPPLIER",
+          "share": 0.1935
+        },
+        {
+          "value": "SALARY",
+          "share": 0.1792
+        }
+      ]
+    },
+    "BkToCstmrAcctRpt.Rpt.Ntry#4.Amt": {
+      "type": "numeric",
+      "distinct": 147,
+      "null_pct": 0.6325,
+      "journey_constant": true,
+      "is_state_field": false,
+      "stats": {
+        "min": 18.73,
+        "p50": 350.95,
+        "p95": 2699.61,
+        "max": 7222.44,
+        "mean": 804.29
+      }
+    },
+    "BkToCstmrAcctRpt.Rpt.Ntry#4.Amt@Ccy": {
+      "type": "categorical",
+      "distinct": 4,
+      "null_pct": 0.6325,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "SGD",
+          "share": 0.5306
+        },
+        {
+          "value": "USD",
+          "share": 0.3061
+        },
+        {
+          "value": "MYR",
+          "share": 0.0884
+        },
+        {
+          "value": "EUR",
+          "share": 0.0748
+        }
+      ]
+    },
+    "BkToCstmrAcctRpt.Rpt.Ntry#4.CdtDbtInd": {
+      "type": "categorical",
+      "distinct": 2,
+      "null_pct": 0.6325,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "DBIT",
+          "share": 0.5578
+        },
+        {
+          "value": "CRDT",
+          "share": 0.4422
+        }
+      ]
+    },
+    "BkToCstmrAcctRpt.Rpt.Ntry#4.Sts.Cd": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.6325,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "BOOK",
+          "share": 1.0
+        }
+      ]
+    },
+    "BkToCstmrAcctRpt.Rpt.Ntry#4.BookgDt.Dt": {
+      "type": "timestamp",
+      "distinct": 14,
+      "null_pct": 0.6325,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "2026-07-07",
+          "share": 0.1361
+        },
+        {
+          "value": "2026-07-01",
+          "share": 0.1293
+        },
+        {
+          "value": "2026-07-09",
+          "share": 0.0884
+        },
+        {
+          "value": "2026-07-10",
+          "share": 0.0816
+        },
+        {
+          "value": "2026-07-03",
+          "share": 0.0748
+        }
+      ]
+    },
+    "BkToCstmrAcctRpt.Rpt.Ntry#4.AcctSvcrRef": {
+      "type": "identifier",
+      "distinct": 147,
+      "null_pct": 0.6325,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "AAA999999999"
+    },
+    "BkToCstmrAcctRpt.Rpt.Ntry#4.AddtlNtryInf": {
+      "type": "categorical",
+      "distinct": 5,
+      "null_pct": 0.6325,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "FEES",
+          "share": 0.2245
+        },
+        {
+          "value": "SALARY",
+          "share": 0.2109
+        },
+        {
+          "value": "RENT",
+          "share": 0.1905
+        },
+        {
+          "value": "INVOICE",
+          "share": 0.1905
+        },
+        {
+          "value": "SUPPLIER",
+          "share": 0.1837
+        }
+      ]
+    }
+  }
+}

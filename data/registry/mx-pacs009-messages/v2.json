@@ -1,0 +1,244 @@
+{
+  "name": "mx-pacs009-messages",
+  "journeys": 800,
+  "events": 800,
+  "entity_key": "_msg_id",
+  "timestamp_field": "_ts",
+  "state_fields": [
+    "_msg_type",
+    "FICdtTrf.CdtTrfTxInf.IntrBkSttlmAmt@Ccy"
+  ],
+  "distinct_paths": 4,
+  "top_paths": [
+    {
+      "share": 0.4938,
+      "count": 395,
+      "path": [
+        "pacs.009.001.08|SGD"
+      ]
+    },
+    {
+      "share": 0.3075,
+      "count": 246,
+      "path": [
+        "pacs.009.001.08|USD"
+      ]
+    },
+    {
+      "share": 0.105,
+      "count": 84,
+      "path": [
+        "pacs.009.001.08|EUR"
+      ]
+    },
+    {
+      "share": 0.0938,
+      "count": 75,
+      "path": [
+        "pacs.009.001.08|MYR"
+      ]
+    }
+  ],
+  "fields": {
+    "FICdtTrf.GrpHdr.MsgId": {
+      "type": "identifier",
+      "distinct": 800,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "AAA99999999999"
+    },
+    "FICdtTrf.GrpHdr.CreDtTm": {
+      "type": "timestamp",
+      "distinct": 800,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "2026-07-08T01:47:57",
+          "share": 0.0013
+        },
+        {
+          "value": "2026-07-02T07:09:45",
+          "share": 0.0013
+        },
+        {
+          "value": "2026-07-12T23:23:12",
+          "share": 0.0013
+        },
+        {
+          "value": "2026-07-04T18:42:08",
+          "share": 0.0013
+        },
+        {
+          "value": "2026-07-06T12:55:56",
+          "share": 0.0013
+        }
+      ]
+    },
+    "FICdtTrf.GrpHdr.NbOfTxs": {
+      "type": "numeric",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "stats": {
+        "min": 1.0,
+        "p50": 1.0,
+        "p95": 1.0,
+        "max": 1.0,
+        "mean": 1.0
+      }
+    },
+    "FICdtTrf.GrpHdr.SttlmInf.SttlmMtd": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "INDA",
+          "share": 1.0
+        }
+      ]
+    },
+    "FICdtTrf.CdtTrfTxInf.PmtId.EndToEndId": {
+      "type": "identifier",
+      "distinct": 800,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "AAA99999999999"
+    },
+    "FICdtTrf.CdtTrfTxInf.PmtId.UETR": {
+      "type": "identifier",
+      "distinct": 800,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "a99aa999-a99a-9aa9-99a9-99999aaaa9a9"
+    },
+    "FICdtTrf.CdtTrfTxInf.IntrBkSttlmAmt": {
+      "type": "numeric",
+      "distinct": 800,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "stats": {
+        "min": 7358.0,
+        "p50": 89474.0,
+        "p95": 510298.0,
+        "max": 2495533.0,
+        "mean": 157169.9
+      }
+    },
+    "FICdtTrf.CdtTrfTxInf.IntrBkSttlmAmt@Ccy": {
+      "type": "categorical",
+      "distinct": 4,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": true,
+      "top_values": [
+        {
+          "value": "SGD",
+          "share": 0.4938
+        },
+        {
+          "value": "USD",
+          "share": 0.3075
+        },
+        {
+          "value": "EUR",
+          "share": 0.105
+        },
+        {
+          "value": "MYR",
+          "share": 0.0938
+        }
+      ]
+    },
+    "FICdtTrf.CdtTrfTxInf.Dbtr.FinInstnId.BICFI": {
+      "type": "categorical",
+      "distinct": 3,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "UOVBSGSG",
+          "share": 0.335
+        },
+        {
+          "value": "OCBCSGSG",
+          "share": 0.3337
+        },
+        {
+          "value": "DBSSSGSG",
+          "share": 0.3312
+        }
+      ]
+    },
+    "FICdtTrf.CdtTrfTxInf.Cdtr.FinInstnId.BICFI": {
+      "type": "categorical",
+      "distinct": 3,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "MAYBMYKL",
+          "share": 0.3638
+        },
+        {
+          "value": "HSBCGB2L",
+          "share": 0.32
+        },
+        {
+          "value": "CITIUS33",
+          "share": 0.3162
+        }
+      ]
+    },
+    "_msg_type": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": true,
+      "top_values": [
+        {
+          "value": "pacs.009.001.08",
+          "share": 1.0
+        }
+      ]
+    },
+    "_ns": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "urn:iso:std:iso:20022:tech:xsd:pacs.009.001.08",
+          "share": 1.0
+        }
+      ]
+    },
+    "_format": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "mx",
+          "share": 1.0
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,272 @@
+{
+  "name": "mt101-messages",
+  "journeys": 800,
+  "events": 800,
+  "entity_key": "_msg_id",
+  "timestamp_field": "_ts",
+  "state_fields": [
+    "_mt_type",
+    "71A"
+  ],
+  "distinct_paths": 3,
+  "top_paths": [
+    {
+      "share": 0.6362,
+      "count": 509,
+      "path": [
+        "101|OUR"
+      ]
+    },
+    {
+      "share": 0.2812,
+      "count": 225,
+      "path": [
+        "101|SHA"
+      ]
+    },
+    {
+      "share": 0.0825,
+      "count": 66,
+      "path": [
+        "101|BEN"
+      ]
+    }
+  ],
+  "fields": {
+    "21": {
+      "type": "identifier",
+      "distinct": 800,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "AAA99999999"
+    },
+    "28D": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "1/1",
+          "share": 1.0
+        }
+      ]
+    },
+    "50H_acct": {
+      "type": "identifier",
+      "distinct": 800,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "AA99AAAA9999999999"
+    },
+    "50H_name": {
+      "type": "categorical",
+      "distinct": 193,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "GRACE NG",
+          "share": 0.0125
+        },
+        {
+          "value": "KUMAR SHARMA",
+          "share": 0.0112
+        },
+        {
+          "value": "KUMAR ABDULLAH",
+          "share": 0.0112
+        },
+        {
+          "value": "ELAINE GOH",
+          "share": 0.0112
+        },
+        {
+          "value": "ARUN ONG",
+          "share": 0.01
+        }
+      ]
+    },
+    "30": {
+      "type": "numeric",
+      "distinct": 14,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "stats": {
+        "min": 260701.0,
+        "p50": 260707.0,
+        "p95": 260714.0,
+        "max": 260714.0,
+        "mean": 260707.55
+      }
+    },
+    "32B": {
+      "type": "identifier",
+      "distinct": 800,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "AAA999,99"
+    },
+    "57A": {
+      "type": "categorical",
+      "distinct": 3,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "MAYBMYKL",
+          "share": 0.3675
+        },
+        {
+          "value": "CITIUS33",
+          "share": 0.3425
+        },
+        {
+          "value": "HSBCGB2L",
+          "share": 0.29
+        }
+      ]
+    },
+    "59_acct": {
+      "type": "identifier",
+      "distinct": 800,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "AA99AAAA9999999999"
+    },
+    "59_name": {
+      "type": "categorical",
+      "distinct": 194,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "MARCUS GOH",
+          "share": 0.0125
+        },
+        {
+          "value": "MARCUS WONG",
+          "share": 0.0125
+        },
+        {
+          "value": "SITI LIM",
+          "share": 0.0112
+        },
+        {
+          "value": "GRACE SHARMA",
+          "share": 0.0112
+        },
+        {
+          "value": "RAJESH ABDULLAH",
+          "share": 0.0112
+        }
+      ]
+    },
+    "70": {
+      "type": "identifier",
+      "distinct": 799,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "AAAAAAA 99999"
+    },
+    "71A": {
+      "type": "categorical",
+      "distinct": 3,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": true,
+      "top_values": [
+        {
+          "value": "OUR",
+          "share": 0.6362
+        },
+        {
+          "value": "SHA",
+          "share": 0.2812
+        },
+        {
+          "value": "BEN",
+          "share": 0.0825
+        }
+      ]
+    },
+    "_sender_bic": {
+      "type": "categorical",
+      "distinct": 3,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "OCBCSGSG",
+          "share": 0.3538
+        },
+        {
+          "value": "DBSSSGSG",
+          "share": 0.3525
+        },
+        {
+          "value": "UOVBSGSG",
+          "share": 0.2938
+        }
+      ]
+    },
+    "_receiver_bic": {
+      "type": "categorical",
+      "distinct": 3,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "MAYBMYKL",
+          "share": 0.3675
+        },
+        {
+          "value": "CITIUS33",
+          "share": 0.3425
+        },
+        {
+          "value": "HSBCGB2L",
+          "share": 0.29
+        }
+      ]
+    },
+    "_mt_type": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": true,
+      "top_values": [
+        {
+          "value": "101",
+          "share": 1.0
+        }
+      ]
+    },
+    "_format": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "mt",
+          "share": 1.0
+        }
+      ]
+    }
+  }
+}

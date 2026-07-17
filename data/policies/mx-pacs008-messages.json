@@ -1,0 +1,19 @@
+{
+  "FIToFICstmrCdtTrf.CdtTrfTxInf.PmtId.UETR": {
+    "policy": "synthesize"
+  },
+  "FIToFICstmrCdtTrf.CdtTrfTxInf.Dbtr.Nm": {
+    "policy": "synthesize"
+  },
+  "FIToFICstmrCdtTrf.CdtTrfTxInf.DbtrAcct.Id.Othr.Id": {
+    "policy": "mask",
+    "keep_last": 4
+  },
+  "FIToFICstmrCdtTrf.CdtTrfTxInf.Cdtr.Nm": {
+    "policy": "synthesize"
+  },
+  "FIToFICstmrCdtTrf.CdtTrfTxInf.CdtrAcct.Id.Othr.Id": {
+    "policy": "mask",
+    "keep_last": 4
+  }
+}

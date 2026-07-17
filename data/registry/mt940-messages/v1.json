@@ -1,0 +1,303 @@
+{
+  "name": "mt940-messages",
+  "journeys": 400,
+  "events": 400,
+  "entity_key": "_msg_id",
+  "timestamp_field": "_ts",
+  "state_fields": [
+    "_mt_type"
+  ],
+  "distinct_paths": 1,
+  "top_paths": [
+    {
+      "share": 1.0,
+      "count": 400,
+      "path": [
+        "940"
+      ]
+    }
+  ],
+  "fields": {
+    "21": {
+      "type": "identifier",
+      "distinct": 400,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "AAA99999999"
+    },
+    "_sender_bic": {
+      "type": "categorical",
+      "distinct": 3,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "OCBCSGSG",
+          "share": 0.37
+        },
+        {
+          "value": "UOVBSGSG",
+          "share": 0.34
+        },
+        {
+          "value": "DBSSSGSG",
+          "share": 0.29
+        }
+      ]
+    },
+    "_receiver_bic": {
+      "type": "categorical",
+      "distinct": 3,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "CITIUS33",
+          "share": 0.3575
+        },
+        {
+          "value": "HSBCGB2L",
+          "share": 0.335
+        },
+        {
+          "value": "MAYBMYKL",
+          "share": 0.3075
+        }
+      ]
+    },
+    "25": {
+      "type": "identifier",
+      "distinct": 400,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "AA99AAAA9999999999"
+    },
+    "28C": {
+      "type": "text",
+      "distinct": 250,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "55/1",
+          "share": 0.01
+        },
+        {
+          "value": "264/1",
+          "share": 0.01
+        },
+        {
+          "value": "47/1",
+          "share": 0.01
+        },
+        {
+          "value": "141/1",
+          "share": 0.01
+        },
+        {
+          "value": "27/1",
+          "share": 0.01
+        }
+      ]
+    },
+    "_mt_type": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": true,
+      "top_values": [
+        {
+          "value": "940",
+          "share": 1.0
+        }
+      ]
+    },
+    "_format": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "mt",
+          "share": 1.0
+        }
+      ]
+    },
+    "60F_dc": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "C",
+          "share": 1.0
+        }
+      ]
+    },
+    "60F_ccy": {
+      "type": "categorical",
+      "distinct": 4,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "SGD",
+          "share": 0.4975
+        },
+        {
+          "value": "USD",
+          "share": 0.29
+        },
+        {
+          "value": "MYR",
+          "share": 0.11
+        },
+        {
+          "value": "EUR",
+          "share": 0.1025
+        }
+      ]
+    },
+    "60F_amount": {
+      "type": "numeric",
+      "distinct": 400,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "stats": {
+        "min": 985.75,
+        "p50": 22152.72,
+        "p95": 122687.79,
+        "max": 379146.72,
+        "mean": 38208.36
+      }
+    },
+    "61": {
+      "type": "identifier",
+      "distinct": 399,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "9999999999A999,99AAAAAAAAAA"
+    },
+    "86": {
+      "type": "identifier",
+      "distinct": 400,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "/AAA/A9A99999999/ AAAA"
+    },
+    "61#2": {
+      "type": "identifier",
+      "distinct": 298,
+      "null_pct": 0.255,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "9999999999A999,99AAAAAAAAAA"
+    },
+    "86#2": {
+      "type": "identifier",
+      "distinct": 298,
+      "null_pct": 0.255,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "/AAA/A9A99999999/ AAAA"
+    },
+    "61#3": {
+      "type": "identifier",
+      "distinct": 197,
+      "null_pct": 0.5075,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "9999999999A999,99AAAAAAAAAA"
+    },
+    "86#3": {
+      "type": "identifier",
+      "distinct": 197,
+      "null_pct": 0.5075,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "/AAA/A9A99999999/ AAAA"
+    },
+    "61#4": {
+      "type": "identifier",
+      "distinct": 102,
+      "null_pct": 0.745,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "9999999999A999,99AAAAAAAAAA"
+    },
+    "86#4": {
+      "type": "identifier",
+      "distinct": 102,
+      "null_pct": 0.745,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "/AAA/A9A99999999/ AAAA"
+    },
+    "62F_dc": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "C",
+          "share": 1.0
+        }
+      ]
+    },
+    "62F_ccy": {
+      "type": "categorical",
+      "distinct": 4,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "SGD",
+          "share": 0.4975
+        },
+        {
+          "value": "USD",
+          "share": 0.29
+        },
+        {
+          "value": "MYR",
+          "share": 0.11
+        },
+        {
+          "value": "EUR",
+          "share": 0.1025
+        }
+      ]
+    },
+    "62F_amount": {
+      "type": "numeric",
+      "distinct": 398,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "stats": {
+        "min": 0.0,
+        "p50": 21310.38,
+        "p95": 120308.61,
+        "max": 374519.78,
+        "mean": 37887.09
+      }
+    }
+  }
+}

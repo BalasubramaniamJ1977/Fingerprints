@@ -1,0 +1,19 @@
+{
+  "FICdtTrf.CdtTrfTxInf.PmtId.UETR": {
+    "policy": "synthesize"
+  },
+  "FICdtTrf.CdtTrfTxInf.UndrlygCstmrCdtTrf.Dbtr.Nm": {
+    "policy": "synthesize"
+  },
+  "FICdtTrf.CdtTrfTxInf.UndrlygCstmrCdtTrf.DbtrAcct.Id.Othr.Id": {
+    "policy": "mask",
+    "keep_last": 4
+  },
+  "FICdtTrf.CdtTrfTxInf.UndrlygCstmrCdtTrf.Cdtr.Nm": {
+    "policy": "synthesize"
+  },
+  "FICdtTrf.CdtTrfTxInf.UndrlygCstmrCdtTrf.CdtrAcct.Id.Othr.Id": {
+    "policy": "mask",
+    "keep_last": 4
+  }
+}

@@ -1,0 +1,240 @@
+{
+  "name": "mt942-messages",
+  "journeys": 400,
+  "events": 400,
+  "entity_key": "_msg_id",
+  "timestamp_field": "_ts",
+  "state_fields": [
+    "_mt_type"
+  ],
+  "distinct_paths": 1,
+  "top_paths": [
+    {
+      "share": 1.0,
+      "count": 400,
+      "path": [
+        "942"
+      ]
+    }
+  ],
+  "fields": {
+    "21": {
+      "type": "identifier",
+      "distinct": 400,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "AAA99999999"
+    },
+    "_sender_bic": {
+      "type": "categorical",
+      "distinct": 3,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "UOVBSGSG",
+          "share": 0.3625
+        },
+        {
+          "value": "DBSSSGSG",
+          "share": 0.3225
+        },
+        {
+          "value": "OCBCSGSG",
+          "share": 0.315
+        }
+      ]
+    },
+    "_receiver_bic": {
+      "type": "categorical",
+      "distinct": 3,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "HSBCGB2L",
+          "share": 0.3425
+        },
+        {
+          "value": "MAYBMYKL",
+          "share": 0.3375
+        },
+        {
+          "value": "CITIUS33",
+          "share": 0.32
+        }
+      ]
+    },
+    "25": {
+      "type": "identifier",
+      "distinct": 400,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "AA99AAAA9999999999"
+    },
+    "28C": {
+      "type": "text",
+      "distinct": 249,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "274/1",
+          "share": 0.01
+        },
+        {
+          "value": "104/1",
+          "share": 0.01
+        },
+        {
+          "value": "359/1",
+          "share": 0.01
+        },
+        {
+          "value": "234/1",
+          "share": 0.01
+        },
+        {
+          "value": "94/1",
+          "share": 0.01
+        }
+      ]
+    },
+    "_mt_type": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": true,
+      "top_values": [
+        {
+          "value": "942",
+          "share": 1.0
+        }
+      ]
+    },
+    "_format": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "mt",
+          "share": 1.0
+        }
+      ]
+    },
+    "13D": {
+      "type": "identifier",
+      "distinct": 395,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "9999999999+9999"
+    },
+    "34F": {
+      "type": "categorical",
+      "distinct": 4,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "SGD0,",
+          "share": 0.4875
+        },
+        {
+          "value": "USD0,",
+          "share": 0.3375
+        },
+        {
+          "value": "MYR0,",
+          "share": 0.09
+        },
+        {
+          "value": "EUR0,",
+          "share": 0.085
+        }
+      ]
+    },
+    "61": {
+      "type": "identifier",
+      "distinct": 400,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "9999999999A999,99AAAAAAAAAA"
+    },
+    "86": {
+      "type": "identifier",
+      "distinct": 400,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "/AAA/A9A99999999/ AAAA"
+    },
+    "61#2": {
+      "type": "identifier",
+      "distinct": 318,
+      "null_pct": 0.205,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "9999999999A999,99AAAAAAAAAA"
+    },
+    "86#2": {
+      "type": "identifier",
+      "distinct": 318,
+      "null_pct": 0.205,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "/AAA/A9A99999999/ AAAA"
+    },
+    "61#3": {
+      "type": "identifier",
+      "distinct": 224,
+      "null_pct": 0.44,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "9999999999A999,99AAAAAAAAAA"
+    },
+    "86#3": {
+      "type": "identifier",
+      "distinct": 224,
+      "null_pct": 0.44,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "/AAA/A9A99999999/ AAAA"
+    },
+    "61#4": {
+      "type": "identifier",
+      "distinct": 117,
+      "null_pct": 0.7075,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "9999999999A999,99AAAAAAAAAA"
+    },
+    "86#4": {
+      "type": "identifier",
+      "distinct": 117,
+      "null_pct": 0.7075,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "/AAA/A9A99999999/ AAAA"
+    },
+    "90D": {
+      "type": "identifier",
+      "distinct": 400,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "9AAA9999,99"
+    }
+  }
+}

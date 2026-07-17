@@ -1,0 +1,228 @@
+{
+  "name": "mx-camt054-messages",
+  "journeys": 800,
+  "events": 800,
+  "entity_key": "_msg_id",
+  "timestamp_field": "_ts",
+  "state_fields": [
+    "_msg_type",
+    "BkToCstmrDbtCdtNtfctn.Ntfctn.Ntry.CdtDbtInd"
+  ],
+  "distinct_paths": 2,
+  "top_paths": [
+    {
+      "share": 0.5012,
+      "count": 401,
+      "path": [
+        "camt.054.001.08|DBIT"
+      ]
+    },
+    {
+      "share": 0.4988,
+      "count": 399,
+      "path": [
+        "camt.054.001.08|CRDT"
+      ]
+    }
+  ],
+  "fields": {
+    "BkToCstmrDbtCdtNtfctn.GrpHdr.MsgId": {
+      "type": "identifier",
+      "distinct": 800,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "AAAA99999999"
+    },
+    "BkToCstmrDbtCdtNtfctn.GrpHdr.CreDtTm": {
+      "type": "timestamp",
+      "distinct": 800,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "2026-07-08T01:47:57",
+          "share": 0.0013
+        },
+        {
+          "value": "2026-07-02T07:09:45",
+          "share": 0.0013
+        },
+        {
+          "value": "2026-07-12T23:23:12",
+          "share": 0.0013
+        },
+        {
+          "value": "2026-07-03T06:54:11",
+          "share": 0.0013
+        },
+        {
+          "value": "2026-07-06T12:55:56",
+          "share": 0.0013
+        }
+      ]
+    },
+    "BkToCstmrDbtCdtNtfctn.Ntfctn.Id": {
+      "type": "identifier",
+      "distinct": 800,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "AAA99999999"
+    },
+    "BkToCstmrDbtCdtNtfctn.Ntfctn.Acct.Id.Othr.Id": {
+      "type": "identifier",
+      "distinct": 800,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "AA99AAAA9999999999"
+    },
+    "BkToCstmrDbtCdtNtfctn.Ntfctn.Ntry.Amt": {
+      "type": "numeric",
+      "distinct": 799,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "stats": {
+        "min": 39.38,
+        "p50": 867.88,
+        "p95": 4437.36,
+        "max": 15190.19,
+        "mean": 1388.89
+      }
+    },
+    "BkToCstmrDbtCdtNtfctn.Ntfctn.Ntry.Amt@Ccy": {
+      "type": "categorical",
+      "distinct": 4,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "SGD",
+          "share": 0.4963
+        },
+        {
+          "value": "USD",
+          "share": 0.3312
+        },
+        {
+          "value": "EUR",
+          "share": 0.095
+        },
+        {
+          "value": "MYR",
+          "share": 0.0775
+        }
+      ]
+    },
+    "BkToCstmrDbtCdtNtfctn.Ntfctn.Ntry.CdtDbtInd": {
+      "type": "categorical",
+      "distinct": 2,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": true,
+      "top_values": [
+        {
+          "value": "DBIT",
+          "share": 0.5012
+        },
+        {
+          "value": "CRDT",
+          "share": 0.4988
+        }
+      ]
+    },
+    "BkToCstmrDbtCdtNtfctn.Ntfctn.Ntry.Sts.Cd": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "BOOK",
+          "share": 1.0
+        }
+      ]
+    },
+    "BkToCstmrDbtCdtNtfctn.Ntfctn.Ntry.BookgDt.Dt": {
+      "type": "timestamp",
+      "distinct": 14,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "2026-07-14",
+          "share": 0.0988
+        },
+        {
+          "value": "2026-07-02",
+          "share": 0.0825
+        },
+        {
+          "value": "2026-07-11",
+          "share": 0.0813
+        },
+        {
+          "value": "2026-07-04",
+          "share": 0.0788
+        },
+        {
+          "value": "2026-07-13",
+          "share": 0.0762
+        }
+      ]
+    },
+    "BkToCstmrDbtCdtNtfctn.Ntfctn.Ntry.NtryDtls.TxDtls.Refs.EndToEndId": {
+      "type": "identifier",
+      "distinct": 800,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "format_pattern": "AAA99999999999"
+    },
+    "_msg_type": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": true,
+      "top_values": [
+        {
+          "value": "camt.054.001.08",
+          "share": 1.0
+        }
+      ]
+    },
+    "_ns": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "urn:iso:std:iso:20022:tech:xsd:camt.054.001.08",
+          "share": 1.0
+        }
+      ]
+    },
+    "_format": {
+      "type": "categorical",
+      "distinct": 1,
+      "null_pct": 0.0,
+      "journey_constant": true,
+      "is_state_field": false,
+      "top_values": [
+        {
+          "value": "mx",
+          "share": 1.0
+        }
+      ]
+    }
+  }
+}

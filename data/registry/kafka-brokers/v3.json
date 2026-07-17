@@ -1,0 +1,157 @@
+{
+  "name": "kafka-brokers",
+  "journeys": 400,
+  "events": 1644,
+  "entity_key": "obs_id",
+  "timestamp_field": "ts",
+  "state_fields": [
+    "broker",
+    "partition_state"
+  ],
+  "distinct_paths": 24,
+  "top_paths": [
+    {
+      "share": 0.0675,
+      "count": 27,
+      "path": [
+        "broker-5|BALANCED",
+        "broker-5|BALANCED",
+        "broker-5|BALANCED",
+        "broker-5|BALANCED",
+        "broker-5|BALANCED"
+      ]
+    },
+    {
+      "share": 0.0625,
+      "count": 25,
+      "path": [
+        "broker-4|BALANCED",
+        "broker-4|BALANCED",
+        "broker-4|BALANCED",
+        "broker-4|BALANCED"
+      ]
+    },
+    {
+      "share": 0.0575,
+      "count": 23,
+      "path": [
+        "broker-1|BALANCED",
+        "broker-1|BALANCED",
+        "broker-1|BALANCED",
+        "broker-1|BALANCED"
+      ]
+    },
+    {
+      "share": 0.055,
+      "count": 22,
+      "path": [
+        "broker-4|BALANCED",
+        "broker-4|BALANCED",
+        "broker-4|BALANCED"
+      ]
+    },
+    {
+      "share": 0.055,
+      "count": 22,
+      "path": [
+        "broker-5|BALANCED",
+        "broker-5|BALANCED",
+        "broker-5|BALANCED",
+        "broker-5|BALANCED"
+      ]
+    },
+    {
+      "share": 0.055,
+      "count": 22,
+      "path": [
+        "broker-6|BALANCED",
+        "broker-6|BALANCED",
+        "broker-6|BALANCED"
+      ]
+    }
+  ],
+  "fields": {
+    "broker": {
+      "type": "categorical",
+      "distinct": 6,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": true,
+      "top_values": [
+        {
+          "value": "broker-5",
+          "share": 0.1843
+        },
+        {
+          "value": "broker-6",
+          "share": 0.1831
+        },
+        {
+          "value": "broker-2",
+          "share": 0.1721
+        },
+        {
+          "value": "broker-4",
+          "share": 0.1618
+        },
+        {
+          "value": "broker-1",
+          "share": 0.1502
+        }
+      ]
+    },
+    "partition_state": {
+      "type": "categorical",
+      "distinct": 4,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": true,
+      "top_values": [
+        {
+          "value": "BALANCED",
+          "share": 0.9106
+        },
+        {
+          "value": "SKEWING",
+          "share": 0.0298
+        },
+        {
+          "value": "IMBALANCED",
+          "share": 0.0298
+        },
+        {
+          "value": "REBALANCING",
+          "share": 0.0298
+        }
+      ]
+    },
+    "max_lag": {
+      "type": "numeric",
+      "distinct": 631,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": false,
+      "stats": {
+        "min": 0.0,
+        "p50": 277.0,
+        "p95": 36232.0,
+        "max": 398038.0,
+        "mean": 8803.4
+      }
+    },
+    "cpu_pct": {
+      "type": "numeric",
+      "distinct": 182,
+      "null_pct": 0.0,
+      "journey_constant": false,
+      "is_state_field": false,
+      "stats": {
+        "min": 15.0,
+        "p50": 20.5,
+        "p95": 26.1,
+        "max": 89.0,
+        "mean": 21.59
+      }
+    }
+  }
+}
