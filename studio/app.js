@@ -534,6 +534,220 @@ $("btnMsgGenerate").addEventListener("click", async () => {
   btn.disabled = false;
 });
 
+/* -------------------------------------------------------------- e2e test */
+
+const E2E = {
+  meta: null, chain: [], customSystems: [], insertedIds: new Set(),
+  uploads: {}, lastResult: null, selectedSystem: null, selectedLeg: "forward",
+};
+
+function e2eSysName(id) {
+  const known = (E2E.meta?.systems || []).find((s) => s.id === id);
+  if (known) return known.name;
+  const custom = E2E.customSystems.find((s) => s.id === id);
+  return custom ? custom.name : id;
+}
+
+async function loadE2E() {
+  E2E.meta = await api("/e2e/scenarios");
+  $("e2eScenario").innerHTML = E2E.meta.scenarios
+    .map((s) => `<option value="${esc(s.key)}">${esc(s.label)}</option>`).join("");
+  onE2eScenarioChange();
+}
+
+function onE2eScenarioChange() {
+  const cfg = E2E.meta.scenarios.find((s) => s.key === $("e2eScenario").value);
+  E2E.chain = cfg.chain.slice();
+  E2E.customSystems = [];
+  E2E.insertedIds = new Set();
+  E2E.uploads = {};
+  renderE2eChainEditor();
+  renderE2eFileSlots();
+  $("e2eFlow").innerHTML = '<div class="hint">Run a test to see the message travel through each system.</div>';
+  $("e2eDetailCard").style.display = "none";
+}
+$("e2eScenario").addEventListener("change", onE2eScenarioChange);
+
+document.querySelectorAll("input[name=e2esrc]").forEach((r) =>
+  r.addEventListener("change", () => {
+    ["synthetic", "file", "database"].forEach((t) =>
+      $("e2e-src-" + t).classList.toggle("hidden", t !== r.value));
+  }));
+
+function renderE2eChainEditor() {
+  const parts = ['<div class="e2e-chain">'];
+  parts.push(`<button class="e2e-insert" data-at="0" title="insert at start">+</button>`);
+  E2E.chain.forEach((id, i) => {
+    const custom = E2E.insertedIds.has(id);
+    parts.push(`<span class="e2e-chip${custom ? " custom" : ""}">${esc(e2eSysName(id))}` +
+      (custom ? ` <button data-remove="${esc(id)}" title="remove">&times;</button>` : "") +
+      `</span>`);
+    parts.push(`<button class="e2e-insert" data-at="${i + 1}" title="insert here">+</button>`);
+  });
+  parts.push("</div>");
+  $("e2eChainEditor").innerHTML = parts.join("");
+  $("e2eChainEditor").querySelectorAll("[data-at]").forEach((b) =>
+    b.addEventListener("click", () => insertE2eSystem(Number(b.dataset.at))));
+  $("e2eChainEditor").querySelectorAll("[data-remove]").forEach((b) =>
+    b.addEventListener("click", () => removeE2eSystem(b.dataset.remove)));
+}
+
+function insertE2eSystem(at) {
+  const name = prompt("Name of the intermediary system to insert (e.g. Fraud Check, Sanctions Screening):");
+  if (!name) return;
+  let id = name.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+  if (!id) return;
+  while (E2E.chain.includes(id)) id += "-2";
+  E2E.chain.splice(at, 0, id);
+  E2E.customSystems.push({ id, name: name.trim(), role: "intermediary" });
+  E2E.insertedIds.add(id);
+  renderE2eChainEditor();
+  renderE2eFileSlots();
+}
+
+function removeE2eSystem(id) {
+  E2E.chain = E2E.chain.filter((x) => x !== id);
+  E2E.customSystems = E2E.customSystems.filter((s) => s.id !== id);
+  E2E.insertedIds.delete(id);
+  delete E2E.uploads[id];
+  renderE2eChainEditor();
+  renderE2eFileSlots();
+}
+
+$("btnE2eAddSystem").addEventListener("click", () => insertE2eSystem(E2E.chain.length));
+
+function renderE2eFileSlots() {
+  $("e2eFileSlots").innerHTML = E2E.chain.map((id) => `
+    <label style="margin-top:10px">${esc(e2eSysName(id))}</label>
+    <input type="file" data-e2efile="${esc(id)}" accept=".xml,.txt">
+    <div class="hint" data-e2estatus="${esc(id)}">${E2E.uploads[id] ? "uploaded: " + esc(E2E.uploads[id]) : "optional — derived from the previous hop if left blank"}</div>
+  `).join("");
+  $("e2eFileSlots").querySelectorAll("[data-e2efile]").forEach((inp) =>
+    inp.addEventListener("change", async () => {
+      const id = inp.dataset.e2efile;
+      const f = inp.files[0];
+      if (!f) return;
+      const statusEl = $("e2eFileSlots").querySelector(`[data-e2estatus="${id}"]`);
+      statusEl.textContent = "uploading...";
+      const fd = new FormData();
+      fd.append("file", f);
+      fd.append("system_id", id);
+      try {
+        const res = await fetch("/api/v1/e2e/upload", { method: "POST", body: fd });
+        const j = await res.json();
+        if (!res.ok) throw new Error(j.detail || res.statusText);
+        E2E.uploads[id] = j.name;
+        statusEl.textContent = `uploaded: ${j.name} (${j.msg_type})`;
+      } catch (e) { statusEl.textContent = "error: " + e.message; }
+    }));
+}
+
+$("btnE2eRun").addEventListener("click", async () => {
+  const btn = $("btnE2eRun"); btn.disabled = true;
+  $("e2eStatus").textContent = "running...";
+  try {
+    const source = document.querySelector("input[name=e2esrc]:checked").value;
+    const body = {
+      scenario: $("e2eScenario").value, source,
+      seed: $("e2eSeed").value ? Number($("e2eSeed").value) : null,
+      account: $("e2eAccount").value.trim() || null,
+      amount: $("e2eAmount").value ? Number($("e2eAmount").value) : null,
+      ccy: $("e2eCcy").value.trim() || null,
+      verdict: $("e2eVerdict").value,
+      chain: E2E.chain, systems: E2E.customSystems,
+    };
+    if (source === "file") body.files = { ...E2E.uploads };
+    if (source === "database") body.database = { dsn: $("e2eDsn").value, table: $("e2eTable").value };
+    const r = await api("/e2e/run", { method: "POST", body });
+    E2E.lastResult = r;
+    E2E.selectedSystem = r.systems[0].id;
+    E2E.selectedLeg = "forward";
+    renderE2eFlow();
+    renderE2eDetail();
+    $("e2eStatus").textContent = `done — ${r.hops.length} hops across ${r.systems.length} systems`;
+  } catch (e) { $("e2eStatus").textContent = ""; alert(e.message); }
+  btn.disabled = false;
+});
+
+function e2eHopsBySystem(r) {
+  const by = {};
+  r.systems.forEach((s) => (by[s.id] = { forward: null, response: null }));
+  r.hops.forEach((h) => (by[h.system][h.direction] = h));
+  return by;
+}
+
+function renderE2eFlow() {
+  const r = E2E.lastResult;
+  const by = e2eHopsBySystem(r);
+  const row = (dir, label) => `
+    <div class="e2e-flowrow"><span class="e2e-flowlabel">${label}</span>
+    ${r.systems.map((s, i) => {
+      const hop = by[s.id][dir];
+      const active = s.id === E2E.selectedSystem ? " active" : "";
+      const arrow = i < r.systems.length - 1 ? '<span class="e2e-arrow">&rarr;</span>' : "";
+      return `<button class="e2e-node${active}" data-sys="${esc(s.id)}">${esc(s.name)}
+        <span class="sub">${hop ? esc(hop.message._msg_type) : ""}</span></button>${arrow}`;
+    }).join("")}</div>`;
+  $("e2eFlow").innerHTML =
+    `<div class="hint" style="margin-bottom:10px">${esc(r.label)} &middot; seed ${r.seed ?? "-"} &middot; click a system to see how it transformed the message</div>` +
+    row("forward", "Forward") + row("response", "Response");
+  $("e2eFlow").querySelectorAll("[data-sys]").forEach((b) =>
+    b.addEventListener("click", () => {
+      E2E.selectedSystem = b.dataset.sys;
+      renderE2eFlow();
+      renderE2eDetail();
+    }));
+}
+
+function e2eKindBadge(kind) {
+  return `<span class="kind ${kind}">${kind}</span>`;
+}
+
+function e2eLineageTable(lineage) {
+  if (!lineage) return '<div class="hint">Message originates here — nothing upstream to compare against.</div>';
+  const changed = lineage.filter((e) => e.kind !== "passthrough");
+  const unchanged = lineage.filter((e) => e.kind === "passthrough");
+  const rows = (list) => list.map((e) => `
+    <tr><td class="mono">${esc(e.from_field ? e.from_field.split(".").pop() : "—")}</td>
+    <td class="mono">${esc(e.from_value ?? "—")}</td>
+    <td class="mono">${esc(e.to_field ? e.to_field.split(".").pop() : "—")}</td>
+    <td class="mono">${esc(e.to_value ?? "—")}</td>
+    <td>${e2eKindBadge(e.kind)}</td></tr>`).join("");
+  let html = `<table class="lineage"><tr><th>From field</th><th>Before</th><th>To field</th><th>After</th><th>Change</th></tr>
+    ${rows(changed)}</table>`;
+  if (unchanged.length) {
+    html += `<details style="margin-top:8px"><summary class="hint" style="cursor:pointer">${unchanged.length} unchanged field(s) carried through</summary>
+      <table class="lineage">${rows(unchanged)}</table></details>`;
+  }
+  return html;
+}
+
+function renderE2eDetail() {
+  const r = E2E.lastResult;
+  const by = e2eHopsBySystem(r);
+  const sysId = E2E.selectedSystem;
+  const hops = by[sysId];
+  $("e2eDetailCard").style.display = "";
+  $("e2eDetailTitle").textContent = `${e2eSysName(sysId)} — message transformation`;
+  $("e2eLegTabs").innerHTML = ["forward", "response"].map((leg) => {
+    const hop = hops[leg];
+    const label = leg === "forward" ? "Forward leg" : "Response leg";
+    const active = leg === E2E.selectedLeg ? " active" : "";
+    return `<button class="e2e-legtab${active}" data-leg="${leg}" ${hop ? "" : "disabled"}>${label}</button>`;
+  }).join("");
+  $("e2eLegTabs").querySelectorAll("[data-leg]").forEach((b) =>
+    b.addEventListener("click", () => { E2E.selectedLeg = b.dataset.leg; renderE2eDetail(); }));
+
+  const hop = hops[E2E.selectedLeg] || hops.forward || hops.response;
+  if (!hop) { $("e2eDetailBody").innerHTML = '<div class="hint">No message at this system.</div>'; return; }
+  $("e2eDetailBody").innerHTML = `
+    <div class="hint">seq ${hop.seq} &middot; ${esc(hop.direction)} &middot; <span class="badge acc">${esc(hop.message._msg_type)}</span></div>
+    <h2 style="margin-top:16px">How this message was transformed</h2>
+    ${e2eLineageTable(hop.lineage)}
+    <details style="margin-top:12px"><summary class="hint" style="cursor:pointer">Raw message (XML)</summary>
+      <pre>${esc(hop.xml || JSON.stringify(hop.message, null, 2))}</pre></details>`;
+}
+
 /* ------------------------------------------------------------ header */
 
 async function loadFpList() {
@@ -557,3 +771,4 @@ $("fpSelect").addEventListener("change", () => {
 
 loadSources();
 loadFpList();
+loadE2E();

@@ -55,6 +55,25 @@ python -m uvicorn api.main:app --port 8600       # Studio + API
 6. **Registry & Recipes** — fingerprint versions, deployment-style version
    diff, saved recipes with one-click re-run.
 
+## E2E Test (tab 7)
+
+Runs a simulated payment across a chain of systems as ISO 20022 messages
+(default: IBNK Channel `pain.001` &rarr; Payment Processing &rarr; CoreBanking
+&rarr; Clearing & Settlement, all `pacs.008`, with a `pacs.002` response
+relayed back), so a tester can click any system and see exactly how it
+transformed the message (mapped / generated / enriched / passed through
+field by field). Pick the flow from a dropdown — **Outward**, **Inward**,
+**Outward Return**, **Inward Return**. Inward and Outward Return share a
+second chain: `Regulator/FI` &rarr; Payment Processing &rarr; CoreBanking
+&rarr; `Realtime Notification` (to channels), both carrying `pacs.008`;
+Inward Return mirrors Outward's chain with `pacs.004`. Pick a source — **complete
+synthetic**, **file upload by system**, or **connect to a system database**
+(read-only). The chain isn't fixed at four systems: **+ Add intermediary
+system** inserts any number of extra hops (fraud check, sanctions
+screening, …) anywhere in the flow. See `fingerprints/e2e.py`, tests in
+`tests/test_e2e.py`, and `docs/documentation.html` &rarr; "Enhancement: E2E
+Test tab" for the full design, a UI test walkthrough, and the roadmap.
+
 ## MT/MX messages (tab 6)
 
 The adapters are **format-generic**:

@@ -104,3 +104,44 @@ select.polsel, input.polparam { width: auto; min-width: 110px; padding: 4px 8px;
 input.polparam { width: 70px; }
 a.dl { color: var(--accent); font-weight: 600; }
 hr { border: none; border-top: 1px solid var(--line); margin: 16px 0 4px; }
+
+/* ------------------------------------------------------------- E2E test */
+.e2e-chain { display: flex; flex-wrap: wrap; align-items: center; gap: 2px; font-size: 0.8rem; }
+.e2e-chip {
+  display: inline-flex; align-items: center; gap: 6px; padding: 3px 9px;
+  border: 1px solid var(--line); border-radius: 999px; background: var(--paper);
+}
+.e2e-chip.custom { border-color: var(--accent); background: var(--accent-soft); }
+.e2e-chip button {
+  border: none; background: none; color: var(--muted); cursor: pointer;
+  font-size: 12px; line-height: 1; padding: 0;
+}
+.e2e-insert {
+  border: 1px dashed var(--line); background: none; color: var(--muted);
+  border-radius: 50%; width: 18px; height: 18px; line-height: 1; cursor: pointer;
+  font-size: 12px; padding: 0; flex: 0 0 auto;
+}
+.e2e-insert:hover { border-color: var(--accent); color: var(--accent); }
+.e2e-flow { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; }
+.e2e-node {
+  border: 1.5px solid var(--line); background: var(--card); border-radius: 8px;
+  padding: 10px 14px; cursor: pointer; text-align: center; min-width: 110px;
+  font: 600 12px "Segoe UI", sans-serif;
+}
+.e2e-node .sub { display: block; font: 500 10.5px "Cascadia Mono", Consolas, monospace; color: var(--muted); margin-top: 3px; text-transform: none; }
+.e2e-node:hover { border-color: var(--accent); }
+.e2e-node.active { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
+.e2e-arrow { color: var(--muted); font-size: 16px; flex: 0 0 auto; }
+.e2e-flowrow { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; margin-bottom: 6px; }
+.e2e-flowlabel { font-size: 0.66rem; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); flex: 0 0 78px; }
+.e2e-legtab {
+  padding: 6px 14px; border-radius: 5px; border: 1px solid var(--line); background: none;
+  color: var(--muted); cursor: pointer; font: 600 12.5px "Segoe UI", sans-serif;
+}
+.e2e-legtab.active { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+table.lineage td, table.lineage th { white-space: normal; word-break: break-word; }
+.kind { display: inline-block; font: 600 10px "Cascadia Mono", Consolas, monospace; padding: 1px 7px; border-radius: 8px; border: 1px solid var(--line); color: var(--muted); }
+.kind.mapped, .kind.added { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+.kind.generated, .kind.enriched { border-color: var(--accent); color: #fff; background: var(--accent); }
+.kind.regenerated, .kind.changed { border-color: var(--warn); color: var(--warn); background: var(--warn-soft); }
+.kind.missing, .kind.removed { border-color: var(--danger); color: var(--danger); background: var(--danger-soft); }

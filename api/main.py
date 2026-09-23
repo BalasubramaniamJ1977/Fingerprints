@@ -9,17 +9,18 @@ import time
 import uuid
 from pathlib import Path
 
-from fastapi import Body, FastAPI, Header, HTTPException, Request, UploadFile
+from fastapi import Body, FastAPI, Form, Header, HTTPException, Request, UploadFile
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 
+from fingerprints import e2e as e2e_engine
 from fingerprints import simulate
 from fingerprints.anonymize import Anonymizer
 from fingerprints.binding import suggest_binding
 from fingerprints.connectors import (describe_tables, read_csv, read_ndjson,
                                      read_table, write_csv)
 from fingerprints.fidelity import fidelity_report
-from fingerprints.messages import parse_mt, parse_mx, render_messages
+from fingerprints.messages import parse_mt, parse_mx, render_messages, render_mx
 from fingerprints.model import Fingerprint
 from fingerprints.pii import suggest_policies
 from fingerprints.registry import Registry
@@ -31,7 +32,8 @@ UPLOADS = DATA / "uploads"
 BATCHES = DATA / "batches"
 OUTPUTS = DATA / "outputs"
 RECIPES = ROOT / "recipes"
-for d in (UPLOADS, BATCHES, OUTPUTS, RECIPES):
+E2E_UPLOADS = DATA / "e2e_uploads"
+for d in (UPLOADS, BATCHES, OUTPUTS, RECIPES, E2E_UPLOADS):
     d.mkdir(parents=True, exist_ok=True)
 
 import logging
@@ -455,6 +457,87 @@ def run_recipe(name: str):
         **recipe.get("generate", {}), "policies": recipe.get("policies"),
     })
     return {"fit": {"version": fitted["version"]}, "generate": gen}
+
+
+# --------------------------------------------------------------------- e2e
+
+@app.get("/api/v1/e2e/scenarios")
+def e2e_scenarios():
+    """Systems + flow scenarios for the E2E Test tab's dropdowns."""
+    return {
+        "systems": e2e_engine.SYSTEMS,
+        "scenarios": [
+            {"key": k, "label": v["label"], "chain": v["chain"],
+             "origin_message_type": v["origin_message_type"]}
+            for k, v in e2e_engine.SCENARIOS.items()
+        ],
+    }
+
+
+@app.post("/api/v1/e2e/upload")
+async def e2e_upload(file: UploadFile, system_id: str = Form(...)):
+    """Upload a real message file to seed one system's leg of the flow
+    (mode = file-upload by systems). Any system left without an upload
+    still derives its message from the previous hop."""
+    if system_id not in e2e_engine._SYS_BY_ID:
+        raise HTTPException(400, f"unknown system '{system_id}'")
+    name = Path(file.filename or "message.xml").name
+    if not name.lower().endswith((".xml", ".txt")):
+        raise HTTPException(400, "supported: .xml / .txt (MX / ISO 20022 message)")
+    data = await file.read()
+    records, _ = parse_mx(data.decode("utf-8", errors="replace"))
+    if not records:
+        raise HTTPException(400, f"no <Document> message found in '{name}'")
+    dest = E2E_UPLOADS / f"{system_id}__{name}"
+    dest.write_bytes(data)
+    return {"system_id": system_id, "name": dest.name,
+            "msg_type": records[0].get("_msg_type"), "messages_in_file": len(records)}
+
+
+def _e2e_resolve_overrides(files):
+    overrides = {}
+    for system_id, fname in (files or {}).items():
+        path = E2E_UPLOADS / Path(fname).name
+        if not path.exists():
+            raise HTTPException(404, f"e2e upload '{fname}' not found")
+        text = path.read_text(encoding="utf-8", errors="replace")
+        records, _ = parse_mx(text)
+        if not records:
+            raise HTTPException(400, f"could not parse message in '{fname}'")
+        overrides[system_id] = records[0]
+    return overrides
+
+
+@app.post("/api/v1/e2e/run")
+def e2e_run(spec: dict = Body(...)):
+    """Run one E2E scenario. spec = {scenario, source, seed, account,
+    amount, ccy, verdict, files: {system_id: uploaded_name}, database:
+    {dsn, table}, chain: [system_id, ...], systems: [{id, name, role}]}.
+    source is one of synthetic | file | database. chain/systems are
+    optional — omit them to use the scenario's default 4-system chain, or
+    supply chain to insert any number of intermediary systems anywhere in
+    the flow (describe new ids via systems so the UI can label them)."""
+    scenario = spec.get("scenario", "outward")
+    source = spec.get("source", "synthetic")
+    overrides = _e2e_resolve_overrides(spec.get("files")) if source == "file" else {}
+    db = spec.get("database") if source == "database" else None
+    try:
+        result = e2e_engine.run_pipeline(
+            scenario=scenario, source=source, seed=spec.get("seed"),
+            account=spec.get("account") or None, amount=spec.get("amount"),
+            ccy=spec.get("ccy") or None, overrides=overrides, db=db,
+            verdict=spec.get("verdict", "ACSC"),
+            chain=spec.get("chain") or None, systems=spec.get("systems"))
+    except ValueError as e:
+        raise HTTPException(400, str(e))
+    except Exception as e:
+        raise HTTPException(400, f"e2e run failed: {e}")
+    for h in result["hops"]:
+        try:
+            h["xml"] = render_mx([h["message"]])
+        except Exception:
+            h["xml"] = None
+    return result
 
 
 # ------------------------------------------------------------------ studio

@@ -96,6 +96,49 @@
     nav.toc{display:none;}
     main{padding:28px 20px 80px;}
   }
+
+  /* ------------------------------------------------------------- e2e flow */
+  .flow-diagram{display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin:16px 0;}
+  .flow-node{
+    border:1.5px solid var(--border); border-radius:8px; padding:10px 14px;
+    background:var(--bg-alt); font-size:13px; font-weight:600; text-align:center; min-width:120px;
+  }
+  .flow-node .fmt{display:block; font:500 11px ui-monospace,Consolas,monospace; color:var(--text-dim); margin-top:3px;}
+  .flow-arrow{color:var(--text-dim); font-size:18px;}
+  .flow-row{display:flex; flex-wrap:wrap; align-items:center; gap:6px;}
+  .flow-row.response .flow-node{border-color:var(--accent); background:var(--accent-dim);}
+  .principle{
+    border:1.5px solid var(--accent); background:var(--accent-dim); border-radius:10px;
+    padding:16px 20px; margin:18px 0; max-width:820px;
+  }
+  .principle b{color:var(--accent);}
+
+  /* ----------------------------------------------------------------- gantt */
+  .gantt{ margin: 20px 0 8px; max-width: 920px; }
+  .gantt-scale{
+    display:grid; grid-template-columns: 220px repeat(6, 1fr); gap:2px;
+    font-size:10.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--text-dim);
+    margin-bottom:4px;
+  }
+  .gantt-scale div{text-align:center; padding:2px 0;}
+  .gantt-scale div:first-child{text-align:left;}
+  .gantt-row{
+    display:grid; grid-template-columns: 220px repeat(6, 1fr); gap:2px; align-items:center;
+    margin-bottom:5px;
+  }
+  .gantt-row .label{font-size:12.5px; font-weight:600; padding-right:8px;}
+  .gantt-row .label small{display:block; font-weight:400; color:var(--text-dim); font-size:10.5px;}
+  .gantt-track{grid-column: 2 / span 6; position:relative; height:22px; background:var(--bg-alt); border-radius:5px;}
+  .gantt-bar{
+    position:absolute; top:0; height:100%; border-radius:5px; color:#fff; font-size:10.5px;
+    font-weight:700; display:flex; align-items:center; justify-content:center; white-space:nowrap; overflow:hidden;
+  }
+  .gantt-bar.done{background:var(--ok);}
+  .gantt-bar.next{background:var(--accent);}
+  .gantt-bar.later{background:var(--warn);}
+  .gantt-legend{display:flex; gap:18px; font-size:12px; color:var(--text-dim); margin:10px 0 0;}
+  .gantt-legend span{display:inline-flex; align-items:center; gap:6px;}
+  .gantt-legend i{width:10px; height:10px; border-radius:3px; display:inline-block;}
 </style>
 </head>
 <body>
@@ -125,6 +168,17 @@
       <li class="sub"><a href="#ado-pipeline">Pipeline stages</a></li>
       <li class="sub"><a href="#ado-adapt">Adapting it</a></li>
       <li><a href="#layout">Repository layout</a></li>
+      <li><a href="#e2e">Enhancement: E2E Test tab</a></li>
+      <li class="sub"><a href="#e2e-design">Design</a></li>
+      <li class="sub"><a href="#e2e-sources">Three ways to seed a run</a></li>
+      <li class="sub"><a href="#e2e-n-systems">N systems &amp; intermediaries</a></li>
+      <li class="sub"><a href="#e2e-ui-test">How to test through the UI</a></li>
+      <li class="sub"><a href="#e2e-automated-tests">Automated tests</a></li>
+      <li><a href="#roadmap">Roadmap</a></li>
+      <li class="sub"><a href="#roadmap-principles">Guiding principles</a></li>
+      <li class="sub"><a href="#roadmap-gantt">Timeline</a></li>
+      <li class="sub"><a href="#roadmap-ado">ADO integration path</a></li>
+      <li class="sub"><a href="#roadmap-other">Other considerations</a></li>
     </ul>
   </nav>
 
@@ -435,15 +489,262 @@ fingerprints/fidelity.py      KS / TV-distance / path-delta fidelity report
 fingerprints/simulate.py      simulators for the five fingerprint domains
 fingerprints/connectors.py    CSV/NDJSON files, SQLAlchemy tables
 fingerprints/registry.py      versioned fingerprint store
-fingerprints/registry_cli.py  command-line front end for the registry  (NEW)
+fingerprints/registry_cli.py  command-line front end for the registry
+fingerprints/e2e.py           N-system E2E payment flow simulator          (NEW)
 api/main.py                   FastAPI engine API + static Studio hosting
 studio/                       Fingerprint Studio SPA (no build step)
 recipes/                      saved, re-runnable configurations
-data/                         registry, uploads, batches, outputs (generated)
+data/                         registry, uploads, batches, outputs, e2e_uploads (generated)
 demo.py                       CLI demo of all five fingerprint types
-tests/test_registry_cli.py    tests for the registry CLI                (NEW)
-azure-pipelines.yml           test + registry-drift-gate pipeline        (NEW)
-docs/documentation.html       this document                             (NEW)</code></pre>
+tests/test_registry_cli.py    tests for the registry CLI
+tests/test_e2e.py             tests for the E2E flow simulator              (NEW)
+azure-pipelines.yml           test + registry-drift-gate pipeline
+docs/documentation.html       this document</code></pre>
+    </section>
+
+    <section id="e2e">
+      <h2>Enhancement: E2E Test tab <span class="badge">new</span></h2>
+      <p>Tab 7 in the Studio, <strong>E2E Test</strong>, drives a simulated payment
+      end to end across the systems a real transaction would pass through, so a
+      tester can see — system by system — how the message is built, translated,
+      and relayed, without a single real system being involved.</p>
+
+      <h3 id="e2e-design">Design</h3>
+      <p>One payment travels through an ordered chain of systems as ISO 20022
+      messages. Every hop keeps an explicit field-level <strong>lineage</strong> (mapped /
+      generated / enriched / passed through / regenerated) instead of a black-box
+      transform, so clicking any system shows exactly what it changed. The default
+      "Outward" flow:</p>
+      <div class="flow-diagram">
+        <div class="flow-row">
+          <div class="flow-node">IBNK Channel<span class="fmt">pain.001</span></div>
+          <span class="flow-arrow">&rarr;</span>
+          <div class="flow-node">Payment Processing<span class="fmt">pacs.008</span></div>
+          <span class="flow-arrow">&rarr;</span>
+          <div class="flow-node">CoreBanking<span class="fmt">pacs.008</span></div>
+          <span class="flow-arrow">&rarr;</span>
+          <div class="flow-node">Clearing &amp; Settlement<span class="fmt">pacs.008</span></div>
+        </div>
+        <div class="flow-row response" style="margin-top:6px">
+          <div class="flow-node">IBNK Channel<span class="fmt">pacs.002</span></div>
+          <span class="flow-arrow">&larr;</span>
+          <div class="flow-node">Payment Processing<span class="fmt">pacs.002</span></div>
+          <span class="flow-arrow">&larr;</span>
+          <div class="flow-node">CoreBanking<span class="fmt">pacs.002</span></div>
+          <span class="flow-arrow">&larr;</span>
+          <div class="flow-node">Clearing &amp; Settlement<span class="fmt">pacs.002</span></div>
+        </div>
+      </div>
+      <p>A <strong>Flow</strong> dropdown selects which of four scenarios to run.
+      <strong>Inward</strong> and <strong>Outward Return</strong> share a second
+      chain — a message arriving from outside the bank, relayed to the customer
+      channels:</p>
+      <div class="flow-diagram">
+        <div class="flow-row">
+          <div class="flow-node">Regulator / FI<span class="fmt">pacs.008</span></div>
+          <span class="flow-arrow">&rarr;</span>
+          <div class="flow-node">Payment Processing<span class="fmt">pacs.008</span></div>
+          <span class="flow-arrow">&rarr;</span>
+          <div class="flow-node">CoreBanking<span class="fmt">pacs.008</span></div>
+          <span class="flow-arrow">&rarr;</span>
+          <div class="flow-node">Realtime Notification<span class="fmt">pacs.008 &rarr; channels</span></div>
+        </div>
+        <div class="flow-row response" style="margin-top:6px">
+          <div class="flow-node">Regulator / FI<span class="fmt">pacs.002</span></div>
+          <span class="flow-arrow">&larr;</span>
+          <div class="flow-node">Payment Processing<span class="fmt">pacs.002</span></div>
+          <span class="flow-arrow">&larr;</span>
+          <div class="flow-node">CoreBanking<span class="fmt">pacs.002</span></div>
+          <span class="flow-arrow">&larr;</span>
+          <div class="flow-node">Realtime Notification<span class="fmt">pacs.002</span></div>
+        </div>
+      </div>
+      <p>Only <strong>Inward Return</strong> still uses the IBNK-Channel-to-Clearing
+      chain (a channel-initiated return, mirroring Outward's shape but with pacs.004):</p>
+      <table>
+        <tr><th>Scenario</th><th>Chain</th><th>Forward message</th><th>What it models</th></tr>
+        <tr><td>Outward</td><td>IBNK Channel &rarr; Payment Processing &rarr; CoreBanking &rarr; Clearing &amp; Settlement</td><td>pain.001 &rarr; pacs.008</td><td>Customer-initiated payment going out</td></tr>
+        <tr><td>Inward</td><td>Regulator/FI &rarr; Payment Processing &rarr; CoreBanking &rarr; Realtime Notification</td><td>pacs.008</td><td>Payment received from the regulator / another FI</td></tr>
+        <tr><td>Outward Return</td><td>Regulator/FI &rarr; Payment Processing &rarr; CoreBanking &rarr; Realtime Notification</td><td>pacs.008</td><td>Beneficiary-side return of a previous outward payment</td></tr>
+        <tr><td>Inward Return</td><td>IBNK Channel &rarr; Payment Processing &rarr; CoreBanking &rarr; Clearing &amp; Settlement</td><td>pacs.004</td><td>Returning a previously credited inward payment</td></tr>
+      </table>
+      <p>Every scenario ends its forward chain with the last system generating a
+      pacs.002 status report, relayed backward hop by hop — so every system is
+      seen twice: once transforming the outward-bound message, once relaying the
+      response.</p>
+
+      <h3 id="e2e-sources">Three ways to seed a run</h3>
+      <table>
+        <tr><th>Source</th><th>What happens</th></tr>
+        <tr><td><strong>Complete synthetic</strong></td><td>Every message is freshly generated (account/amount/currency optionally overridden). Always available, no external dependency.</td></tr>
+        <tr><td><strong>File upload by system</strong></td><td>Upload a real message for any system in the chain; any system left blank still derives its message from the previous hop, so partial real data can be tested alongside simulated fill-in.</td></tr>
+        <tr><td><strong>Connect to system database</strong></td><td>The origination system's payment instruction (account / amount / currency) is pulled from a configured read-only table instead of being randomly generated; the rest of the chain is still simulated (see the "never touch production" principle in the Roadmap).</td></tr>
+      </table>
+
+      <h3 id="e2e-n-systems">N systems, not just 4</h3>
+      <p>The four systems above are the default chain, not a hard limit. The
+      Studio's "+ Add intermediary system" control inserts any number of extra
+      systems (Fraud Check, Sanctions Screening, a correspondent bank hop, &hellip;)
+      at any position in the chain. The engine decides where the one
+      format-changing step (pain.001 &rarr; pacs.008) actually happens by role, not
+      position — an intermediary inserted <em>before</em> Payment Processing still
+      relays the plain pain.001 message; conversion happens exactly once, at
+      whichever system is tagged <code>role: "processing"</code>. Everything else
+      (enrichment, message-id regeneration, the response leg) already works over
+      an arbitrary-length chain.</p>
+
+      <h3 id="e2e-ui-test">How to test through the UI</h3>
+      <ol>
+        <li>Start the Studio: <code>python -m uvicorn api.main:app --port 8600</code>, open
+        <code>http://127.0.0.1:8600</code>.</li>
+        <li>Click tab <strong>7 &middot; E2E Test</strong>.</li>
+        <li>Pick a <strong>Flow</strong> (Outward / Inward / Outward Return / Inward Return)
+        from the dropdown.</li>
+        <li>Leave <strong>Source</strong> on "Complete synthetic", optionally set a
+        seed/account, and click <strong>Run E2E test</strong>.</li>
+        <li>The <em>Pipeline</em> card renders two rows of clickable system nodes
+        (Forward, Response). Click any node — the <em>System detail</em> card below
+        shows its Forward-leg and Response-leg tabs, each with a field-by-field
+        transformation table (color-coded: mapped / generated / enriched /
+        regenerated / passthrough) and a collapsible raw XML view.</li>
+        <li>To try <strong>file upload by system</strong>: switch Source, upload an
+        .xml message against any system, Run — that system's hop uses your file
+        instead of a derived one (shown with a generic before/after diff, since
+        there's no schema mapping to trace for a caller-supplied message).</li>
+        <li>To try <strong>database</strong> mode: switch Source, enter a read-only DSN
+        and table name, Run — the origination message's account/amount/currency
+        come from that table's first row.</li>
+        <li>Click <strong>+ Add intermediary system&hellip;</strong>, name it (e.g. "Fraud
+        Check"), pick where to insert it, and Run again — the new system appears
+        as its own node and, if inserted before Payment Processing, visibly still
+        carries the pain.001 message rather than pacs.008.</li>
+      </ol>
+
+      <h3 id="e2e-automated-tests">Automated tests</h3>
+      <p><code>tests/test_e2e.py</code> (17 tests) covers: all four scenarios' hop
+      shape and message types; the explicit pain.001&rarr;pacs.008 field mapping;
+      the pacs.002 response correctly correlating back to the original UETR/
+      EndToEndId; configurable verdicts (ACSC/RJCT); lineage completeness and
+      enrichment on every hop; XML rendering for every hop in every scenario;
+      file-override behavior; N-system custom chains with an inserted
+      intermediary (including the before/after-conversion boundary); the
+      role-based fallback when no "processing" system exists in a fully custom
+      chain; validation errors (too-short chain, duplicate ids, unknown
+      scenario, missing database config); and deterministic output for a fixed
+      seed.</p>
+      <pre><code>python -m pytest tests/test_e2e.py -v
+python -m pytest tests            # whole suite</code></pre>
+    </section>
+
+    <section id="roadmap">
+      <h2>Roadmap</h2>
+      <p>Where the E2E Test tab goes next. This is a planning view, not a
+      committed schedule — column widths are relative (six upcoming periods),
+      not calendar dates.</p>
+
+      <h3 id="roadmap-principles">Guiding principles</h3>
+      <div class="principle">
+        <p><b>This tool must never touch a production system.</b> Every source
+        (synthetic, file, database) is designed to be safe by construction: synthetic
+        data never leaves the process, file upload only ever reads what the tester
+        hands it, and database mode is scoped to read-only, explicitly-configured
+        non-production tables. As this evolves, any new connector must keep that
+        guarantee — for example by allow-listing DSNs and refusing anything that
+        resembles a production host, the same way anonymization policies in this
+        platform are already irreversible by design.</p>
+        <p style="margin-top:10px"><b>Test data starts at the requirements phase, not
+        a production copy.</b> The field mappings in <code>fingerprints/e2e.py</code>
+        (e.g. pain.001 &rarr; pacs.008) are hand-written from the ISO 20022
+        specification today. The intended direction is to derive them from a
+        checked-in, reviewable requirements artifact (an interface control
+        document / mapping spec) from day one of a project, so the test data's
+        lineage traces back to a signed-off requirement rather than to whatever a
+        production system happened to be doing. That also means the tool is usable
+        <em>before</em> the real systems exist — the whole point of an E2E test
+        harness for a system still being built.</p>
+      </div>
+
+      <h3 id="roadmap-gantt">Timeline</h3>
+      <div class="gantt">
+        <div class="gantt-scale">
+          <div></div><div>Now</div><div>Next</div><div>+1</div><div>+2</div><div>+3</div><div>+4</div>
+        </div>
+        <div class="gantt-row">
+          <div class="label">Phase 0 &middot; Prototype<br><small>delivered</small></div>
+          <div class="gantt-track"><div class="gantt-bar done" style="left:0%; width:16.6%">done</div></div>
+        </div>
+        <div class="gantt-row">
+          <div class="label">Phase 1 &middot; CLI &amp; golden runs<br><small>hardening</small></div>
+          <div class="gantt-track"><div class="gantt-bar next" style="left:16.6%; width:16.6%">e2e_cli</div></div>
+        </div>
+        <div class="gantt-row">
+          <div class="label">Phase 2 &middot; ADO integration<br><small>see below</small></div>
+          <div class="gantt-track"><div class="gantt-bar next" style="left:33.2%; width:16.6%">gate</div></div>
+        </div>
+        <div class="gantt-row">
+          <div class="label">Phase 3 &middot; Requirements-driven mappings<br><small>ICD as source of truth</small></div>
+          <div class="gantt-track"><div class="gantt-bar later" style="left:33.2%; width:33.2%">spec &rarr; code</div></div>
+        </div>
+        <div class="gantt-row">
+          <div class="label">Phase 4 &middot; Read-only pre-prod connectors<br><small>every hop, not just origin</small></div>
+          <div class="gantt-track"><div class="gantt-bar later" style="left:49.8%; width:33.2%">connectors</div></div>
+        </div>
+        <div class="gantt-row">
+          <div class="label">Phase 5 &middot; Governance &amp; audit trail<br><small>run history, sign-off</small></div>
+          <div class="gantt-track"><div class="gantt-bar later" style="left:66.4%; width:33.2%">audit</div></div>
+        </div>
+      </div>
+      <div class="gantt-legend">
+        <span><i style="background:var(--ok)"></i>Delivered</span>
+        <span><i style="background:var(--accent)"></i>Near-term</span>
+        <span><i style="background:var(--warn)"></i>Later</span>
+      </div>
+
+      <h3 id="roadmap-ado">ADO integration path (Phase 2)</h3>
+      <p>Mirrors the pattern already established for the registry (see
+      <a href="#ado">Azure DevOps integration</a> above):</p>
+      <ol>
+        <li>Add <code>fingerprints/e2e_cli.py</code>, a command-line runner over
+        <code>e2e.run_pipeline()</code> — the same function the Studio's API calls —
+        so a scenario can run headless: <code>python -m fingerprints.e2e_cli run
+        --scenario outward --format json &gt; run.json</code>.</li>
+        <li>Add an <code>E2ERegressionGate</code> stage to <code>azure-pipelines.yml</code>
+        that runs all four scenarios on every merge and diffs each run's hop
+        message shapes against a checked-in "golden" fixture — the same
+        drift-detection idea as <code>registry_cli changes --fail-on-drift</code>,
+        applied to message shape instead of fingerprint statistics.</li>
+        <li>Publish each run's per-hop XML and lineage JSON as a build artifact
+        (<code>PublishBuildArtifacts@1</code>), so a reviewer can open exactly what
+        the pipeline saw without re-running anything locally.</li>
+        <li>Once Phase 4 lands, gate merges to interface-mapping code on the E2E
+        suite passing against the read-only pre-prod connectors, the same way the
+        registry gate blocks a merge on unreviewed fingerprint drift today.</li>
+      </ol>
+
+      <h3 id="roadmap-other">Other considerations</h3>
+      <ul>
+        <li><strong>Scenario definitions as versioned artifacts.</strong> Once
+        scenarios are spec-driven (Phase 3), version them in the same registry
+        that already versions fingerprints, so a scenario change can be diffed
+        the same way a fingerprint's drift is diffed today.</li>
+        <li><strong>PII stays inside the existing policy engine.</strong> Anything
+        pulled from a real (non-production) database in Phase 4 should be run
+        through <code>fingerprints/anonymize.py</code> before it's displayed or
+        stored, exactly like the Connect tab's PII scan — no new bypass path.</li>
+        <li><strong>Golden-run regression, not just shape checks.</strong> Beyond
+        message shape, compare lineage <em>kinds</em> hop to hop (e.g. "CoreBanking
+        used to enrich 1 field, now enriches 3") so a reviewer sees behavioral
+        drift, not just structural drift.</li>
+        <li><strong>Access control on database mode.</strong> Before Phase 4, DSN
+        input should move from free text to a small allow-list of named,
+        pre-approved connections (mirroring how <code>FP_API_TOKEN</code> already
+        gates the API) so a tester can't accidentally type in a production
+        connection string.</li>
+        <li><strong>Reuse, don't reinvent, the fidelity report.</strong> A future
+        "does the synthetic flow still look realistic" check can reuse
+        <code>fingerprints/fidelity.py</code>'s KS/TV-distance machinery against a
+        batch of E2E runs, the same way it already validates bulk synthetic data.</li>
+      </ul>
     </section>
 
     <footer>

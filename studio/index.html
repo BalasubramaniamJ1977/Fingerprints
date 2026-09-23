@@ -28,6 +28,7 @@
   <button data-tab="generate">4 &middot; Generate</button>
   <button data-tab="registry">5 &middot; Registry &amp; Recipes</button>
   <button data-tab="messages">6 &middot; MT/MX Messages</button>
+  <button data-tab="e2e">7 &middot; E2E Test</button>
 </nav>
 
 <main>
@@ -279,6 +280,79 @@
       <h2>Message preview &mdash; wire format</h2>
       <pre id="msgPreview" style="min-height:340px">Learn a message fingerprint, then Preview: synthetic messages render here exactly as they would go on the wire.</pre>
     </div>
+  </div>
+</section>
+
+<!-- ================================ E2E TEST ============================ -->
+<section id="tab-e2e" class="tab">
+  <div class="cols">
+    <div class="card" style="max-width:420px">
+      <h2>Flow</h2>
+      <label>Scenario</label>
+      <select id="e2eScenario"></select>
+      <div class="hint">Every scenario runs the same four systems, forward
+      then a pacs.002 response back. Pick a direction to see how the
+      message going that way gets built and relayed.</div>
+
+      <label>Source</label>
+      <div class="srcpick">
+        <label><input type="radio" name="e2esrc" value="synthetic" checked> Complete synthetic</label>
+        <label><input type="radio" name="e2esrc" value="file"> File upload by system</label>
+        <label><input type="radio" name="e2esrc" value="database"> Connect to system database</label>
+      </div>
+
+      <div id="e2e-src-synthetic" class="srcform">
+        <label>Synthetic account (optional — overrides the auto-generated one)</label>
+        <input type="text" id="e2eAccount" placeholder="SG00OCBC0000004242">
+        <label>Amount / currency (optional)</label>
+        <div class="btnrow">
+          <input type="text" id="e2eAmount" placeholder="amount">
+          <input type="text" id="e2eCcy" placeholder="SGD" style="max-width:90px">
+        </div>
+        <label>Response verdict</label>
+        <select id="e2eVerdict">
+          <option value="ACSC">ACSC — accepted / settlement completed</option>
+          <option value="RJCT">RJCT — rejected</option>
+        </select>
+        <label>Seed</label>
+        <input type="number" id="e2eSeed" value="42">
+      </div>
+
+      <div id="e2e-src-file" class="srcform hidden">
+        <div class="hint">Upload a real message for any system below (.xml). Any
+        system left blank still derives its message from the previous hop.</div>
+        <div id="e2eFileSlots"></div>
+      </div>
+
+      <div id="e2e-src-database" class="srcform hidden">
+        <div class="hint">Pulls the origination system's payment instruction
+        (account / amount / currency) from a table; the rest of the chain is
+        still simulated.</div>
+        <label>Connection (read-only DSN)</label>
+        <input type="text" id="e2eDsn" placeholder="postgresql://user:pass@host:5432/db">
+        <label>Table</label>
+        <input type="text" id="e2eTable" placeholder="outward_payment_instructions">
+      </div>
+
+      <hr>
+      <label>Systems in this flow</label>
+      <div id="e2eChainEditor" class="hint"></div>
+      <button id="btnE2eAddSystem" class="btn">+ Add intermediary system&hellip;</button>
+
+      <button id="btnE2eRun" class="btn primary" style="display:block">Run E2E test</button>
+      <div id="e2eStatus" class="hint"></div>
+    </div>
+
+    <div class="card grow">
+      <h2>Pipeline</h2>
+      <div id="e2eFlow" class="hint">Run a test to see the message travel through each system.</div>
+    </div>
+  </div>
+
+  <div class="card" id="e2eDetailCard" style="display:none">
+    <h2 id="e2eDetailTitle">System detail</h2>
+    <div class="btnrow" id="e2eLegTabs"></div>
+    <div id="e2eDetailBody"></div>
   </div>
 </section>
 
