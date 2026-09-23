@@ -145,3 +145,6 @@ table.lineage td, table.lineage th { white-space: normal; word-break: break-word
 .kind.generated, .kind.enriched { border-color: var(--accent); color: #fff; background: var(--accent); }
 .kind.regenerated, .kind.changed { border-color: var(--warn); color: var(--warn); background: var(--warn-soft); }
 .kind.missing, .kind.removed { border-color: var(--danger); color: var(--danger); background: var(--danger-soft); }
+.kind.edited { border-color: var(--danger); color: #fff; background: var(--danger); }
+tr.e2e-row-removed { opacity: 0.5; text-decoration: line-through; }
+tr.e2e-row-removed input { text-decoration: line-through; }

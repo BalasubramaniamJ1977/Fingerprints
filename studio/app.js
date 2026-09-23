@@ -539,6 +539,8 @@ $("btnMsgGenerate").addEventListener("click", async () => {
 const E2E = {
   meta: null, chain: [], customSystems: [], insertedIds: new Set(),
   uploads: {}, lastResult: null, selectedSystem: null, selectedLeg: "forward",
+  edits: {},
+  customScenarios: [],  // user-defined flow types: {key, label, origin_message_type, chain}
 };
 
 function e2eSysName(id) {
@@ -546,6 +548,10 @@ function e2eSysName(id) {
   if (known) return known.name;
   const custom = E2E.customSystems.find((s) => s.id === id);
   return custom ? custom.name : id;
+}
+
+function e2eCustomScenarioDef() {
+  return E2E.customScenarios.find((s) => s.key === $("e2eScenario").value) || null;
 }
 
 async function loadE2E() {
@@ -556,17 +562,52 @@ async function loadE2E() {
 }
 
 function onE2eScenarioChange() {
-  const cfg = E2E.meta.scenarios.find((s) => s.key === $("e2eScenario").value);
-  E2E.chain = cfg.chain.slice();
+  const custom = e2eCustomScenarioDef();
+  const chain = custom ? custom.chain
+    : E2E.meta.scenarios.find((s) => s.key === $("e2eScenario").value).chain;
+  E2E.chain = chain.slice();
   E2E.customSystems = [];
   E2E.insertedIds = new Set();
   E2E.uploads = {};
+  E2E.edits = {};
   renderE2eChainEditor();
   renderE2eFileSlots();
-  $("e2eFlow").innerHTML = '<div class="hint">Run a test to see the message travel through each system.</div>';
+  $("e2eFlow").innerHTML = '<div class="hint">Preview a sample to see the message travel through each system.</div>';
   $("e2eDetailCard").style.display = "none";
+  $("e2eExportResult").innerHTML = "";
 }
 $("e2eScenario").addEventListener("change", onE2eScenarioChange);
+
+$("btnE2eAddFlowType").addEventListener("click", () => {
+  const name = prompt("Name this flow type (e.g. FAST, RTGS, Book Transfer, Telegraphic Transfer):");
+  if (!name) return;
+  const choice = prompt(
+    "Base pattern for this flow type:\n" +
+    "1 = Customer-initiated (pain.001 → pacs.008), like Outward\n" +
+    "2 = Received pacs.008, like Inward\n" +
+    "3 = Return (pacs.004)\n" +
+    "Enter 1, 2, or 3:", "1");
+  const originType = { "1": "pain.001.001.09", "2": "pacs.008.001.08",
+                        "3": "pacs.004.001.09" }[(choice || "").trim()];
+  if (!originType) { alert("Not a valid choice — pick 1, 2, or 3."); return; }
+  let key = name.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+  if (!key) return;
+  const taken = (s) => s === key;
+  while (E2E.meta.scenarios.some((s) => taken(s.key)) || E2E.customScenarios.some((s) => taken(s.key))) {
+    key += "-2";
+  }
+  const defaultChain = originType === "pacs.008.001.08"
+    ? ["regulator-fi", "payment-processing", "corebanking", "realtime-notification"]
+    : ["ibnk-channel", "payment-processing", "corebanking", "clearing-settlement"];
+  E2E.customScenarios.push({ key, label: name.trim(), origin_message_type: originType,
+                              chain: defaultChain.slice() });
+  const opt = document.createElement("option");
+  opt.value = key;
+  opt.textContent = `${name.trim()} (custom)`;
+  $("e2eScenario").appendChild(opt);
+  $("e2eScenario").value = key;
+  onE2eScenarioChange();
+});
 
 document.querySelectorAll("input[name=e2esrc]").forEach((r) =>
   r.addEventListener("change", () => {
@@ -642,23 +683,33 @@ function renderE2eFileSlots() {
     }));
 }
 
+function e2eBuildBody() {
+  const source = document.querySelector("input[name=e2esrc]:checked").value;
+  const body = {
+    scenario: $("e2eScenario").value, source,
+    seed: $("e2eSeed").value ? Number($("e2eSeed").value) : null,
+    account: $("e2eAccount").value.trim() || null,
+    amount: $("e2eAmount").value ? Number($("e2eAmount").value) : null,
+    ccy: $("e2eCcy").value.trim() || null,
+    verdict: $("e2eVerdict").value,
+    chain: E2E.chain, systems: E2E.customSystems,
+  };
+  const custom = e2eCustomScenarioDef();
+  if (custom) {
+    body.scenario_def = { label: custom.label, origin_message_type: custom.origin_message_type,
+                           chain: E2E.chain };
+  }
+  if (source === "file") body.files = { ...E2E.uploads };
+  if (source === "database") body.database = { dsn: $("e2eDsn").value, table: $("e2eTable").value };
+  return body;
+}
+
 $("btnE2eRun").addEventListener("click", async () => {
   const btn = $("btnE2eRun"); btn.disabled = true;
-  $("e2eStatus").textContent = "running...";
+  $("e2eStatus").textContent = "generating preview sample...";
+  E2E.edits = {};
   try {
-    const source = document.querySelector("input[name=e2esrc]:checked").value;
-    const body = {
-      scenario: $("e2eScenario").value, source,
-      seed: $("e2eSeed").value ? Number($("e2eSeed").value) : null,
-      account: $("e2eAccount").value.trim() || null,
-      amount: $("e2eAmount").value ? Number($("e2eAmount").value) : null,
-      ccy: $("e2eCcy").value.trim() || null,
-      verdict: $("e2eVerdict").value,
-      chain: E2E.chain, systems: E2E.customSystems,
-    };
-    if (source === "file") body.files = { ...E2E.uploads };
-    if (source === "database") body.database = { dsn: $("e2eDsn").value, table: $("e2eTable").value };
-    const r = await api("/e2e/run", { method: "POST", body });
+    const r = await api("/e2e/run", { method: "POST", body: e2eBuildBody() });
     E2E.lastResult = r;
     E2E.selectedSystem = r.systems[0].id;
     E2E.selectedLeg = "forward";
@@ -666,6 +717,26 @@ $("btnE2eRun").addEventListener("click", async () => {
     renderE2eDetail();
     $("e2eStatus").textContent = `done — ${r.hops.length} hops across ${r.systems.length} systems`;
   } catch (e) { $("e2eStatus").textContent = ""; alert(e.message); }
+  btn.disabled = false;
+});
+
+$("btnE2eExport").addEventListener("click", async () => {
+  const btn = $("btnE2eExport"); btn.disabled = true;
+  const count = Math.max(1, Number($("e2eExportCount").value) || 1);
+  $("e2eExportStatus").textContent = `generating ${count.toLocaleString()} message set(s) to files...`;
+  $("e2eExportResult").innerHTML = "";
+  try {
+    const body = { ...e2eBuildBody(), count };
+    const r = await api("/e2e/export", { method: "POST", body });
+    $("e2eExportStatus").textContent =
+      `done — ${r.count.toLocaleString()} message sets, ${r.total_hop_messages.toLocaleString()} hop messages`;
+    const links = Object.entries(r.downloads).map(([label, url]) =>
+      `<a class="dl" href="${url}" style="display:block;margin-top:4px">${esc(label)}</a>`).join("");
+    $("e2eExportResult").innerHTML = `
+      <div class="hint">message types: ${esc(JSON.stringify(r.message_type_counts))}</div>
+      <div class="hint">verdicts: ${esc(JSON.stringify(r.verdict_counts))}</div>
+      ${links}`;
+  } catch (e) { $("e2eExportStatus").textContent = ""; alert(e.message); }
   btn.disabled = false;
 });
 
@@ -722,6 +793,59 @@ function e2eLineageTable(lineage) {
   return html;
 }
 
+function e2eEditRowHtml(field, value, isNew) {
+  return `
+    <tr data-row="${esc(field)}">
+      <td class="mono">${esc(field)}${isNew ? ' <span class="kind added">new</span>' : ""}</td>
+      <td><input type="text" class="e2e-edit-field" data-field="${esc(field)}"
+                 ${isNew ? 'data-new="1"' : ""} value="${esc(value)}"></td>
+      <td><button type="button" class="btn e2e-remove-field" data-field="${esc(field)}">Remove</button></td>
+    </tr>`;
+}
+
+function e2eEditSectionHtml(sysId, direction, message) {
+  const fields = Object.keys(message).filter((k) => !k.startsWith("_"));
+  const rows = fields.map((k) => e2eEditRowHtml(k, message[k], false)).join("");
+  return `
+    <div class="scroll"><table id="e2eEditTable"><tr><th>Field</th><th>Value (editable)</th><th></th></tr>${rows}</table></div>
+    <div class="btnrow" style="margin-top:10px">
+      <input type="text" id="e2eNewFieldName" placeholder="optional tag to add, e.g. CdtTrfTxInf.Purp.Cd">
+      <input type="text" id="e2eNewFieldValue" placeholder="value" style="max-width:140px">
+      <button class="btn" id="btnE2eAddField" type="button">+ Add optional tag</button>
+    </div>
+    <button class="btn primary e2e-apply-edit" style="margin-top:12px"
+            data-sys="${esc(sysId)}" data-dir="${esc(direction)}">Apply edit &amp; re-run</button>
+    <span class="hint">Every hop downstream of this one re-derives from your correction. A
+    removed tag is dropped from this hop onward; an added tag is carried forward the same way
+    a real optional field would be.</span>`;
+}
+
+function e2eWireEditSection(rootMessage) {
+  const table = $("e2eEditTable");
+  // event delegation: remove buttons work even for rows added later via "+ Add optional tag"
+  table.addEventListener("click", (ev) => {
+    const btn = ev.target.closest(".e2e-remove-field");
+    if (!btn) return;
+    const tr = btn.closest("tr");
+    const removed = tr.classList.toggle("e2e-row-removed");
+    tr.querySelector(".e2e-edit-field").disabled = removed;
+    btn.textContent = removed ? "Undo" : "Remove";
+  });
+  $("btnE2eAddField").addEventListener("click", () => {
+    let name = $("e2eNewFieldName").value.trim();
+    const value = $("e2eNewFieldValue").value;
+    if (!name) return;
+    const root = Object.keys(rootMessage).find((k) => !k.startsWith("_"))?.split(".")[0];
+    if (root && !name.startsWith(root + ".")) name = `${root}.${name}`;
+    if (table.querySelector(`[data-row="${CSS.escape(name)}"]`)) {
+      alert("That field is already in the table above — edit it there instead.");
+      return;
+    }
+    table.insertAdjacentHTML("beforeend", e2eEditRowHtml(name, value, true));
+    $("e2eNewFieldName").value = ""; $("e2eNewFieldValue").value = "";
+  });
+}
+
 function renderE2eDetail() {
   const r = E2E.lastResult;
   const by = e2eHopsBySystem(r);
@@ -745,7 +869,54 @@ function renderE2eDetail() {
     <h2 style="margin-top:16px">How this message was transformed</h2>
     ${e2eLineageTable(hop.lineage)}
     <details style="margin-top:12px"><summary class="hint" style="cursor:pointer">Raw message (XML)</summary>
-      <pre>${esc(hop.xml || JSON.stringify(hop.message, null, 2))}</pre></details>`;
+      <pre>${esc(hop.xml || JSON.stringify(hop.message, null, 2))}</pre></details>
+    <h2 style="margin-top:16px">Edit this message</h2>
+    ${e2eEditSectionHtml(sysId, hop.direction, hop.message)}`;
+
+  e2eWireEditSection(hop.message);
+  const applyBtn = $("e2eDetailBody").querySelector(".e2e-apply-edit");
+  if (applyBtn) {
+    applyBtn.addEventListener("click", () => applyE2eEdit(applyBtn.dataset.sys, applyBtn.dataset.dir, hop.message));
+  }
+}
+
+async function applyE2eEdit(sysId, direction, originalMessage) {
+  const changed = {};
+  $("e2eDetailBody").querySelectorAll("tr[data-row]").forEach((tr) => {
+    const field = tr.dataset.row;
+    const input = tr.querySelector(".e2e-edit-field");
+    const isNew = input.dataset.new === "1";
+    if (tr.classList.contains("e2e-row-removed")) {
+      if (field in originalMessage) changed[field] = null;  // no-op if it never existed
+      return;
+    }
+    if (isNew) {
+      if (input.value !== "") changed[field] = input.value;
+      return;
+    }
+    const orig = String(originalMessage[field] ?? "");
+    if (input.value !== orig) changed[field] = input.value;
+  });
+  if (!Object.keys(changed).length) { alert("No fields changed."); return; }
+  const summary = Object.entries(changed)
+    .map(([k, v]) => v === null ? `  remove ${k.split(".").pop()}` : `  ${k.split(".").pop()} -> ${v}`)
+    .join("\n");
+  const confirmed = confirm(
+    `Apply this correction and re-run the preview?\n\n${summary}\n\n` +
+    "Every hop downstream of this one will be regenerated from the corrected message.");
+  if (!confirmed) return;
+  E2E.edits[sysId] = E2E.edits[sysId] || {};
+  E2E.edits[sysId][direction] = { ...(E2E.edits[sysId][direction] || {}), ...changed };
+  $("e2eStatus").textContent = "re-running with your confirmed edit...";
+  try {
+    // edits apply only to this preview sample, never to a bulk-generated volume
+    const r = await api("/e2e/run", { method: "POST",
+      body: { ...e2eBuildBody(), edits: E2E.edits } });
+    E2E.lastResult = r;
+    renderE2eFlow();
+    renderE2eDetail();
+    $("e2eStatus").textContent = "re-run applied with your edit — downstream hops now reflect it";
+  } catch (e) { $("e2eStatus").textContent = ""; alert(e.message); }
 }
 
 /* ------------------------------------------------------------ header */

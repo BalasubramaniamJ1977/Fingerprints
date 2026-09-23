@@ -410,7 +410,8 @@ def download(fname: str):
     path = OUTPUTS / Path(fname).name
     if not path.exists():
         raise HTTPException(404, "no such output")
-    media = {".csv": "text/csv", ".xml": "application/xml"}.get(
+    media = {".csv": "text/csv", ".xml": "application/xml",
+             ".ndjson": "application/x-ndjson", ".json": "application/json"}.get(
         path.suffix, "text/plain")
     return FileResponse(path, filename=path.name, media_type=media)
 
@@ -478,9 +479,11 @@ def e2e_scenarios():
 async def e2e_upload(file: UploadFile, system_id: str = Form(...)):
     """Upload a real message file to seed one system's leg of the flow
     (mode = file-upload by systems). Any system left without an upload
-    still derives its message from the previous hop."""
-    if system_id not in e2e_engine._SYS_BY_ID:
-        raise HTTPException(400, f"unknown system '{system_id}'")
+    still derives its message from the previous hop. system_id doesn't have
+    to be one of the built-in systems — a custom intermediary system (added
+    via "+ Add intermediary system") can have its own test dataset too."""
+    if not system_id.strip():
+        raise HTTPException(400, "system_id is required")
     name = Path(file.filename or "message.xml").name
     if not name.lower().endswith((".xml", ".txt")):
         raise HTTPException(400, "supported: .xml / .txt (MX / ISO 20022 message)")
@@ -494,8 +497,11 @@ async def e2e_upload(file: UploadFile, system_id: str = Form(...)):
             "msg_type": records[0].get("_msg_type"), "messages_in_file": len(records)}
 
 
-def _e2e_resolve_overrides(files):
-    overrides = {}
+def _e2e_resolve_datasets(files):
+    """{system_id: uploaded filename} -> {system_id: [record, ...]}. A file
+    with several <Document> messages is that system's test dataset; one
+    with a single message behaves like today's single-message override."""
+    datasets = {}
     for system_id, fname in (files or {}).items():
         path = E2E_UPLOADS / Path(fname).name
         if not path.exists():
@@ -504,19 +510,40 @@ def _e2e_resolve_overrides(files):
         records, _ = parse_mx(text)
         if not records:
             raise HTTPException(400, f"could not parse message in '{fname}'")
-        overrides[system_id] = records[0]
-    return overrides
+        datasets[system_id] = records
+    return datasets
+
+
+def _e2e_resolve_overrides(files):
+    return {sid: recs[0] for sid, recs in _e2e_resolve_datasets(files).items()}
+
+
+def _e2e_render_xml(result):
+    for h in result["hops"]:
+        try:
+            h["xml"] = render_mx([h["message"]])
+        except Exception:
+            h["xml"] = None
+    return result
 
 
 @app.post("/api/v1/e2e/run")
 def e2e_run(spec: dict = Body(...)):
     """Run one E2E scenario. spec = {scenario, source, seed, account,
     amount, ccy, verdict, files: {system_id: uploaded_name}, database:
-    {dsn, table}, chain: [system_id, ...], systems: [{id, name, role}]}.
+    {dsn, table}, chain: [system_id, ...], systems: [{id, name, role}],
+    edits: {system_id: {"forward"|"response": {field: value}}}}.
     source is one of synthetic | file | database. chain/systems are
     optional — omit them to use the scenario's default 4-system chain, or
     supply chain to insert any number of intermediary systems anywhere in
-    the flow (describe new ids via systems so the UI can label them)."""
+    the flow (describe new ids via systems so the UI can label them).
+    edits lets a reviewed message be corrected field by field — every hop
+    downstream of the edit re-derives from the corrected message, for
+    review-then-edit-then-verify testing. scenario_def = {label, chain,
+    origin_message_type} defines a caller-supplied flow *type* (e.g. "FAST",
+    "RTGS", "Book Transfer", "Telegraphic Transfer") instead of looking
+    `scenario` up in the built-in four — `scenario` is still used as its
+    key/label."""
     scenario = spec.get("scenario", "outward")
     source = spec.get("source", "synthetic")
     overrides = _e2e_resolve_overrides(spec.get("files")) if source == "file" else {}
@@ -527,17 +554,75 @@ def e2e_run(spec: dict = Body(...)):
             account=spec.get("account") or None, amount=spec.get("amount"),
             ccy=spec.get("ccy") or None, overrides=overrides, db=db,
             verdict=spec.get("verdict", "ACSC"),
-            chain=spec.get("chain") or None, systems=spec.get("systems"))
+            chain=spec.get("chain") or None, systems=spec.get("systems"),
+            edits=spec.get("edits"), scenario_def=spec.get("scenario_def"))
     except ValueError as e:
         raise HTTPException(400, str(e))
     except Exception as e:
         raise HTTPException(400, f"e2e run failed: {e}")
-    for h in result["hops"]:
-        try:
-            h["xml"] = render_mx([h["message"]])
-        except Exception:
-            h["xml"] = None
-    return result
+    return _e2e_render_xml(result)
+
+
+@app.post("/api/v1/e2e/batch")
+def e2e_batch(spec: dict = Body(...)):
+    """Live-preview batch of up to fingerprints.e2e.MAX_BATCH flows (same
+    spec as /e2e/run, plus count). For bulk volumes (thousands+), use
+    /api/v1/e2e/export instead — this endpoint holds every flow in memory
+    and in the browser, which doesn't scale past a small preview size."""
+    scenario = spec.get("scenario", "outward")
+    source = spec.get("source", "synthetic")
+    count = int(spec.get("count", 1))
+    datasets = _e2e_resolve_datasets(spec.get("files")) if source == "file" else {}
+    db = spec.get("database") if source == "database" else None
+    try:
+        batch = e2e_engine.run_batch(
+            count=count, datasets=datasets, seed_base=spec.get("seed"),
+            scenario=scenario, source=source,
+            account=spec.get("account") or None, amount=spec.get("amount"),
+            ccy=spec.get("ccy") or None, db=db,
+            verdict=spec.get("verdict", "ACSC"),
+            chain=spec.get("chain") or None, systems=spec.get("systems"),
+            edits=spec.get("edits"), scenario_def=spec.get("scenario_def"))
+    except ValueError as e:
+        raise HTTPException(400, str(e))
+    except Exception as e:
+        raise HTTPException(400, f"e2e batch run failed: {e}")
+    batch["flows"] = [_e2e_render_xml(r) for r in batch["flows"]]
+    return batch
+
+
+@app.post("/api/v1/e2e/export")
+def e2e_export(spec: dict = Body(...)):
+    """Bulk-generate N end-to-end flows and write them to files under
+    data/outputs instead of holding them in memory or the browser — for
+    volumes too large to preview live (e.g. 50,000 messages for bulk
+    testing and verification). Same spec as /e2e/run, plus count
+    (<= fingerprints.e2e.MAX_EXPORT). Streams flow by flow to an NDJSON file
+    (one hop message per line) so memory use stays flat regardless of
+    count; also writes a per-flow summary CSV and a manifest. Returns
+    download links (served by GET /api/v1/outputs/{name}). The generation
+    logic itself lives in fingerprints.e2e.export_flows, shared with the
+    command-line fingerprints.e2e_cli."""
+    scenario = spec.get("scenario", "outward")
+    source = spec.get("source", "synthetic")
+    datasets = _e2e_resolve_datasets(spec.get("files")) if source == "file" else {}
+    db = spec.get("database") if source == "database" else None
+    try:
+        manifest = e2e_engine.export_flows(
+            OUTPUTS, count=int(spec.get("count", 1)), datasets=datasets,
+            seed_base=spec.get("seed"), scenario=scenario, source=source,
+            account=spec.get("account") or None, amount=spec.get("amount"),
+            ccy=spec.get("ccy") or None, db=db,
+            verdict=spec.get("verdict", "ACSC"),
+            chain=spec.get("chain") or None, systems=spec.get("systems"),
+            scenario_def=spec.get("scenario_def"))
+    except ValueError as e:
+        raise HTTPException(400, str(e))
+    except Exception as e:
+        raise HTTPException(400, f"e2e export failed: {e}")
+    files = manifest.pop("files")
+    manifest["downloads"] = {k: f"/api/v1/outputs/{Path(v).name}" for k, v in files.items()}
+    return manifest
 
 
 # ------------------------------------------------------------------ studio

@@ -1,3 +1,4 @@
+import json
 import sys
 from pathlib import Path
 
@@ -191,3 +192,221 @@ def test_seeded_runs_are_deterministic():
     r2 = e2e.run_pipeline(scenario="outward", seed=99, account="SG00SEED0000001")
     assert r1["hops"][0]["message"] == r2["hops"][0]["message"]
     assert r1["hops"][3]["message"] == r2["hops"][3]["message"]
+
+
+# ------------------------------------------------------------- edit & re-verify
+
+def test_edit_on_a_hop_cascades_downstream():
+    field = "FIToFICstmrCdtTrf.CdtTrfTxInf.IntrBkSttlmAmt"
+    r = e2e.run_pipeline(scenario="outward", seed=1,
+                          edits={"payment-processing": {"forward": {field: "999999.99"}}})
+    assert r["hops"][1]["message"][field] == "999999.99"
+    assert r["hops"][2]["message"][field] == "999999.99"  # CoreBanking derived from the edit
+    assert r["hops"][3]["message"][field] == "999999.99"  # Clearing derived from the edit
+    kinds = {e["kind"] for e in r["hops"][1]["lineage"]}
+    assert "edited" in kinds
+
+
+def test_edit_does_not_affect_unrelated_flow():
+    field = "FIToFICstmrCdtTrf.CdtTrfTxInf.IntrBkSttlmAmt"
+    baseline = e2e.run_pipeline(scenario="outward", seed=1)
+    edited = e2e.run_pipeline(scenario="outward", seed=1,
+                               edits={"payment-processing": {"forward": {field: "1.00"}}})
+    assert baseline["hops"][1]["message"][field] != edited["hops"][1]["message"][field]
+    # everything else on that hop is untouched
+    other_field = "FIToFICstmrCdtTrf.CdtTrfTxInf.Dbtr.Nm"
+    assert baseline["hops"][1]["message"][other_field] == edited["hops"][1]["message"][other_field]
+
+
+def test_edit_on_origin_hop_gets_lineage_instead_of_none():
+    field = "CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.RmtInf.Ustrd"
+    r = e2e.run_pipeline(scenario="outward", seed=2,
+                          edits={"ibnk-channel": {"forward": {field: "EDITED"}}})
+    assert r["hops"][0]["message"][field] == "EDITED"
+    assert r["hops"][0]["lineage"] is not None
+    assert r["hops"][0]["lineage"][0]["kind"] == "edited"
+
+
+def test_edit_on_response_leg_only_affects_response():
+    field = "FIToFIPmtStsRpt.TxInfAndSts.TxSts"
+    r = e2e.run_pipeline(scenario="outward", seed=3, verdict="ACSC",
+                          edits={"clearing-settlement": {"response": {field: "RJCT"}}})
+    assert r["hops"][4]["message"][field] == "RJCT"
+    # forward leg for the same system is untouched
+    assert r["hops"][3]["direction"] == "forward"
+    assert "TxSts" not in "".join(r["hops"][3]["message"].keys())
+
+
+# --------------------------------------------------------- optional tags
+
+def test_edit_can_add_an_optional_tag_and_it_propagates_downstream():
+    new_field = "FIToFICstmrCdtTrf.CdtTrfTxInf.Purp.Cd"
+    r = e2e.run_pipeline(scenario="outward", seed=1,
+                          edits={"payment-processing": {"forward": {new_field: "SALA"}}})
+    assert r["hops"][1]["message"][new_field] == "SALA"
+    assert r["hops"][2]["message"][new_field] == "SALA"  # CoreBanking still carries it
+    assert r["hops"][3]["message"][new_field] == "SALA"  # Clearing still carries it
+    kinds = {e["kind"] for e in r["hops"][1]["lineage"] if e["to_field"] == new_field}
+    assert kinds == {"added"}
+
+
+def test_edit_can_remove_an_optional_tag_and_it_stays_gone_downstream():
+    field = "FIToFICstmrCdtTrf.CdtTrfTxInf.RmtInf.Ustrd"
+    r = e2e.run_pipeline(scenario="outward", seed=1,
+                          edits={"payment-processing": {"forward": {field: None}}})
+    assert field not in r["hops"][1]["message"]
+    assert field not in r["hops"][2]["message"]
+    assert field not in r["hops"][3]["message"]
+    removed_entries = [e for e in r["hops"][1]["lineage"] if e["kind"] == "removed"]
+    assert len(removed_entries) == 1 and removed_entries[0]["from_field"] == field
+
+
+def test_edit_removing_a_field_that_is_not_present_is_a_no_op():
+    r = e2e.run_pipeline(scenario="outward", seed=1,
+                          edits={"ibnk-channel": {"forward": {"CstmrCdtTrfInitn.Not.There": None}}})
+    assert r["hops"][0]["lineage"] == []
+
+
+def test_edit_can_mix_add_remove_and_correct_in_one_call():
+    add_field = "FIToFICstmrCdtTrf.CdtTrfTxInf.Purp.Cd"
+    remove_field = "FIToFICstmrCdtTrf.CdtTrfTxInf.RmtInf.Ustrd"
+    correct_field = "FIToFICstmrCdtTrf.CdtTrfTxInf.IntrBkSttlmAmt"
+    r = e2e.run_pipeline(scenario="outward", seed=1, edits={"payment-processing": {"forward": {
+        add_field: "SALA", remove_field: None, correct_field: "1.23",
+    }}})
+    msg = r["hops"][1]["message"]
+    assert msg[add_field] == "SALA"
+    assert remove_field not in msg
+    assert msg[correct_field] == "1.23"
+    kinds_by_field = {e["to_field"] or e["from_field"]: e["kind"] for e in r["hops"][1]["lineage"]
+                       if e["to_field"] in (add_field, correct_field) or e["from_field"] == remove_field}
+    assert kinds_by_field[add_field] == "added"
+    assert kinds_by_field[correct_field] == "edited"
+    assert kinds_by_field[remove_field] == "removed"
+
+
+# ------------------------------------------------------------------- batch
+
+def test_run_batch_produces_n_unique_flows():
+    batch = e2e.run_batch(count=5, scenario="outward", seed_base=100)
+    assert batch["count"] == 5 and len(batch["flows"]) == 5
+    refs = [f["hops"][0]["message"]["CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.PmtId.EndToEndId"]
+            for f in batch["flows"]]
+    assert len(set(refs)) == 5
+    assert [f["flow_index"] for f in batch["flows"]] == [0, 1, 2, 3, 4]
+
+
+def test_run_batch_per_system_dataset_cycles_and_others_still_derive():
+    ds_msg_a = e2e.build_pain001(__import__("random").Random(1), account="SG00DATASET0001")
+    ds_msg_b = e2e.build_pain001(__import__("random").Random(2), account="SG00DATASET0002")
+    batch = e2e.run_batch(count=4, scenario="outward",
+                           datasets={"ibnk-channel": [ds_msg_a, ds_msg_b]}, seed_base=1)
+    accounts = [f["hops"][0]["message"]["CstmrCdtTrfInitn.PmtInf.DbtrAcct.Id.IBAN"]
+                for f in batch["flows"]]
+    assert accounts == ["SG00DATASET0001", "SG00DATASET0002",
+                         "SG00DATASET0001", "SG00DATASET0002"]
+    # payment-processing has no dataset -> still derives end-to-end from the origin
+    for f in batch["flows"]:
+        assert f["hops"][1]["message"]["_msg_type"] == "pacs.008.001.08"
+        assert f["hops"][1]["lineage"]
+
+
+def test_run_batch_rejects_out_of_range_count():
+    import pytest
+    with pytest.raises(ValueError, match="count must be between"):
+        e2e.run_batch(count=0, scenario="outward")
+    with pytest.raises(ValueError, match="count must be between"):
+        e2e.run_batch(count=e2e.MAX_BATCH + 1, scenario="outward")
+
+
+# ------------------------------------------------------------- custom flow types
+
+def test_scenario_def_defines_a_custom_flow_type():
+    rtgs_def = {"label": "RTGS", "origin_message_type": "pain.001.001.09",
+                "chain": ["ibnk-channel", "payment-processing", "clearing-settlement"]}
+    r = e2e.run_pipeline(scenario="rtgs", scenario_def=rtgs_def, seed=1,
+                          account="SG00RTGS0000001")
+    assert r["scenario"] == "rtgs"
+    assert r["chain"] == rtgs_def["chain"]
+    forward_types = [h["message"]["_msg_type"] for h in r["hops"] if h["direction"] == "forward"]
+    assert forward_types == ["pain.001.001.09", "pacs.008.001.08", "pacs.008.001.08"]
+
+
+def test_scenario_def_can_skip_systems_entirely():
+    book_def = {"label": "Book Transfer", "origin_message_type": "pain.001.001.09",
+                "chain": ["ibnk-channel", "payment-processing", "corebanking"]}
+    r = e2e.run_pipeline(scenario="book-transfer", scenario_def=book_def, seed=2)
+    assert "clearing-settlement" not in r["chain"]
+    assert len(r["hops"]) == 6  # 3 forward + 3 response, no clearing leg
+
+
+def test_scenario_def_inward_style_stays_pacs008_throughout():
+    tt_def = {"label": "Telegraphic Transfer", "origin_message_type": "pacs.008.001.08",
+              "chain": ["regulator-fi", "payment-processing", "corebanking",
+                        "realtime-notification"]}
+    r = e2e.run_pipeline(scenario="tt", scenario_def=tt_def, seed=3)
+    forward_types = [h["message"]["_msg_type"] for h in r["hops"] if h["direction"] == "forward"]
+    assert forward_types == ["pacs.008.001.08"] * 4
+
+
+def test_scenario_def_rejects_unsupported_origin_message_type():
+    import pytest
+    with pytest.raises(ValueError, match="unsupported origin_message_type"):
+        e2e.run_pipeline(scenario="x", scenario_def={
+            "label": "x", "origin_message_type": "camt.053.001.08",
+            "chain": ["a", "b"]})
+
+
+# --------------------------------------------------------------- bulk export
+
+def test_iter_batch_is_a_generator_and_matches_run_batch():
+    generated = list(e2e.iter_batch(5, scenario="outward", seed_base=1))
+    batched = e2e.run_batch(count=5, scenario="outward", seed_base=1)["flows"]
+    assert [f["hops"][0]["message"] for f in generated] == \
+           [f["hops"][0]["message"] for f in batched]
+
+
+def test_export_flows_writes_ndjson_csv_and_manifest(tmp_path):
+    manifest = e2e.export_flows(tmp_path, count=10, scenario="outward", seed_base=1)
+    files = manifest.pop("files")
+    assert manifest["count"] == 10
+    assert manifest["total_hop_messages"] == 80  # 10 flows x 8 hops
+    assert manifest["message_type_counts"]["pain.001.001.09"] == 10
+    assert manifest["verdict_counts"] == {"ACSC": 10}
+
+    messages_path = Path(files["messages_ndjson"])
+    lines = messages_path.read_text(encoding="utf-8").splitlines()
+    assert len(lines) == 80
+    first = json.loads(lines[0])
+    assert first["flow_index"] == 0 and first["system"] == "ibnk-channel"
+
+    index_path = Path(files["index_csv"])
+    assert index_path.exists() and index_path.stat().st_size > 0
+
+    manifest_path = Path(files["manifest_json"])
+    on_disk = json.loads(manifest_path.read_text(encoding="utf-8"))
+    assert on_disk["total_hop_messages"] == 80
+
+
+def test_export_flows_supports_scenario_def_and_custom_chain(tmp_path):
+    rtgs_def = {"label": "RTGS", "origin_message_type": "pain.001.001.09",
+                "chain": ["ibnk-channel", "payment-processing", "clearing-settlement"]}
+    manifest = e2e.export_flows(tmp_path, count=3, scenario="rtgs",
+                                 scenario_def=rtgs_def, seed_base=1)
+    assert manifest["chain"] == rtgs_def["chain"]
+    assert manifest["total_hop_messages"] == 3 * 6  # 3-system chain -> 6 hops/flow
+
+
+def test_export_flows_cleans_up_partial_file_on_error(tmp_path):
+    import pytest
+    with pytest.raises(ValueError):
+        e2e.export_flows(tmp_path, count=3, scenario="does-not-exist")
+    assert list(tmp_path.glob("*.ndjson")) == []
+
+
+def test_export_flows_rejects_out_of_range_count(tmp_path):
+    import pytest
+    with pytest.raises(ValueError, match="count must be between"):
+        e2e.export_flows(tmp_path, count=0, scenario="outward")
+    with pytest.raises(ValueError, match="count must be between"):
+        e2e.export_flows(tmp_path, count=e2e.MAX_EXPORT + 1, scenario="outward")

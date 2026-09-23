@@ -172,6 +172,10 @@
       <li class="sub"><a href="#e2e-design">Design</a></li>
       <li class="sub"><a href="#e2e-sources">Three ways to seed a run</a></li>
       <li class="sub"><a href="#e2e-n-systems">N systems &amp; intermediaries</a></li>
+      <li class="sub"><a href="#e2e-edit">Reviewed messages are editable</a></li>
+      <li class="sub"><a href="#e2e-flow-types">User-definable flow types</a></li>
+      <li class="sub"><a href="#e2e-batch">Preview one sample, then generate volume</a></li>
+      <li class="sub"><a href="#enhancement-bulk-cli">Bulk export &amp; the CLI</a></li>
       <li class="sub"><a href="#e2e-ui-test">How to test through the UI</a></li>
       <li class="sub"><a href="#e2e-automated-tests">Automated tests</a></li>
       <li><a href="#roadmap">Roadmap</a></li>
@@ -593,46 +597,210 @@ docs/documentation.html       this document</code></pre>
       (enrichment, message-id regeneration, the response leg) already works over
       an arbitrary-length chain.</p>
 
+      <h3 id="e2e-edit">Reviewed messages are editable, with confirmation</h3>
+      <p>Clicking <strong>Preview 1 sample</strong> always generates exactly
+      one end-to-end message set and renders it — that single sample is what
+      gets reviewed. The System detail panel's transformation table and raw
+      XML are the "review" step; below them, every field of that hop's message
+      is shown in an editable table, with three kinds of correction:</p>
+      <ul>
+        <li><strong>Change a value</strong> — edit the text in an existing
+        field's row.</li>
+        <li><strong>Remove an optional tag</strong> — click <strong>Remove</strong>
+        on its row (the row shows struck through; click again, now labeled
+        <strong>Undo</strong>, to change your mind before applying).</li>
+        <li><strong>Add an optional tag</strong> — type its path and a value
+        under <strong>+ Add optional tag</strong> (a bare name like
+        <code>CdtTrfTxInf.Purp.Cd</code> is auto-prefixed with the message's
+        root segment, so you don't have to know the full ISO 20022 path by
+        heart) and click the button; the new row appears marked
+        <span class="badge acc">new</span>.</li>
+      </ul>
+      <p>Clicking <strong>Apply edit &amp; re-run</strong> pops a confirmation
+      dialog listing exactly what will change (including
+      <code>remove &lt;field&gt;</code> for dropped tags) before anything
+      happens — accepting it re-runs the sample with those corrections applied
+      on top of the message, and every hop <em>downstream</em> of the edited
+      one re-derives from the corrected message: an added tag is carried
+      forward the same way a real optional field would be, and a removed tag
+      stays gone. Changed fields show a red <code>edited</code> badge, added
+      ones an <code>added</code> badge, and removed ones a <code>removed</code>
+      badge in the lineage table, so a reviewer can immediately see what was
+      manually corrected versus what the engine produced
+      (<code>fingerprints/e2e.py</code>'s <code>_apply_edits</code>: a field
+      value of <code>None</code> in an edit means "remove this tag").</p>
+
+      <div class="callout"><b>Two independent axes, easy to conflate:</b>
+      <b>Flow type</b> is <em>which</em> payment this is (Outward, RTGS, Book
+      Transfer, …) — a chain of systems and a message shape, previewed one
+      sample at a time. <b>Volume</b> is <em>how many</em> message sets of
+      that flow type to actually generate — a separate <strong>Generate</strong>
+      control, covered below, that is never "1 to 50 for a quick look" and
+      "thousands for real testing" — it is always the same file-based
+      generation path, whether you ask for 1 or 50,000. Picking a flow type
+      never implies a count. Edits confirmed on the sample stay scoped to that
+      preview — a generated volume is always freshly, independently derived
+      per message set, never stamped with a one-off manual correction.</div>
+
+      <h3 id="e2e-flow-types">User-definable flow types</h3>
+      <p>The four built-in flow types (Outward, Inward, Outward Return, Inward
+      Return) are just pre-registered instances of one shape:
+      <code>{chain, origin_message_type}</code>. <strong>+ Add flow
+      type&hellip;</strong> defines a new one on the fly — name it (e.g. "FAST",
+      "RTGS", "Book Transfer", "Telegraphic Transfer"), pick a base pattern:</p>
+      <table>
+        <tr><th>Base pattern</th><th>origin_message_type</th><th>Behavior</th></tr>
+        <tr><td>Customer-initiated</td><td><code>pain.001.001.09</code></td><td>Like Outward: converts to pacs.008 at whichever system has <code>role: "processing"</code>.</td></tr>
+        <tr><td>Received pacs.008</td><td><code>pacs.008.001.08</code></td><td>Like Inward: pacs.008 all the way through the chain.</td></tr>
+        <tr><td>Return</td><td><code>pacs.004.001.09</code></td><td>Like Inward Return: pacs.004 all the way through the chain.</td></tr>
+      </table>
+      <p>— then build its chain with the same editor used for intermediary
+      systems, including dropping systems entirely (e.g. a Book Transfer that
+      never leaves the bank can skip Clearing &amp; Settlement). No real-world
+      RTGS/FAST specifics are hardcoded — you configure the shape; the engine
+      doesn't special-case the flow type's name anywhere, only its declared
+      <code>origin_message_type</code> and <code>chain</code>
+      (<code>fingerprints/e2e.py</code>'s <code>scenario_def</code> parameter).</p>
+
+      <h3 id="e2e-batch">Preview one sample, then generate volume</h3>
+      <p>The Studio deliberately offers only two controls, not a spectrum of
+      batch sizes to pick between:</p>
+      <table>
+        <tr><th>Control</th><th>Count</th><th>Where results go</th><th>Purpose</th></tr>
+        <tr><td><strong>Preview 1 sample</strong></td><td>always exactly 1</td><td>Rendered live: pipeline diagram + editable System detail</td><td>Review a representative message set, correct it if needed, confirm it looks right</td></tr>
+        <tr><td><strong>Generate</strong></td><td>any number you specify — 1, 1,000, 50,000</td><td>Written to files (NDJSON + CSV + manifest), downloadable</td><td>Produce the actual volume needed for testing/verification, once the sample is trusted</td></tr>
+      </table>
+      <p>There is no in-between "render 50 flows live in the browser" mode —
+      that was tried and dropped: it conflated "which payment is this"
+      (Flow type) with "how many" (Volume), and a live-rendered medium batch
+      wasn't the right shape for either reviewing (1 is enough) or bulk
+      testing (needs to scale to tens of thousands, which the browser can't
+      render anyway). See <a href="#enhancement-bulk-cli">Bulk export &amp;
+      the CLI</a> below for how Generate actually writes files at any scale.</p>
+      <p>Per system, the source is a choice between two kinds of data, used by
+      both Preview and Generate:</p>
+      <ul>
+        <li><strong>Test dataset</strong> — upload an .xml file with several
+        <code>&lt;Document&gt;</code> messages for one system (File upload by
+        system source). Message set <em>i</em> uses that system's message
+        <em>i</em> from the file (cycling if the generated volume is larger
+        than the dataset) — useful for replaying a fixed set of real or
+        hand-crafted test cases through the rest of the chain.</li>
+        <li><strong>End-to-end dataset</strong> — leave a system without an
+        upload and it keeps deriving its message from the previous hop, for
+        every set — useful when only one system's real test cases matter and
+        the rest of the chain should just behave normally around them.</li>
+      </ul>
+      <p>The two can be mixed freely: e.g. a real test dataset for IBNK
+      Channel with Payment Processing, CoreBanking, and Clearing &amp;
+      Settlement all still deriving end-to-end for every set/flow.</p>
+
+      <h3 id="enhancement-bulk-cli">Bulk export &amp; the CLI</h3>
+      <p><code>fingerprints/e2e_cli.py</code> and <code>POST
+      /api/v1/e2e/export</code> both call the same
+      <code>fingerprints.e2e.export_flows</code> — one generation path, so CLI
+      and Studio output are identical. It streams: <code>iter_batch()</code>
+      yields one flow at a time (not a Python list of all of them), so memory
+      stays flat whether count is 10 or 200,000
+      (<code>fingerprints.e2e.MAX_EXPORT</code>). Measured: 50,000 flows across
+      the default 4-system Outward chain (400,000 hop messages, ~400&nbsp;MB
+      NDJSON) in well under 10 seconds on a laptop.</p>
+      <pre><code>python -m fingerprints.e2e_cli export --scenario outward --count 50000 --seed 1
+
+python -m fingerprints.e2e_cli export --scenario inward --count 5000 \
+    --account SG00OCBC0000004242 --out-dir data/outputs
+
+# a custom flow type, from an inline JSON definition
+python -m fingerprints.e2e_cli export --scenario rtgs --count 20000 \
+    --scenario-def '{"label":"RTGS","origin_message_type":"pain.001.001.09",
+                      "chain":["ibnk-channel","payment-processing","clearing-settlement"]}'
+
+python -m fingerprints.e2e_cli list-scenarios</code></pre>
+      <p>Output (three files per run, named <code>e2e-&lt;run_id&gt;-*</code>):</p>
+      <table>
+        <tr><th>File</th><th>Contents</th></tr>
+        <tr><td><code>messages.ndjson</code></td><td>One JSON line per hop message: <code>flow_index</code>, <code>seq</code>, <code>system</code>, <code>direction</code>, plus every field of that hop's message.</td></tr>
+        <tr><td><code>index.csv</code></td><td>One row per flow: account, origin message id, verdict — for a quick spreadsheet-level look without parsing the NDJSON.</td></tr>
+        <tr><td><code>manifest.json</code></td><td>Run config (scenario, chain, seed base, count) plus message-type and verdict counts, for a build-log-style summary.</td></tr>
+      </table>
+
       <h3 id="e2e-ui-test">How to test through the UI</h3>
       <ol>
         <li>Start the Studio: <code>python -m uvicorn api.main:app --port 8600</code>, open
         <code>http://127.0.0.1:8600</code>.</li>
         <li>Click tab <strong>7 &middot; E2E Test</strong>.</li>
-        <li>Pick a <strong>Flow</strong> (Outward / Inward / Outward Return / Inward Return)
-        from the dropdown.</li>
+        <li>Pick a <strong>Flow type</strong> (Outward / Inward / Outward Return /
+        Inward Return, or a custom one — see below) from the dropdown.</li>
         <li>Leave <strong>Source</strong> on "Complete synthetic", optionally set a
-        seed/account, and click <strong>Run E2E test</strong>.</li>
+        seed/account, and click <strong>Preview 1 sample</strong>.</li>
         <li>The <em>Pipeline</em> card renders two rows of clickable system nodes
         (Forward, Response). Click any node — the <em>System detail</em> card below
         shows its Forward-leg and Response-leg tabs, each with a field-by-field
         transformation table (color-coded: mapped / generated / enriched /
-        regenerated / passthrough) and a collapsible raw XML view.</li>
+        regenerated / passthrough / edited) and a collapsible raw XML view.</li>
+        <li>Scroll to <strong>Edit this message</strong>: change a field's value,
+        click <strong>Remove</strong> on an optional tag's row (its input strikes
+        through; the button becomes <strong>Undo</strong>), and add a new one via
+        <strong>+ Add optional tag</strong> (e.g. name <code>CdtTrfTxInf.Purp.Cd</code>,
+        value <code>SALA</code>) — then click <strong>Apply edit &amp; re-run</strong>.
+        A confirmation dialog lists exactly what will change (including any
+        removal); accept it and the sample re-runs with your corrections, every
+        hop after this one now reflecting them (check a downstream system's
+        detail to confirm the removed tag stays gone and the added one is
+        carried forward).</li>
         <li>To try <strong>file upload by system</strong>: switch Source, upload an
-        .xml message against any system, Run — that system's hop uses your file
-        instead of a derived one (shown with a generic before/after diff, since
-        there's no schema mapping to trace for a caller-supplied message).</li>
+        .xml message against any system, Preview again — that system's hop uses
+        your file instead of a derived one (shown with a generic before/after
+        diff, since there's no schema mapping to trace for a caller-supplied
+        message). Upload a file with several messages and it becomes that
+        system's test dataset when you Generate a volume (see below).</li>
         <li>To try <strong>database</strong> mode: switch Source, enter a read-only DSN
-        and table name, Run — the origination message's account/amount/currency
-        come from that table's first row.</li>
+        and table name, Preview again — the origination message's
+        account/amount/currency come from that table's first row.</li>
         <li>Click <strong>+ Add intermediary system&hellip;</strong>, name it (e.g. "Fraud
-        Check"), pick where to insert it, and Run again — the new system appears
-        as its own node and, if inserted before Payment Processing, visibly still
-        carries the pain.001 message rather than pacs.008.</li>
+        Check"), pick where to insert it, and Preview again — the new system
+        appears as its own node and, if inserted before Payment Processing,
+        visibly still carries the pain.001 message rather than pacs.008.</li>
+        <li>Click <strong>+ Add flow type&hellip;</strong>, name it "RTGS", pick base
+        pattern 1 (customer-initiated), and edit its chain (e.g. remove
+        CoreBanking) with the same insert/remove chips — Preview to see your
+        custom flow type work exactly like a built-in one.</li>
+        <li>Once the sample looks right, scroll to <strong>Generate volume</strong>,
+        set the count to e.g. 5,000, click <strong>Generate</strong> — a summary
+        (message-type and verdict counts) and three download links appear once
+        it's done (typically well under a second per thousand message sets).
+        Note that generated sets are freshly derived, not a copy of the edited
+        sample — edits are a preview-only review tool.</li>
       </ol>
 
       <h3 id="e2e-automated-tests">Automated tests</h3>
-      <p><code>tests/test_e2e.py</code> (17 tests) covers: all four scenarios' hop
-      shape and message types; the explicit pain.001&rarr;pacs.008 field mapping;
-      the pacs.002 response correctly correlating back to the original UETR/
-      EndToEndId; configurable verdicts (ACSC/RJCT); lineage completeness and
-      enrichment on every hop; XML rendering for every hop in every scenario;
-      file-override behavior; N-system custom chains with an inserted
-      intermediary (including the before/after-conversion boundary); the
-      role-based fallback when no "processing" system exists in a fully custom
-      chain; validation errors (too-short chain, duplicate ids, unknown
-      scenario, missing database config); and deterministic output for a fixed
-      seed.</p>
-      <pre><code>python -m pytest tests/test_e2e.py -v
+      <p><code>tests/test_e2e.py</code> (38 tests) covers: all four built-in
+      scenarios' hop shape and message types; the explicit pain.001&rarr;pacs.008
+      field mapping; the pacs.002 response correctly correlating back to the
+      original UETR/EndToEndId; configurable verdicts (ACSC/RJCT); lineage
+      completeness and enrichment on every hop; XML rendering for every hop in
+      every scenario; file-override behavior; N-system custom chains with an
+      inserted intermediary (including the before/after-conversion boundary);
+      the role-based fallback when no "processing" system exists in a fully
+      custom chain; validation errors (too-short chain, duplicate ids, unknown
+      scenario, missing database config); deterministic output for a fixed
+      seed; field edits cascading downstream (including on the origin and
+      response hops, and confirming an edit on one leg doesn't leak into the
+      other); <strong>adding an optional tag and removing one, propagating
+      correctly downstream, mixed with a value correction in the same call,
+      and a no-op when removing a tag that was never present</strong>;
+      live-preview batches (unique flows, per-system dataset cycling mixed
+      with end-to-end derivation, and the 1&ndash;50 count bound);
+      user-definable flow types via <code>scenario_def</code> (all three base
+      patterns, chains that drop systems entirely, rejecting an unsupported
+      message type); and bulk export (<code>iter_batch</code> matching
+      <code>run_batch</code>, NDJSON/CSV/manifest correctness, cleanup on a
+      failed export, and the count bound). <code>tests/test_e2e_cli.py</code>
+      (9 tests) covers the same export path from the command line, including
+      inline and file-based <code>--scenario-def</code>, custom chains via
+      <code>--chain</code>/<code>--system</code>, and a local <code>--file</code>
+      test dataset.</p>
+      <pre><code>python -m pytest tests/test_e2e.py tests/test_e2e_cli.py -v
 python -m pytest tests            # whole suite</code></pre>
     </section>
 

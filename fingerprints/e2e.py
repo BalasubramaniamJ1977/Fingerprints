@@ -33,9 +33,13 @@ Three ways to seed the run (`source`):
                has a queryable instruction store in this kind of test
 """
 
+import csv
+import json
 import random
+import time
 import uuid
 from datetime import datetime, timedelta
+from pathlib import Path
 
 from fingerprints.messages import BICS, FIRST, LAST
 
@@ -428,24 +432,83 @@ def resolve_systems(chain, custom_systems=None):
     return [registry[sid] for sid in chain]
 
 
+def _apply_edits(msg, lineage, field_edits):
+    """Merge caller-supplied field edits onto an already-built message,
+    appending lineage entries for what changed. Downstream hops derive from
+    the edited message, so an edit cascades forward through the rest of the
+    chain exactly like a real correction would.
+
+    A field_edits value of None means "remove this optional tag" (a no-op if
+    the field wasn't present); any other value sets the field, added as a
+    new tag if it wasn't already there ("added") or corrected if it was
+    ("edited")."""
+    if not field_edits:
+        return msg, lineage
+    new_msg = dict(msg)
+    edit_lineage = []
+    for k, v in field_edits.items():
+        was_present = k in msg
+        if v is None:
+            if was_present:
+                new_msg.pop(k, None)
+                edit_lineage.append({"from_field": k, "from_value": msg.get(k),
+                                      "to_field": None, "to_value": None, "kind": "removed"})
+            continue
+        new_msg[k] = v
+        edit_lineage.append({
+            "from_field": k if was_present else None,
+            "from_value": msg.get(k) if was_present else None,
+            "to_field": k, "to_value": v,
+            "kind": "edited" if was_present else "added",
+        })
+    return new_msg, (lineage or []) + edit_lineage
+
+
 def run_pipeline(scenario="outward", source="synthetic", seed=None, account=None,
                   amount=None, ccy=None, overrides=None, db=None, verdict="ACSC",
-                  chain=None, systems=None):
+                  chain=None, systems=None, edits=None, scenario_def=None):
     """Run one scenario end to end.
 
+    scenario_def: optional {"label", "chain", "origin_message_type"} —
+               defines a caller-supplied flow *type* on the fly (e.g. "FAST",
+               "RTGS", "Book Transfer", "Telegraphic Transfer") instead of
+               looking `scenario` up in the built-in SCENARIOS. `scenario` is
+               still used as the flow's key/label in the result. This is the
+               general mechanism: the four built-in scenarios are just
+               pre-registered instances of the same {chain,
+               origin_message_type} shape — a custom flow type is not
+               special-cased anywhere else in this function.
     chain:     optional ordered list of system ids overriding the scenario's
-               default 4-system chain — insert any number of intermediary
-               systems anywhere in the flow (N systems, not just 4).
+               default chain — insert any number of intermediary systems
+               anywhere in the flow (N systems, not just 4).
     systems:   optional [{id, name, role}] definitions for any custom ids
                used in `chain` that aren't one of the built-in SYSTEMS.
     overrides: {system_id: parsed_record} — forward-leg messages supplied by
-               the caller (file upload) instead of being derived.
+               the caller (file upload / one row of a test dataset) instead
+               of being derived.
     db:        {"dsn": ..., "table": ...} — used only when source=="database"
                to seed the origination message's account/amount/currency.
+    edits:     {system_id: {"forward": {field: value}, "response": {field:
+               value}}} — field-level corrections applied on top of a hop
+               after it is built (derived, overridden, or dataset-sourced).
+               Every hop downstream of an edited one re-derives from the
+               edited message, so review-then-edit-then-verify works the
+               same way for a synthetic run, an uploaded message, or a
+               database-seeded one.
     """
-    if scenario not in SCENARIOS:
-        raise ValueError(f"unknown scenario '{scenario}'")
-    cfg = SCENARIOS[scenario]
+    if scenario_def:
+        origin_type = scenario_def["origin_message_type"]
+        if origin_type not in _ORIGIN_BUILDERS:
+            raise ValueError(
+                f"unsupported origin_message_type '{origin_type}' — must be one of "
+                f"{sorted(_ORIGIN_BUILDERS)}")
+        cfg = {"label": scenario_def.get("label", scenario),
+               "chain": list(scenario_def["chain"]),
+               "origin_message_type": origin_type}
+    else:
+        if scenario not in SCENARIOS:
+            raise ValueError(f"unknown scenario '{scenario}'")
+        cfg = SCENARIOS[scenario]
     chain = list(chain) if chain else list(cfg["chain"])
     if len(chain) < 2:
         raise ValueError("chain needs at least 2 systems (an origin and one hop)")
@@ -455,6 +518,7 @@ def run_pipeline(scenario="outward", source="synthetic", seed=None, account=None
     role_of = {s["id"]: s["role"] for s in system_defs}
 
     overrides = overrides or {}
+    edits = edits or {}
     rng = random.Random(seed)
     source_context = {"type": source}
 
@@ -469,8 +533,11 @@ def run_pipeline(scenario="outward", source="synthetic", seed=None, account=None
     # pain.001 -> pacs.008 must happen once, at whichever system actually
     # does payment processing; any intermediary before it (compliance check,
     # sanctions screening, ...) just relays the pain.001 message untouched.
+    # Keyed off the origin message type (not the scenario name) so a custom
+    # flow type that also starts from a customer instruction gets the same
+    # conversion behavior as the built-in "outward" scenario.
     convert_at = None
-    if scenario == "outward":
+    if cfg["origin_message_type"] == "pain.001.001.09":
         convert_at = next((i for i in range(1, len(chain))
                             if role_of[chain[i]] == "processing"), 1)
 
@@ -481,8 +548,10 @@ def run_pipeline(scenario="outward", source="synthetic", seed=None, account=None
     else:
         builder = _ORIGIN_BUILDERS[cfg["origin_message_type"]]
         origin_msg = builder(rng, account=account, amount=amount, ccy=ccy)
+    origin_msg, origin_lineage = _apply_edits(
+        origin_msg, None, edits.get(origin_id, {}).get("forward"))
     hops.append({"seq": 1, "system": origin_id, "direction": "forward",
-                 "message": origin_msg, "lineage": None})
+                 "message": origin_msg, "lineage": origin_lineage})
 
     prev = origin_msg
     for i in range(1, len(chain)):
@@ -494,17 +563,21 @@ def run_pipeline(scenario="outward", source="synthetic", seed=None, account=None
             new_msg, lineage = pain001_to_pacs008(prev, rng)
         else:
             new_msg, lineage = enrich_passthrough(prev, rng, sys_id)
+        new_msg, lineage = _apply_edits(new_msg, lineage, edits.get(sys_id, {}).get("forward"))
         hops.append({"seq": i + 1, "system": sys_id, "direction": "forward",
                      "message": new_msg, "lineage": lineage})
         prev = new_msg
 
     resp_msg, resp_lineage = to_pacs002(prev, rng, verdict=verdict)
+    resp_msg, resp_lineage = _apply_edits(
+        resp_msg, resp_lineage, edits.get(chain[-1], {}).get("response"))
     hops.append({"seq": len(hops) + 1, "system": chain[-1], "direction": "response",
                  "message": resp_msg, "lineage": resp_lineage})
     prev = resp_msg
     for i in range(len(chain) - 2, -1, -1):
         sys_id = chain[i]
         new_msg, lineage = enrich_passthrough(prev, rng, sys_id)
+        new_msg, lineage = _apply_edits(new_msg, lineage, edits.get(sys_id, {}).get("response"))
         hops.append({"seq": len(hops) + 1, "system": sys_id, "direction": "response",
                      "message": new_msg, "lineage": lineage})
         prev = new_msg
@@ -520,3 +593,131 @@ def hops_by_system(result):
     for h in result["hops"]:
         by_sys[h["system"]][h["direction"]] = h
     return by_sys
+
+
+MAX_BATCH = 50          # interactive preview cap — kept small for the browser UI
+MAX_EXPORT = 200_000    # bulk file export cap — a sanity ceiling, not a UI limit
+
+
+def iter_batch(count, datasets=None, overrides=None, seed_base=None, **kwargs):
+    """Generator over `count` independent, uniquely-seeded payment flows —
+    "N unique payment flows for testing and verification". Yields one flow
+    at a time instead of collecting them all in memory, so this is what
+    bulk export (tens of thousands of flows) uses; run_batch (below) is the
+    small, in-memory version for live preview in the UI.
+
+    datasets:  {system_id: [record, record, ...]} — a per-system test
+               dataset (e.g. parsed from a multi-message uploaded file).
+               Flow i uses dataset[system_id][i % len(dataset[system_id])]
+               as that system's forward-leg message instead of deriving it
+               end-to-end; a system with no dataset still derives its
+               message from the previous hop as usual, so one batch can mix
+               "test dataset" systems and "end-to-end derived" systems.
+    Remaining kwargs (scenario, source, account, chain, systems, db,
+    verdict, edits, scenario_def, ...) are passed through to run_pipeline
+    for every flow.
+    """
+    if count < 1:
+        raise ValueError("count must be at least 1")
+    datasets = datasets or {}
+    base_overrides = dict(overrides or {})
+    for i in range(count):
+        per_flow_overrides = dict(base_overrides)
+        for sys_id, records in datasets.items():
+            if records:
+                per_flow_overrides[sys_id] = records[i % len(records)]
+        seed_i = (seed_base + i) if seed_base is not None else None
+        result = run_pipeline(seed=seed_i, overrides=per_flow_overrides, **kwargs)
+        result["flow_index"] = i
+        yield result
+
+
+def run_batch(count=1, datasets=None, overrides=None, seed_base=None, **kwargs):
+    """In-memory batch of up to MAX_BATCH flows, for the Studio's live
+    preview. For larger volumes (e.g. 50,000 messages for bulk testing and
+    verification), use export_flows (below) instead."""
+    if count < 1 or count > MAX_BATCH:
+        raise ValueError(f"count must be between 1 and {MAX_BATCH}")
+    flows = list(iter_batch(count, datasets=datasets, overrides=overrides,
+                             seed_base=seed_base, **kwargs))
+    return {"count": count, "flows": flows}
+
+
+def export_flows(out_dir, count=1, datasets=None, overrides=None, seed_base=None,
+                  run_id=None, **kwargs):
+    """Stream `count` end-to-end flows to disk instead of holding them in
+    memory — "50K end-to-end system messages for testing and verification"
+    is this function, not run_batch. Writes, under out_dir:
+
+      e2e-<run_id>-messages.ndjson   one JSON line per hop message, tagged
+                                      with flow_index/seq/system/direction
+      e2e-<run_id>-index.csv         one row per flow (account, origin msg
+                                      id, verdict) for quick lookup
+      e2e-<run_id>-manifest.json     run config + message-type/verdict
+                                      counts
+
+    Used by both fingerprints/e2e_cli.py and the Studio's
+    /api/v1/e2e/export, so the bulk-generation logic lives in one place.
+    Remaining kwargs (scenario, source, account, chain, systems, db,
+    verdict, scenario_def, ...) are passed through to run_pipeline for
+    every flow. Raises ValueError for a bad count or pipeline config; the
+    partial messages file is removed if generation fails partway through.
+    """
+    if count < 1 or count > MAX_EXPORT:
+        raise ValueError(f"count must be between 1 and {MAX_EXPORT}")
+    out_dir = Path(out_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    run_id = run_id or (time.strftime("%Y%m%d-%H%M%S") + "-" + uuid.uuid4().hex[:6])
+    messages_path = out_dir / f"e2e-{run_id}-messages.ndjson"
+    index_path = out_dir / f"e2e-{run_id}-index.csv"
+    manifest_path = out_dir / f"e2e-{run_id}-manifest.json"
+
+    scenario = kwargs.get("scenario", "outward")
+    index_rows, msg_type_counts, verdict_counts, n_hops = [], {}, {}, 0
+    try:
+        with open(messages_path, "w", encoding="utf-8") as mf:
+            for result in iter_batch(count=count, datasets=datasets, overrides=overrides,
+                                      seed_base=seed_base, **kwargs):
+                origin = result["hops"][0]["message"]
+                response = result["hops"][-1]["message"]
+                for h in result["hops"]:
+                    rec = {"flow_index": result["flow_index"], "seq": h["seq"],
+                           "system": h["system"], "direction": h["direction"],
+                           **h["message"]}
+                    mf.write(json.dumps(rec, default=str) + "\n")
+                    n_hops += 1
+                    mt = h["message"].get("_msg_type")
+                    msg_type_counts[mt] = msg_type_counts.get(mt, 0) + 1
+                acct_key = next((k for k in origin
+                                  if k.endswith("IBAN") or k.endswith("Othr.Id")), None)
+                verdict_val = next((v for k, v in response.items()
+                                     if k.endswith("TxSts")), None)
+                verdict_counts[verdict_val] = verdict_counts.get(verdict_val, 0) + 1
+                index_rows.append({
+                    "flow_index": result["flow_index"], "scenario": result["scenario"],
+                    "account": origin.get(acct_key) if acct_key else None,
+                    "origin_msg_id": origin.get("_msg_id"), "verdict": verdict_val,
+                })
+    except Exception:
+        messages_path.unlink(missing_ok=True)
+        raise
+
+    if index_rows:
+        with open(index_path, "w", newline="", encoding="utf-8") as f:
+            w = csv.DictWriter(f, fieldnames=list(index_rows[0].keys()))
+            w.writeheader()
+            w.writerows(index_rows)
+
+    manifest = {
+        "run_id": run_id, "scenario": scenario, "source": kwargs.get("source", "synthetic"),
+        "count": count,
+        "chain": kwargs.get("chain") or (kwargs.get("scenario_def") or {}).get("chain")
+                 or SCENARIOS.get(scenario, {}).get("chain"),
+        "seed_base": seed_base, "generated_at": time.strftime("%Y-%m-%dT%H:%M:%S"),
+        "total_hop_messages": n_hops, "message_type_counts": msg_type_counts,
+        "verdict_counts": verdict_counts,
+    }
+    manifest_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+    manifest["files"] = {"messages_ndjson": str(messages_path), "index_csv": str(index_path),
+                          "manifest_json": str(manifest_path)}
+    return manifest

@@ -57,22 +57,50 @@ python -m uvicorn api.main:app --port 8600       # Studio + API
 
 ## E2E Test (tab 7)
 
-Runs a simulated payment across a chain of systems as ISO 20022 messages
-(default: IBNK Channel `pain.001` &rarr; Payment Processing &rarr; CoreBanking
-&rarr; Clearing & Settlement, all `pacs.008`, with a `pacs.002` response
-relayed back), so a tester can click any system and see exactly how it
-transformed the message (mapped / generated / enriched / passed through
-field by field). Pick the flow from a dropdown — **Outward**, **Inward**,
-**Outward Return**, **Inward Return**. Inward and Outward Return share a
-second chain: `Regulator/FI` &rarr; Payment Processing &rarr; CoreBanking
-&rarr; `Realtime Notification` (to channels), both carrying `pacs.008`;
-Inward Return mirrors Outward's chain with `pacs.004`. Pick a source — **complete
-synthetic**, **file upload by system**, or **connect to a system database**
-(read-only). The chain isn't fixed at four systems: **+ Add intermediary
-system** inserts any number of extra hops (fraud check, sanctions
-screening, …) anywhere in the flow. See `fingerprints/e2e.py`, tests in
-`tests/test_e2e.py`, and `docs/documentation.html` &rarr; "Enhancement: E2E
-Test tab" for the full design, a UI test walkthrough, and the roadmap.
+Runs a simulated payment across a chain of systems as ISO 20022 messages, so
+a tester can click any system and see exactly how it transformed the
+message (mapped / generated / enriched / passed through field by field).
+Two independent axes, not to be confused with each other:
+
+- **Flow type** — *which* payment this is: the built-in **Outward**,
+  **Inward**, **Outward Return**, **Inward Return** (default chain: IBNK
+  Channel `pain.001` &rarr; Payment Processing &rarr; CoreBanking &rarr;
+  Clearing & Settlement / Regulator-FI, all `pacs.008`, with a `pacs.002`
+  response relayed back), or a flow type you define yourself — **+ Add flow
+  type…** names it (e.g. **FAST**, **RTGS**, **Book Transfer**,
+  **Telegraphic Transfer**), picks a base pattern (customer-initiated
+  pain.001&rarr;pacs.008, received pacs.008, or a pacs.004 return), and its
+  chain is built with the same chain editor as the built-ins — **+ Add
+  intermediary system** inserts any number of extra hops (fraud check,
+  sanctions screening, …) anywhere in the flow, or a custom flow type can
+  drop systems entirely (e.g. Book Transfer skipping Clearing & Settlement
+  since it's intra-bank).
+- **Volume** — *how many* message sets of that flow type to produce. Only two
+  controls, deliberately not a spectrum of batch sizes: **Preview 1 sample**
+  always generates exactly one, rendered live for review; **Generate** takes
+  any count — 1, 1,000, or **50,000 end-to-end messages across the whole
+  chain** — and streams them to files instead of the browser: `POST
+  /api/v1/e2e/export` or `python -m fingerprints.e2e_cli export --count
+  50000` write an NDJSON of every hop message, a per-flow summary CSV, and
+  a manifest, all downloadable from the Studio.
+
+Source is still a per-run choice — **complete synthetic**, **file upload by
+system** (a multi-message file becomes that system's **test dataset**,
+cycled one message per generated set — any system without one keeps
+deriving its message **end-to-end** from the previous hop, and the two can
+be mixed), or **connect to a system database** (read-only, seeds the
+origination message). Once you've reviewed the sample's message, it's
+**editable in place** — change a field, **Remove** an optional tag (or
+**Undo** the removal), or **+ Add optional tag** by name and value (a bare
+name is auto-prefixed with the message's root segment). **Apply edit &
+re-run** asks for confirmation (showing exactly what will change, including
+removals) before propagating the correction through every downstream hop —
+an added tag carries forward like a real optional field would, a removed
+one stays gone. Edits are a preview-only review aid and are never carried
+into a generated volume. See `fingerprints/e2e.py`,
+`fingerprints/e2e_cli.py`, tests in `tests/test_e2e.py` and
+`tests/test_e2e_cli.py`, and `docs/documentation.html` &rarr; "Enhancement:
+E2E Test tab" for the full design, a UI test walkthrough, and the roadmap.
 
 ## MT/MX messages (tab 6)
 
