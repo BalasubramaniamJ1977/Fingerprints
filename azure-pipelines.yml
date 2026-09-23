@@ -1,0 +1,87 @@
+# Azure DevOps pipeline for the Fingerprints project.
+#
+# Two stages:
+#   1. Test        - installs the package and runs the pytest suite (engine,
+#                     privacy, MT/MX round-trips, registry CLI).
+#   2. RegistryGate - re-learns the fingerprint(s) that this pipeline owns and
+#                     uses `python -m fingerprints.registry_cli changes` to
+#                     report/gate on what changed vs. the previous registered
+#                     version. See docs/documentation.html -> "Continuous
+#                     integration (Azure DevOps)" for the full write-up.
+#
+# Adapt the "Re-learn fingerprint(s)" step to however this pipeline produces
+# fresh data (e.g. pull last night's export, run scripts/seed_postgres.py,
+# call an internal ETL job) -- the registry/CLI steps below don't change.
+
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: "ubuntu-latest"
+
+variables:
+  pythonVersion: "3.11"
+
+stages:
+  - stage: Test
+    jobs:
+      - job: Pytest
+        steps:
+          - task: UsePythonVersion@0
+            inputs:
+              versionSpec: $(pythonVersion)
+
+          - script: python -m pip install --upgrade pip && pip install -e ".[dev]"
+            displayName: "Install dependencies"
+
+          - script: python -m pytest tests --junitxml=$(Build.ArtifactStagingDirectory)/test-results.xml
+            displayName: "Run test suite"
+
+          - task: PublishTestResults@2
+            condition: succeededOrFailed()
+            inputs:
+              testResultsFormat: "JUnit"
+              testResultsFiles: "test-results.xml"
+              searchFolder: "$(Build.ArtifactStagingDirectory)"
+
+  - stage: RegistryGate
+    dependsOn: Test
+    condition: succeeded()
+    jobs:
+      - job: FingerprintChanges
+        steps:
+          - task: UsePythonVersion@0
+            inputs:
+              versionSpec: $(pythonVersion)
+
+          - script: python -m pip install --upgrade pip && pip install -e ".[dev]"
+            displayName: "Install dependencies"
+
+          # Replace this with however the pipeline learns/refreshes the
+          # fingerprints it tracks. Left as the bundled demo so the pipeline
+          # is runnable out of the box; it fits + saves several fingerprints,
+          # including a new "payments" version every run.
+          - script: python demo.py
+            displayName: "Re-learn fingerprint(s) into the registry"
+
+          # Print + gate on drift for every fingerprint that has 2+ versions.
+          # --fail-on-drift makes this step (and therefore the build) fail as
+          # soon as any state/transition/field drift is detected, so unwanted
+          # behavior changes are caught before merging/deploying.
+          - script: |
+              mkdir -p $(Build.ArtifactStagingDirectory)/registry-report
+              python -m fingerprints.registry_cli changes --all --format json \
+                > $(Build.ArtifactStagingDirectory)/registry-report/changes.json
+              python -m fingerprints.registry_cli changes --all
+            displayName: "Report fingerprint registry changes"
+
+          - script: python -m fingerprints.registry_cli changes --all --fail-on-drift
+            displayName: "Gate: fail build on unreviewed drift"
+
+          - task: PublishBuildArtifacts@1
+            condition: always()
+            inputs:
+              PathtoPublish: "$(Build.ArtifactStagingDirectory)/registry-report"
+              ArtifactName: "fingerprint-registry-changes"

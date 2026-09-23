@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fingerprints — Design, Features &amp; Testing</title>
+<style>
+  :root{
+    --bg:#ffffff; --bg-alt:#f6f7f9; --text:#1b1f24; --text-dim:#565d66;
+    --border:#e2e5ea; --accent:#3457d5; --accent-dim:#eef1fd;
+    --code-bg:#0f172a; --code-text:#e2e8f0; --ok:#1a7f37; --warn:#9a5b00;
+    --table-head:#eef1fd;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#12151a; --bg-alt:#1a1e25; --text:#e6e9ee; --text-dim:#9aa4b2;
+      --border:#2b3038; --accent:#7c93ff; --accent-dim:#1c2340;
+      --code-bg:#0a0d12; --code-text:#d7e0ee; --ok:#4ada82; --warn:#e0a94b;
+      --table-head:#1c2340;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#12151a; --bg-alt:#1a1e25; --text:#e6e9ee; --text-dim:#9aa4b2;
+    --border:#2b3038; --accent:#7c93ff; --accent-dim:#1c2340;
+    --code-bg:#0a0d12; --code-text:#d7e0ee; --ok:#4ada82; --warn:#e0a94b;
+    --table-head:#1c2340;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.6;
+  }
+  .layout{display:flex; max-width:1180px; margin:0 auto;}
+  nav.toc{
+    width:250px; flex:0 0 250px; padding:28px 16px; position:sticky; top:0;
+    align-self:flex-start; height:100vh; overflow-y:auto; border-right:1px solid var(--border);
+  }
+  nav.toc h2{font-size:12px; text-transform:uppercase; letter-spacing:.08em; color:var(--text-dim); margin:0 0 12px;}
+  nav.toc ul{list-style:none; margin:0; padding:0;}
+  nav.toc li{margin:0;}
+  nav.toc a{
+    display:block; padding:6px 10px; border-radius:6px; color:var(--text-dim);
+    text-decoration:none; font-size:13.5px;
+  }
+  nav.toc a:hover{background:var(--bg-alt); color:var(--text);}
+  nav.toc .sub a{padding-left:22px; font-size:12.5px;}
+  main{flex:1; min-width:0; padding:40px 48px 100px;}
+  header.hero{margin-bottom:36px;}
+  header.hero .kicker{color:var(--accent); font-weight:600; font-size:13px; text-transform:uppercase; letter-spacing:.08em;}
+  h1{font-size:32px; margin:8px 0 6px;}
+  header.hero p.lede{color:var(--text-dim); font-size:16px; max-width:720px; margin:0;}
+  section{margin:52px 0;}
+  section > h2{
+    font-size:22px; padding-bottom:10px; border-bottom:1px solid var(--border);
+    scroll-margin-top:20px;
+  }
+  h3{font-size:17px; margin-top:30px; scroll-margin-top:20px;}
+  h4{font-size:14.5px; color:var(--text-dim); text-transform:uppercase; letter-spacing:.04em; margin:22px 0 8px;}
+  p{max-width:760px;}
+  a{color:var(--accent);}
+  code{
+    font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,monospace;
+    background:var(--bg-alt); padding:1px 6px; border-radius:4px; font-size:13px;
+  }
+  pre{
+    background:var(--code-bg); color:var(--code-text); padding:16px 18px; border-radius:10px;
+    overflow-x:auto; font-size:13px; line-height:1.55;
+  }
+  pre code{background:none; padding:0; color:inherit;}
+  table{border-collapse:collapse; width:100%; margin:16px 0 8px; font-size:13.5px;}
+  th,td{border:1px solid var(--border); padding:8px 12px; text-align:left; vertical-align:top;}
+  th{background:var(--table-head); font-weight:600;}
+  tr:nth-child(even) td{background:var(--bg-alt);}
+  .badge{
+    display:inline-block; padding:2px 9px; border-radius:999px; font-size:11.5px;
+    font-weight:600; background:var(--accent-dim); color:var(--accent); margin-left:8px;
+  }
+  .callout{
+    border-left:3px solid var(--accent); background:var(--accent-dim); padding:12px 16px;
+    border-radius:0 8px 8px 0; margin:16px 0; font-size:14px; max-width:760px;
+  }
+  .ok{color:var(--ok); font-weight:600;}
+  .warn{color:var(--warn); font-weight:600;}
+  .grid-cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin:18px 0;}
+  .card{border:1px solid var(--border); border-radius:10px; padding:14px 16px; background:var(--bg-alt);}
+  .card h5{margin:0 0 6px; font-size:14px;}
+  .card p{margin:0; font-size:13px; color:var(--text-dim);}
+  footer{color:var(--text-dim); font-size:12.5px; border-top:1px solid var(--border); padding-top:18px; margin-top:60px;}
+  .theme-toggle{
+    position:fixed; top:16px; right:20px; z-index:10; border:1px solid var(--border);
+    background:var(--bg-alt); color:var(--text); border-radius:8px; padding:6px 10px;
+    font-size:12px; cursor:pointer;
+  }
+  @media (max-width: 880px){
+    nav.toc{display:none;}
+    main{padding:28px 20px 80px;}
+  }
+</style>
+</head>
+<body>
+<button class="theme-toggle" id="themeToggle" type="button">Toggle theme</button>
+<div class="layout">
+  <nav class="toc" aria-label="Table of contents">
+    <h2>Contents</h2>
+    <ul>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#design">Design</a></li>
+      <li class="sub"><a href="#design-principle">Core principle</a></li>
+      <li class="sub"><a href="#design-event-model">Canonical event model</a></li>
+      <li class="sub"><a href="#design-anatomy">Anatomy of a fingerprint</a></li>
+      <li class="sub"><a href="#design-registry">Registry, matching &amp; drift</a></li>
+      <li><a href="#features">Features</a></li>
+      <li class="sub"><a href="#features-studio">Fingerprint Studio workflow</a></li>
+      <li class="sub"><a href="#features-formats">MT/MX &amp; relational data</a></li>
+      <li><a href="#enhancement">Enhancement: Registry CLI</a></li>
+      <li class="sub"><a href="#enhancement-why">Why</a></li>
+      <li class="sub"><a href="#enhancement-commands">Command reference</a></li>
+      <li class="sub"><a href="#enhancement-sample">Sample output</a></li>
+      <li><a href="#testing">How to test</a></li>
+      <li class="sub"><a href="#testing-automated">Automated tests</a></li>
+      <li class="sub"><a href="#testing-manual">Manual CLI walkthrough</a></li>
+      <li><a href="#cli">Command line usage</a></li>
+      <li><a href="#ado">Azure DevOps integration</a></li>
+      <li class="sub"><a href="#ado-pipeline">Pipeline stages</a></li>
+      <li class="sub"><a href="#ado-adapt">Adapting it</a></li>
+      <li><a href="#layout">Repository layout</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <header class="hero">
+      <div class="kicker">Fingerprints — Generic Fingerprint Modeling Platform</div>
+      <h1>Design, Features &amp; Testing</h1>
+      <p class="lede">One generative fingerprint model that learns any event dataset
+      (payments, service logs, deployments, incidents, infrastructure), reproduces
+      statistically faithful synthetic data, anonymizes with per-field policies, and —
+      as of this enhancement — exposes its versioned registry from the command line so
+      changes between fingerprint versions can be inspected or gated in CI.</p>
+    </header>
+
+    <section id="overview">
+      <h2>Overview</h2>
+      <p>Fingerprints is controlled from a web workbench, <strong>Fingerprint Studio</strong>,
+      backed by a FastAPI engine API. A fingerprint is a compact generative model of an
+      event dataset: if it can <em>generate</em> data statistically indistinguishable from
+      what it learned, one abstraction covers learning, recognizing, reproducing, and
+      anonymizing data.</p>
+      <div class="grid-cards">
+        <div class="card"><h5>Learn</h5><p>Schema induction + distribution learning from any event dataset, no per-dataset code.</p></div>
+        <div class="card"><h5>Recognize</h5><p>Score a journey's likelihood under a fingerprint — low likelihood flags novel/anomalous behavior.</p></div>
+        <div class="card"><h5>Reproduce</h5><p>Sample new, statistically faithful synthetic records.</p></div>
+        <div class="card"><h5>Anonymize</h5><p>Per-field policies swap sensitive fields for masked/synthesized equivalents.</p></div>
+        <div class="card"><h5>Diff</h5><p>Compare two fingerprints of the same entity across versions/time — the basis of this enhancement.</p></div>
+      </div>
+      <p>Quick start:</p>
+      <pre><code># no install needed if fastapi/uvicorn/sqlalchemy are present
+python demo.py                                   # CLI: all five fingerprint types
+python -m uvicorn api.main:app --port 8600       # Studio + API
+# then open http://127.0.0.1:8600</code></pre>
+    </section>
+
+    <section id="design">
+      <h2>Design</h2>
+
+      <h3 id="design-principle">Core principle</h3>
+      <p>A fingerprint is not a hash or a label — it is a <strong>compact generative model</strong>.
+      Every source is normalized by a thin adapter into the same canonical shape before modeling,
+      so the model itself never knows which domain it is in.</p>
+
+      <h3 id="design-event-model">Canonical event model</h3>
+      <pre><code>Record = {
+  entity_key   : groups records into a journey/session (UETR, trace_id, pod, txn STAN…)
+  timestamp    : ordering + temporal model
+  state_fields : fields whose combination defines a behavioral "state"
+                 (service+status, log_template_id, k8s condition, ISO8583 MTI+RC…)
+  attributes   : everything else — typed automatically
+}</code></pre>
+      <p>Adapters (parsing only, no modeling logic): ISO 20022 MX, SWIFT MT, ISO 8583,
+      OTEL logs/traces, Kafka/Redis/DB/K8s metrics, CI/CD release events, incident tickets.</p>
+
+      <h3 id="design-anatomy">Anatomy of a fingerprint (five learned layers)</h3>
+      <table>
+        <tr><th>#</th><th>Layer</th><th>Captures</th></tr>
+        <tr><td>1</td><td>Schema profile</td><td>Inferred field types (categorical / numeric / identifier / timestamp / text) and per-entity uniqueness, with format patterns for identifiers.</td></tr>
+        <tr><td>2</td><td>Field marginals</td><td>Frequency tables, empirical distributions, format patterns. Journey-constant fields (amount, currency, debtor) modeled once per journey.</td></tr>
+        <tr><td>3</td><td>Conditional dependencies</td><td>Per-state distributions, e.g. <code>latency_ms | state</code>.</td></tr>
+        <tr><td>4</td><td>Sequence model</td><td>Markov chain over states per journey — the "execution path".</td></tr>
+        <tr><td>5</td><td>Temporal model</td><td>Start-time window + inter-arrival distribution.</td></tr>
+      </table>
+      <p>Plus a derived embedding signature so fingerprints can be compared, clustered, and searched.
+      Five platform fingerprints (payment, service, deployment, incident, infrastructure) are five
+      configurations of this same model — see <code>DESIGN.md</code> §4 for the full table.</p>
+
+      <h3 id="design-registry">Registry, matching &amp; drift</h3>
+      <p>Fingerprints are versioned artifacts in the <strong>registry</strong>
+      (<code>fingerprints/registry.py</code>): every re-learn adds a version (pickle for the
+      model object, JSON sidecar for its summary), so releases and drift can be diffed later.
+      <code>Fingerprint.diff(other)</code> (<code>fingerprints/model.py</code>) compares two
+      fingerprints of the same shape and reports:</p>
+      <ul>
+        <li><strong>states_added</strong> / <strong>states_removed</strong> — behavioral states seen in one version but not the other</li>
+        <li><strong>transition_shifts</strong> — Markov-chain transition probabilities that moved by ≥ 2%</li>
+        <li><strong>field_drift</strong> — categorical fields with total-variation distance ≥ 1%, or numeric fields whose mean moved ≥ 5%</li>
+      </ul>
+      <p>This already powers the Studio's Registry tab ("deployment-style version diff") and the
+      engine API's <code>GET /api/v1/fingerprints/{name}/diff</code>. The enhancement below exposes
+      the same capability as a standalone command line tool.</p>
+    </section>
+
+    <section id="features">
+      <h2>Features</h2>
+
+      <h3 id="features-studio">Fingerprint Studio workflow</h3>
+      <ol>
+        <li><strong>Connect</strong> — simulator, file upload (CSV/NDJSON), PostgreSQL table, or Bulk API batches; "Load &amp; suggest binding" proposes entity key / timestamp / state fields.</li>
+        <li><strong>Learn</strong> — fits the fingerprint, versions it in the registry, runs the PII scan.</li>
+        <li><strong>Inspect</strong> — journeys/events/paths stats, execution-path fingerprints, per-field learned shapes.</li>
+        <li><strong>Mark PII / Policies</strong> — per-field policy (keep / drop / hash / mask / generalize / synthesize) with live before→after preview.</li>
+        <li><strong>Generate</strong> — synthesize or anonymize; volume as journeys or scale factor; fidelity report + zero-leak check; CSV download.</li>
+        <li><strong>Registry &amp; Recipes</strong> — fingerprint versions, version diff, saved recipes with one-click re-run.</li>
+      </ol>
+
+      <h3 id="features-formats">MT/MX &amp; relational data</h3>
+      <p>Format-generic MX (ISO 20022) and MT (SWIFT) adapters cover the full MT↔MX equivalence
+      set (pacs.008/MT103, pacs.009/MT202, camt.053/MT940, pain.001/MT101, and more) with
+      round-trip verification. On the Connect tab, "learn parent + child tables" fits relational
+      data (parent primary key + child foreign keys) and generates FK-consistent synthetic
+      datasets. A Bulk API (<code>POST /api/v1/sources/{id}/batches</code>) accepts NDJSON/CSV
+      with idempotency keys for safe retries.</p>
+      <div class="callout">Production notes, backend comparisons (correlated vs. independent vs.
+      SDV), and secrets configuration (<code>FP_SALT</code>, <code>FP_API_TOKEN</code>) are in
+      <code>README.md</code>.</div>
+    </section>
+
+    <section id="enhancement">
+      <h2>Enhancement: Fingerprint Registry CLI <span class="badge">new</span></h2>
+
+      <h3 id="enhancement-why">Why</h3>
+      <p>The registry already tracked every version and the engine already knew how to diff two
+      fingerprints, but both were only reachable through the Studio UI or the HTTP API. That
+      makes them hard to use in a script, a pre-commit check, or a build pipeline. This
+      enhancement adds <code>fingerprints/registry_cli.py</code>, a standalone command line tool
+      built on the exact same <code>Registry</code> and <code>Fingerprint.diff()</code> objects, so:</p>
+      <ul>
+        <li>a developer can see what changed between two fingerprint versions without starting the Studio;</li>
+        <li>a CI job can re-learn a fingerprint from fresh data and automatically fail the build if the shape of the data drifted unexpectedly (<code>--fail-on-drift</code>);</li>
+        <li>changes can be captured as a JSON artifact for later review (<code>--format json</code>).</li>
+      </ul>
+      <p>No changes were required to the core engine — the CLI is a thin front end over
+      <code>Registry.list()/versions()/load()</code> and <code>Fingerprint.diff()</code>.</p>
+
+      <h3 id="enhancement-commands">Command reference</h3>
+      <table>
+        <tr><th>Command</th><th>Purpose</th></tr>
+        <tr><td><code>list</code></td><td>Every fingerprint name with its versions, latest version, journey/event counts.</td></tr>
+        <tr><td><code>versions NAME</code></td><td>Version numbers registered for one fingerprint.</td></tr>
+        <tr><td><code>show NAME [--version V]</code></td><td>Full JSON summary of one version (defaults to latest).</td></tr>
+        <tr><td><code>changes NAME</code></td><td>Diff a fingerprint's two most recent versions.</td></tr>
+        <tr><td><code>changes NAME --from A --to B</code></td><td>Diff two specific versions.</td></tr>
+        <tr><td><code>changes --all</code></td><td>Diff the latest two versions of every fingerprint that has 2+ versions.</td></tr>
+        <tr><td><code>changes ... --format json</code></td><td>Machine-readable output for scripts/artifacts.</td></tr>
+        <tr><td><code>changes ... --fail-on-drift</code></td><td>Exit code 1 if any state/transition/field drift is found — for CI gates.</td></tr>
+        <tr><td><code>--root PATH</code> (global)</td><td>Point at a different registry directory (default <code>data/registry</code>); used by the tests to run against a temp registry.</td></tr>
+      </table>
+
+      <h3 id="enhancement-sample">Sample output</h3>
+      <p>Text format (release <code>v2.14</code> introduces a new error state, matching
+      <code>DESIGN.md</code>'s deployment-fingerprint example):</p>
+      <pre><code>$ python -m fingerprints.registry_cli changes payment-validation
+
+payment-validation: v5 -&gt; v6
+  states added:    ['T06|ERROR']
+  transition shifts:
+    T04|OK -&gt; T05|OK                        0.81 -&gt; 0.76
+  field drift:
+    latency_ms           mean 142.30 -&gt; 168.90</code></pre>
+      <p>JSON format (as published by the Azure DevOps pipeline below):</p>
+      <pre><code>[
+  {
+    "name": "payment-validation",
+    "from": 5,
+    "to": 6,
+    "diff": {
+      "states_added": ["T06|ERROR"],
+      "states_removed": [],
+      "transition_shifts": [
+        {"transition": "T04|OK -&gt; T05|OK", "before": 0.81, "after": 0.76}
+      ],
+      "field_drift": [
+        {"field": "latency_ms", "mean_before": 142.3, "mean_after": 168.9}
+      ]
+    }
+  }
+]</code></pre>
+    </section>
+
+    <section id="testing">
+      <h2>How to test</h2>
+
+      <h3 id="testing-automated">Automated tests</h3>
+      <p><code>tests/test_registry_cli.py</code> covers the new CLI end to end against a temporary
+      registry (via <code>--root</code>), reusing the same <code>simulate.simulate_deployment()</code>
+      fixture that the core engine's <code>test_diff_detects_new_state</code> uses:</p>
+      <table>
+        <tr><th>Test</th><th>What it proves</th></tr>
+        <tr><td><code>test_list_reports_empty_registry</code></td><td><code>list --format json</code> on an empty registry returns <code>[]</code>.</td></tr>
+        <tr><td><code>test_list_and_versions_after_save</code></td><td><code>list</code>/<code>versions</code> reflect saved versions correctly.</td></tr>
+        <tr><td><code>test_versions_unknown_name_errors</code></td><td>Unknown fingerprint name exits 2 with a clear stderr message.</td></tr>
+        <tr><td><code>test_show_prints_summary</code></td><td><code>show</code> prints a valid fingerprint summary (fields, top paths).</td></tr>
+        <tr><td><code>test_changes_detects_new_state_between_default_last_two_versions</code></td><td>Default <code>changes NAME</code> (no <code>--from</code>/<code>--to</code>) correctly diffs the last two versions and finds the injected new state.</td></tr>
+        <tr><td><code>test_changes_text_format_lists_states_added</code></td><td>Human-readable text output includes the added state.</td></tr>
+        <tr><td><code>test_changes_fail_on_drift_sets_exit_code</code></td><td><code>--fail-on-drift</code> returns exit code 1 when drift exists — the behavior the ADO gate step relies on.</td></tr>
+        <tr><td><code>test_changes_no_drift_when_versions_are_identical</code></td><td>Diffing a fingerprint against itself reports "no changes detected" and exits 0 even with <code>--fail-on-drift</code>.</td></tr>
+        <tr><td><code>test_changes_requires_two_versions</code></td><td>A fingerprint with only one version exits 2 with a helpful message instead of crashing.</td></tr>
+        <tr><td><code>test_changes_all_skips_fingerprints_with_a_single_version</code></td><td><code>--all</code> silently skips names that don't have 2+ versions yet.</td></tr>
+        <tr><td><code>test_changes_without_name_or_all_errors</code></td><td>Calling <code>changes</code> with neither a name nor <code>--all</code> exits 2.</td></tr>
+      </table>
+      <pre><code># just the new tests
+python -m pytest tests/test_registry_cli.py -v
+
+# whole suite (engine, privacy, MT/MX round-trips, registry CLI)
+python -m pytest tests</code></pre>
+      <p class="ok">All 11 registry-CLI tests plus the existing 33 pass (44 total) at the time of
+      writing.</p>
+
+      <h3 id="testing-manual">Manual CLI walkthrough</h3>
+      <p>To see it work against real, non-synthetic-test data:</p>
+      <pre><code># 1. populate the registry with a couple of versions per fingerprint
+python demo.py
+
+# 2. list what's registered
+python -m fingerprints.registry_cli list
+
+# 3. see what changed between the two most recent "payments" versions
+#    (run demo.py again first to create a new version to diff against)
+python -m fingerprints.registry_cli changes payments
+
+# 4. same, machine-readable, for piping into another tool
+python -m fingerprints.registry_cli changes payments --format json
+
+# 5. simulate a CI gate failing on drift
+python -m fingerprints.registry_cli changes payments --fail-on-drift; echo "exit=$?"</code></pre>
+      <div class="callout"><span class="warn">Note:</span> <code>demo.py</code> appends a new
+      registry version on every run (this is existing behavior, unrelated to the CLI), so running
+      it twice is the quickest way to get two versions to diff manually.</div>
+    </section>
+
+    <section id="cli">
+      <h2>Command line usage</h2>
+      <p>The CLI ships two equivalent entry points:</p>
+      <pre><code># as a module (no install needed, works from a checkout)
+python -m fingerprints.registry_cli &lt;command&gt; [options]
+
+# as an installed console script (after `pip install -e .`)
+fp-registry &lt;command&gt; [options]</code></pre>
+      <pre><code>usage: python -m fingerprints.registry_cli [-h] [--root ROOT]
+                                            {list,versions,show,changes} ...
+
+  list                              list every fingerprint and its versions
+  versions NAME                     list versions for one fingerprint
+  show NAME [--version V]           print the summary of one version
+  changes [NAME] [--all]
+          [--from V] [--to V]
+          [--format text|json]
+          [--fail-on-drift]         show what changed between two versions
+                                     (default: the last two)</code></pre>
+      <p>Exit codes: <code>0</code> success / no drift, <code>1</code> drift found with
+      <code>--fail-on-drift</code>, <code>2</code> usage error (unknown name, fewer than two
+      versions to diff, missing name/<code>--all</code>).</p>
+    </section>
+
+    <section id="ado">
+      <h2>Azure DevOps integration</h2>
+      <p><code>azure-pipelines.yml</code> at the repository root wires the registry CLI into a
+      two-stage pipeline.</p>
+
+      <h3 id="ado-pipeline">Pipeline stages</h3>
+      <table>
+        <tr><th>Stage</th><th>Job</th><th>Steps</th></tr>
+        <tr>
+          <td><code>Test</code></td>
+          <td><code>Pytest</code></td>
+          <td>Install (<code>pip install -e ".[dev]"</code>) → <code>pytest tests --junitxml=...</code> → <code>PublishTestResults@2</code>.</td>
+        </tr>
+        <tr>
+          <td><code>RegistryGate</code><br><small>(depends on <code>Test</code>)</small></td>
+          <td><code>FingerprintChanges</code></td>
+          <td>
+            Install → re-learn fingerprint(s) into the registry → run
+            <code>registry_cli changes --all --format json</code> to a report file → run
+            <code>registry_cli changes --all --fail-on-drift</code> to gate the build →
+            <code>PublishBuildArtifacts@1</code> (always, so the report is available even on
+            failure).
+          </td>
+        </tr>
+      </table>
+      <pre><code>- script: python -m fingerprints.registry_cli changes --all --format json \
+            &gt; $(Build.ArtifactStagingDirectory)/registry-report/changes.json
+  displayName: "Report fingerprint registry changes"
+
+- script: python -m fingerprints.registry_cli changes --all --fail-on-drift
+  displayName: "Gate: fail build on unreviewed drift"
+
+- task: PublishBuildArtifacts@1
+  condition: always()
+  inputs:
+    PathtoPublish: "$(Build.ArtifactStagingDirectory)/registry-report"
+    ArtifactName: "fingerprint-registry-changes"</code></pre>
+
+      <h3 id="ado-adapt">Adapting it</h3>
+      <ul>
+        <li>Replace the <code>python demo.py</code> "re-learn" step with however this pipeline
+        actually produces a fresh fingerprint version (an ETL job, <code>scripts/seed_postgres.py</code>,
+        a nightly export) — everything downstream (CLI report + gate + artifact publish) is unchanged.</li>
+        <li>Scope the gate to specific fingerprints instead of <code>--all</code> by naming them,
+        e.g. <code>registry_cli changes payments --fail-on-drift</code>, if only some fingerprints
+        should block the build.</li>
+        <li>Drop <code>--fail-on-drift</code> (keep only the JSON report step) for a
+        report-only pipeline that never fails the build, just surfaces drift for review as a
+        downloadable build artifact.</li>
+        <li>The same commands work unmodified in GitHub Actions, Jenkins, or a local pre-push
+        hook — the pipeline file is Azure DevOps-flavored YAML, but nothing about the CLI itself
+        is ADO-specific.</li>
+      </ul>
+    </section>
+
+    <section id="layout">
+      <h2>Repository layout</h2>
+      <pre><code>fingerprints/model.py         schema induction, field models, Markov sequences,
+                               Fingerprint fit/sample/score/diff/summary
+fingerprints/anonymize.py     policy engine + preview + leak check
+fingerprints/pii.py           rule-based PII recognizers -&gt; policy suggestions
+fingerprints/fidelity.py      KS / TV-distance / path-delta fidelity report
+fingerprints/simulate.py      simulators for the five fingerprint domains
+fingerprints/connectors.py    CSV/NDJSON files, SQLAlchemy tables
+fingerprints/registry.py      versioned fingerprint store
+fingerprints/registry_cli.py  command-line front end for the registry  (NEW)
+api/main.py                   FastAPI engine API + static Studio hosting
+studio/                       Fingerprint Studio SPA (no build step)
+recipes/                      saved, re-runnable configurations
+data/                         registry, uploads, batches, outputs (generated)
+demo.py                       CLI demo of all five fingerprint types
+tests/test_registry_cli.py    tests for the registry CLI                (NEW)
+azure-pipelines.yml           test + registry-drift-gate pipeline        (NEW)
+docs/documentation.html       this document                             (NEW)</code></pre>
+    </section>
+
+    <footer>
+      Fingerprints — generic fingerprint modeling platform. See <code>README.md</code> for
+      production notes and <code>DESIGN.md</code> for the full engine design.
+    </footer>
+  </main>
+</div>
+
+<script>
+  (function(){
+    try{
+      var btn = document.getElementById('themeToggle');
+      var root = document.documentElement;
+      var saved = localStorage.getItem('fp-doc-theme');
+      if(saved) root.setAttribute('data-theme', saved);
+      btn.addEventListener('click', function(){
+        var current = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+        var next = current === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        try{ localStorage.setItem('fp-doc-theme', next); }catch(e){}
+      });
+    }catch(e){}
+  })();
+</script>
+</body>
+</html>

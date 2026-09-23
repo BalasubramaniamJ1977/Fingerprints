@@ -116,6 +116,29 @@ curl -X POST http://127.0.0.1:8600/api/v1/sources/my-team/batches \
 Batches accumulate under the source id; select "Bulk API batches" in the
 Studio to learn from them. Idempotency keys make retries safe.
 
+## Registry CLI — see what changed, from the command line
+
+The versioned registry (`fingerprints/registry.py`) already backs the
+Studio's Registry tab; `fingerprints/registry_cli.py` exposes the same
+list/diff capability as a standalone command line tool, so drift between
+fingerprint versions can be inspected or gated on without the web UI:
+
+```powershell
+python -m fingerprints.registry_cli list
+python -m fingerprints.registry_cli versions payments
+python -m fingerprints.registry_cli show payments --version 2
+python -m fingerprints.registry_cli changes payments                 # last two versions
+python -m fingerprints.registry_cli changes payments --from 1 --to 3
+python -m fingerprints.registry_cli changes --all --format json
+python -m fingerprints.registry_cli changes payments --fail-on-drift # exit 1 if changed
+```
+
+`pip install -e .` also installs it as `fp-registry` (same subcommands).
+Tests: `python -m pytest tests/test_registry_cli.py`. A ready-to-use Azure
+DevOps pipeline that runs the suite and then gates a build on registry drift
+is in `azure-pipelines.yml`. Full write-up (design, features, testing, ADO
+integration): `docs/documentation.html`.
+
 ## Layout
 
 ```
